@@ -1,0 +1,49 @@
+/* Password checklist styling */
+.password-checklist {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.password-checklist li {
+  margin-bottom: 8px;
+  color: #dc3545; /* Red color for unchecked items */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-checklist li.valid {
+  color: #198754; /* Green color for checked items */
+}
+
+.password-checklist li i {
+  font-size: 14px;
+  width: 16px;
+}
+
+.password-checklist li.valid i.fa-times {
+  display: none;
+}
+
+.password-checklist li.valid i.fa-check {
+  display: inline-block;
+}
+
+.password-checklist li i.fa-check {
+  display: none;
+}
+
+/* Password input group styling */
+.password-input-group {
+  position: relative;
+}
+
+.password-toggle-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}

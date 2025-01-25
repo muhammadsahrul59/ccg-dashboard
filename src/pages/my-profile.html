@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Profile</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link rel="stylesheet" href="../assets/css/styles3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <div id="sidebar-container"></div>
+      <!--  Sidebar End -->
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <!--  Header Start -->
+        <header class="app-header">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <ul class="navbar-nav">
+              <li class="nav-item d-block d-xl-none">
+                <a
+                  class="nav-link sidebartoggler nav-icon-hover"
+                  id="headerCollapse"
+                  href="javascript:void(0)"
+                >
+                  <i class="ti ti-menu-2"></i>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="navbar-collapse justify-content-end px-0"
+              id="navbarNav"
+            >
+              <ul
+                class="navbar-nav flex-row ms-auto align-items-center justify-content-end"
+              >
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link nav-icon-hover"
+                    href="javascript:void(0)"
+                    id="drop2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="../assets/images/profile/user-1.jpg"
+                      alt=""
+                      width="35"
+                      height="35"
+                      class="rounded-circle"
+                    />
+                  </a>
+                  <div
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                    aria-labelledby="drop2"
+                  >
+                    <div class="message-body">
+                      <a
+                        href="my-profile.html"
+                        class="d-flex align-items-center gap-2 dropdown-item"
+                      >
+                        <i class="ti ti-user fs-6"></i>
+                        <p class="mb-0 fs-3">My Profile</p>
+                      </a>
+                      <a
+                        href="javascript:void(0)"
+                        class="d-flex align-items-center gap-2 dropdown-item"
+                      >
+                        <i class="ti ti-mail fs-6"></i>
+                        <p class="mb-0 fs-3">My Account</p>
+                      </a>
+                      <a
+                        href="../task-pages/home-my-tasks.html"
+                        class="d-flex align-items-center gap-2 dropdown-item"
+                      >
+                        <i class="ti ti-list-check fs-6"></i>
+                        <p class="mb-0 fs-3">My Task</p>
+                      </a>
+                      <a
+                        id="logout"
+                        type="logout"
+                        class="btn btn-outline-success mx-3 mt-2 d-block"
+                        >Logout</a
+                      >
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+        <!--  Header End -->
+        <div class="container-fluid">
+          <div
+            class="d-sm-flex align-items-center justify-content-between mb-4"
+          >
+            <h1 class="h2 mb-0 text-green-bsi fw-bolder">My Profile</h1>
+          </div>
+
+          <div class="row justify-content-center g-4">
+            <!-- Profile Image Column -->
+            <div class="col-11 col-md-3 text-center">
+              <img
+                src="../assets/images/profile/user-1.jpg"
+                alt="Profile Picture"
+                width="200"
+                height="200"
+                class="rounded-circle mb-4 mb-md-0 shadow-lg"
+              />
+            </div>
+
+            <!-- Password Change Form Column -->
+            <div class="col-12 col-md-6">
+              <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                  <h2 class="h2 text-green-bsi fw-bolder mb-4 text-center">
+                    Change Password
+                  </h2>
+                  <form id="changePasswordForm">
+                    <!-- Old Password -->
+                    <div class="mb-4 position-relative">
+                      <label for="oldPassword" class="form-label text-dark"
+                        >Old Password</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control py-2"
+                        id="oldPassword"
+                        required
+                      />
+                      <i
+                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
+                        id="toggle-old-password"
+                        style="cursor: pointer"
+                      ></i>
+                    </div>
+
+                    <!-- New Password -->
+                    <div class="mb-4 position-relative">
+                      <label for="newPassword" class="form-label text-dark"
+                        >New Password</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control py-2"
+                        id="newPassword"
+                        required
+                      />
+                      <i
+                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
+                        id="toggle-new-password"
+                        style="cursor: pointer"
+                      ></i>
+                    </div>
+
+                    <!-- Confirm New Password -->
+                    <div class="mb-4 position-relative">
+                      <label for="confirmPassword" class="form-label text-dark"
+                        >Confirm New Password</label
+                      >
+                      <input
+                        type="password"
+                        class="form-control py-2"
+                        id="confirmPassword"
+                        aria-describedby="passwordHelp"
+                      />
+                      <i
+                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
+                        id="toggle-confirm-password"
+                        style="cursor: pointer"
+                      ></i>
+                    </div>
+
+                    <div
+                      id="passwordError"
+                      class="text-danger mb-3"
+                      style="display: none"
+                    >
+                      Passwords do not match!
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2">
+                      Change Password
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../assets/js/signout.js" defer></script>
+    <script type="module" src="../assets/js/changepass.js" defer></script>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/loadsidebar.js"></script>
+    <script src="../assets/js/loadsidebar.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+  </body>
+</html>

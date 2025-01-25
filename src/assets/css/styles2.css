@@ -1,0 +1,135 @@
+body {
+  background: linear-gradient(to bottom right, #1eb9af, #efb331);
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 8px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.separator-text {
+  padding: 0 10px;
+  color: #6c757d;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+#submit {
+  margin-bottom: 8px !important;
+}
+
+#login-google {
+  margin-top: 8px !important;
+}
+
+.email-logo {
+  width: 100px;
+  height: auto;
+  margin: 10px auto;
+}
+.responsive-iframe {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+}
+
+.responsive-iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Style submenu dropdown */
+.sidebar-item > .submenu {
+  display: none; /* default hidden */
+  padding-left: 20px;
+}
+
+.sidebar-item:hover > .submenu {
+  display: block; /* show on hover */
+}
+
+.submenu li a {
+  font-size: 14px;
+  padding: 8px;
+}
+
+.sidebar-item > a.active {
+  background-color: #f9ad3c !important; /* Warna biru primary */
+  color: white !important; /* Menjaga teks tetap putih */
+}
+
+.submenu {
+  display: none; /* Tersembunyi secara default */
+}
+
+.sidebar-item.active .submenu {
+  display: block; /* Menampilkan submenu jika sidebar-item memiliki class active */
+}
+
+.password-checklist {
+  list-style: none;
+  padding: 0;
+  margin-top: 8px;
+  font-size: 14px;
+}
+.password-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #999;
+}
+.password-checklist li.valid {
+  color: green;
+}
+.password-checklist li i {
+  font-size: 16px;
+}
+
+.responsive-iframe {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+}
+
+.responsive-iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Style submenu dropdown */
+.sidebar-item > .submenu {
+  display: none;
+  /* default hidden */
+  padding-left: 20px;
+}
+
+.sidebar-item:hover > .submenu {
+  display: block;
+  /* show on hover */
+}
+
+.submenu li a {
+  font-size: 14px;
+  padding: 8px;
+}

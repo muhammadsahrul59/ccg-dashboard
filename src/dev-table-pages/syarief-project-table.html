@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Syarief Hidayat Project Table</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <div id="sidebar-container"></div>
+      <!--  Sidebar End -->
+
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <!--  Header Start -->
+        <header class="app-header">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <ul class="navbar-nav">
+              <li class="nav-item d-block d-xl-none">
+                <a
+                  class="nav-link sidebartoggler nav-icon-hover"
+                  id="headerCollapse"
+                  href="javascript:void(0)"
+                >
+                  <i class="ti ti-menu-2"></i>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="navbar-collapse justify-content-end px-0"
+              id="navbarNav"
+            >
+              <ul
+                class="navbar-nav flex-row ms-auto align-items-center justify-content-end"
+              >
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link nav-icon-hover"
+                    href="javascript:void(0)"
+                    id="drop2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="../assets/images/profile/user-1.jpg"
+                      alt=""
+                      width="35"
+                      height="35"
+                      class="rounded-circle"
+                    />
+                  </a>
+                  <div
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
+                    aria-labelledby="drop2"
+                  >
+                    <div class="message-body">
+                      <a
+                        href="../pages/my-profile.html"
+                        class="d-flex align-items-center gap-2 dropdown-item"
+                      >
+                        <i class="ti ti-user fs-6"></i>
+                        <p class="mb-0 fs-3">My Profile</p>
+                      </a>
+                      <a
+                        href="javascript:void(0)"
+                        class="d-flex align-items-center gap-2 dropdown-item"
+                      >
+                        <i class="ti ti-mail fs-6"></i>
+                        <p class="mb-0 fs-3">My Account</p>
+                      </a>
+                      <a
+                        href="../task-pages/home-my-tasks.html"
+                        class="d-flex align-items-center gap-2 dropdown-item"
+                      >
+                        <i class="ti ti-list-check fs-6"></i>
+                        <p class="mb-0 fs-3">My Task</p>
+                      </a>
+                      <a
+                        id="logout"
+                        type="logout"
+                        class="btn btn-outline-success mx-3 mt-2 d-block"
+                        >Logout</a
+                      >
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+        <!--  Header End -->
+
+        <!--  Body Start -->
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <h4 class="card-title fw-semibold mb-0">Project List</h4>
+                <a
+                  href="../task-pages/syarief-project-form.html"
+                  class="btn btn-success"
+                  ><i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Add
+                  Project</a
+                >
+              </div>
+
+              <div class="table-responsive">
+                <table class="table text-nowrap mb-0 align-middle">
+                  <thead class="text-dark fs-4">
+                    <tr>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Project Name
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Project Type
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Start Date</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">End Date</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Complexity</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Priority</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Planning</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Requirement Analysis
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Development
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Testing</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Deployment</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Complete Date
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Action</h6>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="projectTableBody">
+                    <!-- Table data will be populated here -->
+                  </tbody>
+                </table>
+                <a
+                  id="exportButton"
+                  class="btn btn-success2 mb-3"
+                  href="javascript:void(0)"
+                >
+                  <i class="fas fa-file-excel"></i> Export
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="editModal"
+            tabindex="-1"
+            aria-labelledby="editModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit Project</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="editProjectForm" onsubmit="updateProject(event)">
+                    <input type="hidden" id="edit_project_id" />
+                    <div class="mb-3">
+                      <label for="edit_projectName" class="form-label"
+                        >Project Name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="edit_projectName"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_projectType" class="form-label"
+                        >Type Project</label
+                      >
+                      <select
+                        class="form-control"
+                        id="edit_projectType"
+                        required
+                      >
+                        <option value="PTO">PTO</option>
+                        <option value="CHMS">CHMS</option>
+                        <option value="Layanan">Layanan</option>
+                        <option value="Meeting Offline Keluar">
+                          Meeting Offline Keluar
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_startDate" class="form-label"
+                        >Start Date</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="edit_startDate"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_endDate" class="form-label"
+                        >End Date</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="edit_endDate"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_complexity" class="form-label"
+                        >Complexity</label
+                      >
+                      <select
+                        class="form-control"
+                        id="edit_complexity"
+                        required
+                      >
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_priority" class="form-label"
+                        >Priority</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edit_priority"
+                        min="1"
+                        max="4"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_planning" class="form-label"
+                        >Planning</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edit_planning"
+                        min="0"
+                        max="100"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_requirement_analysis" class="form-label"
+                        >Requirement Analysis</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edit_requirement_analysis"
+                        min="0"
+                        max="100"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_development" class="form-label"
+                        >Development</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edit_development"
+                        min="0"
+                        max="100"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_testing" class="form-label"
+                        >Testing</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edit_testing"
+                        min="0"
+                        max="100"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_deployment" class="form-label"
+                        >Deployment</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="edit_deployment"
+                        min="0"
+                        max="100"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="edit_complete_date" class="form-label"
+                        >Complete Date</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="edit_complete_date"
+                        required
+                      />
+                    </div>
+
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" class="btn btn-success">
+                        Update
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  Body End -->
+      </div>
+    </div>
+    <script type="module" src="../assets/js/signout.js" defer></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/project-tables/syarief-project-table.js"></script>
+    <script src="../assets/js/export-excel.js"></script>
+    <script src="../assets/js/loadsidebar.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  </body>
+</html>
