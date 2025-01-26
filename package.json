@@ -7,6 +7,7 @@
     "startCommand": "npm start"
   },
   "devDependencies": {
+    "prisma": "^6.2.1",
     "sass": "^1.54.8",
     "vite": "^6.0.11"
   },
@@ -17,13 +18,8 @@
     "bootstrap": "^5.2.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
     "firebase": "^11.2.0",
-    "jquery": "^3.6.3",
-    "mysql": "^2.18.1",
-    "mysql2": "^3.12.0",
-    "react": "^19.0.0",
-    "react-router-dom": "^7.1.1"
+    "jquery": "^3.6.3"
   },
   "scripts": {
     "start": "vite",
