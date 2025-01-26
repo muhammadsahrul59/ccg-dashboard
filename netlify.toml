@@ -1,14 +1,2 @@
-[build]
-  functions = "functions"
-  publish = "."
-
 [functions]
-directory = "crud/netlify/functions"
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[build.environment]
-  NODE_VERSION = "16"
+directory = "crud/.netlify/functions"
