@@ -1,13 +1,14 @@
-require("dotenv").config({ path: ".env" });
 const express = require("express");
+const serverless = require("serverless-http");
 const cors = require("cors");
 const supabase = require("@supabase/supabase-js");
+
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3211;
 const SUPABASE_DATABASE_URL = process.env.SUPABASE_DATABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -17,7 +18,7 @@ const db = supabase.createClient(
 );
 
 // GET all projects
-app.get("/projects", async (req, res) => {
+app.get("/api/projects", async (req, res) => {
   try {
     const { data, error } = await db.from("projects").select("*");
     if (error) throw error;
@@ -28,7 +29,7 @@ app.get("/projects", async (req, res) => {
 });
 
 // POST create a new project
-app.post("/projects", async (req, res) => {
+app.post("/api/projects", async (req, res) => {
   try {
     const projectData = req.body;
     const { data, error } = await db
@@ -50,7 +51,7 @@ app.post("/projects", async (req, res) => {
 });
 
 // PUT update a project
-app.put("/projects/:id", async (req, res) => {
+app.put("/api/projects/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const projectData = req.body;
@@ -75,7 +76,7 @@ app.put("/projects/:id", async (req, res) => {
 });
 
 // DELETE a project
-app.delete("/projects/:id", async (req, res) => {
+app.delete("/api/projects/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -94,6 +95,4 @@ app.delete("/projects/:id", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports.handler = serverless(app);

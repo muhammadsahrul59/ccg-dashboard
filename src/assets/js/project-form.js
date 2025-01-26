@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     try {
-      const response = await fetch("/.netlify/saveProject", {
+      const response = await fetch("http://localhost:3211/projects", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
