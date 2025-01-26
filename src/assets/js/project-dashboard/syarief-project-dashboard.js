@@ -1,26 +1,36 @@
+import { createClient } from "@supabase/supabase-js";
+
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 document.addEventListener("DOMContentLoaded", function () {
   loadDashboardData();
 });
 
 async function loadDashboardData() {
   try {
-    const response = await fetch("/api/projects");
-    const allProjects = await response.json();
+    // Fetch projects directly from Supabase
+    const { data: allProjects, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("project_owner", "Syarief Hidayat");
 
-    const projects = allProjects.filter(
-      (project) => project.project_owner === "Syarief Hidayat"
-    );
+    if (error) throw error;
 
-    updateStatistics(projects);
-    createStatusChart(projects);
-    createComplexityChart(projects);
-    createPriorityChart(projects);
-    createEstimatedVsActualChart(projects);
-    createDelayTrendChart(projects);
-    createProgressGaugeChart(projects);
-    createGanttChart(projects);
+    updateStatistics(allProjects);
+    createStatusChart(allProjects);
+    createComplexityChart(allProjects);
+    createPriorityChart(allProjects);
+    createEstimatedVsActualChart(allProjects);
+    createDelayTrendChart(allProjects);
+    createProgressGaugeChart(allProjects);
   } catch (error) {
     console.error("Error loading dashboard data:", error);
+    // Optional: Add user-friendly error handling
+    document.getElementById("dashboardError").textContent =
+      "Unable to load dashboard. Please try again later.";
   }
 }
 

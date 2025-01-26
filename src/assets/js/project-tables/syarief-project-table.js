@@ -1,3 +1,9 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 // Global variables for pagination
 let currentPage = 1;
 let itemsPerPage = 10;
@@ -61,14 +67,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // Modified loadProjects function
 async function loadProjects() {
   try {
-    const response = await fetch("http://localhost:3211/projects");
-    const projects = await response.json();
+    const { data: projects, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("project_owner", "Syarief Hidayat");
 
-    // Filter projects by owner
-    filteredProjects = projects.filter(
-      (project) => project.project_owner === "Syarief Hidayat"
-    );
+    if (error) throw error;
 
+    filteredProjects = projects;
     displayProjects(filteredProjects);
   } catch (error) {
     console.error("Error:", error);
@@ -296,6 +302,7 @@ function openEditModal(projectId) {
     document.getElementById("edit_testing").value = project.testing;
     document.getElementById("edit_deployment").value = project.deployment;
     document.getElementById("edit_complete_date").value = project.complete_date;
+    new bootstrap.Modal(document.getElementById("editModal")).show();
   }
 }
 
@@ -310,40 +317,33 @@ async function updateProject(event) {
     start_date: document.getElementById("edit_startDate").value,
     end_date: document.getElementById("edit_endDate").value,
     complexity: document.getElementById("edit_complexity").value,
-    priority: document.getElementById("edit_priority").value,
-    planning: document.getElementById("edit_planning").value,
-    requirement_analysis: document.getElementById("edit_requirement_analysis")
-      .value,
-    development: document.getElementById("edit_development").value,
-    testing: document.getElementById("edit_testing").value,
-    deployment: document.getElementById("edit_deployment").value,
+    priority: parseInt(document.getElementById("edit_priority").value),
+    planning: parseInt(document.getElementById("edit_planning").value),
+    requirement_analysis: parseInt(
+      document.getElementById("edit_requirement_analysis").value
+    ),
+    development: parseInt(document.getElementById("edit_development").value),
+    testing: parseInt(document.getElementById("edit_testing").value),
+    deployment: parseInt(document.getElementById("edit_deployment").value),
     complete_date: document.getElementById("edit_complete_date").value,
   };
 
   try {
-    const response = await fetch(
-      `http://localhost:3211/projects/${projectId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedProject),
-      }
+    const { data, error } = await supabase
+      .from("projects")
+      .update(updatedProject)
+      .eq("id", projectId);
+
+    if (error) throw error;
+
+    // Close the modal
+    const editModal = bootstrap.Modal.getInstance(
+      document.getElementById("editModal")
     );
+    editModal.hide();
 
-    if (response.ok) {
-      // Close the modal
-      const editModal = bootstrap.Modal.getInstance(
-        document.getElementById("editModal")
-      );
-      editModal.hide();
-
-      // Reload projects
-      loadProjects();
-    } else {
-      throw new Error("Failed to update project");
-    }
+    // Reload projects
+    loadProjects();
   } catch (error) {
     console.error("Error:", error);
     alert("Failed to update project: " + error.message);
@@ -354,19 +354,15 @@ async function updateProject(event) {
 async function deleteProject(projectId) {
   if (confirm("Are you sure you want to delete this project?")) {
     try {
-      const response = await fetch(
-        `http://localhost:3211/projects/${projectId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const { error } = await supabase
+        .from("projects")
+        .delete()
+        .eq("id", projectId);
 
-      if (response.ok) {
-        // Reload projects
-        loadProjects();
-      } else {
-        throw new Error("Failed to delete project");
-      }
+      if (error) throw error;
+
+      // Reload projects
+      loadProjects();
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to delete project: " + error.message);

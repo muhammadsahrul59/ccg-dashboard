@@ -121,7 +121,9 @@
               <div
                 class="d-flex justify-content-between align-items-center mb-4"
               >
-                <h4 class="card-title fw-semibold mb-0">Project List</h4>
+                <h4 class="card-title fw-semibold mb-0">
+                  Project Table (Syarief Hidayat)
+                </h4>
                 <a
                   href="../task-pages/syarief-project-form.html"
                   class="btn btn-success"
@@ -206,7 +208,7 @@
             aria-labelledby="editModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="editModalLabel">Edit Project</h5>
@@ -218,173 +220,186 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <form id="editProjectForm" onsubmit="updateProject(event)">
+                  <form
+                    id="editProjectForm"
+                    onsubmit="updateProject(event)"
+                    class="row"
+                  >
                     <input type="hidden" id="edit_project_id" />
-                    <div class="mb-3">
-                      <label for="edit_projectName" class="form-label"
-                        >Project Name</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="edit_projectName"
-                        required
-                      />
+                    <div class="col-md-6">
+                      <h6 class="mb-3">Project Details</h6>
+                      <div class="mb-3">
+                        <label for="edit_projectName" class="form-label"
+                          >Project Name</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="edit_projectName"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_projectType" class="form-label"
+                          >Type Project</label
+                        >
+                        <select
+                          class="form-control"
+                          id="edit_projectType"
+                          required
+                        >
+                          <option value="PTO">PTO</option>
+                          <option value="CHMS">CHMS</option>
+                          <option value="Layanan">Layanan</option>
+                          <option value="Meeting Offline Keluar">
+                            Meeting Offline Keluar
+                          </option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_startDate" class="form-label"
+                          >Start Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="edit_startDate"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_endDate" class="form-label"
+                          >End Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="edit_endDate"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_complexity" class="form-label"
+                          >Complexity</label
+                        >
+                        <select
+                          class="form-control"
+                          id="edit_complexity"
+                          required
+                        >
+                          <option value="High">High</option>
+                          <option value="Medium">Medium</option>
+                          <option value="Low">Low</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_priority" class="form-label"
+                          >Priority</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit_priority"
+                          min="1"
+                          max="4"
+                          required
+                        />
+                      </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="edit_projectType" class="form-label"
-                        >Type Project</label
-                      >
-                      <select
-                        class="form-control"
-                        id="edit_projectType"
-                        required
-                      >
-                        <option value="PTO">PTO</option>
-                        <option value="CHMS">CHMS</option>
-                        <option value="Layanan">Layanan</option>
-                        <option value="Meeting Offline Keluar">
-                          Meeting Offline Keluar
-                        </option>
-                      </select>
+                    <div class="col-md-6">
+                      <h6 class="mb-3">Activity Progress</h6>
+                      <div class="mb-3">
+                        <label for="edit_planning" class="form-label"
+                          >Planning</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit_planning"
+                          min="0"
+                          max="100"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="edit_requirement_analysis"
+                          class="form-label"
+                          >Requirement Analysis</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit_requirement_analysis"
+                          min="0"
+                          max="100"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_development" class="form-label"
+                          >Development</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit_development"
+                          min="0"
+                          max="100"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_testing" class="form-label"
+                          >Testing</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit_testing"
+                          min="0"
+                          max="100"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_deployment" class="form-label"
+                          >Deployment</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="edit_deployment"
+                          min="0"
+                          max="100"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="edit_complete_date" class="form-label"
+                          >Complete Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="edit_complete_date"
+                          required
+                        />
+                      </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="edit_startDate" class="form-label"
-                        >Start Date</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="edit_startDate"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_endDate" class="form-label"
-                        >End Date</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="edit_endDate"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_complexity" class="form-label"
-                        >Complexity</label
-                      >
-                      <select
-                        class="form-control"
-                        id="edit_complexity"
-                        required
-                      >
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_priority" class="form-label"
-                        >Priority</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_priority"
-                        min="1"
-                        max="4"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_planning" class="form-label"
-                        >Planning</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_planning"
-                        min="0"
-                        max="100"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_requirement_analysis" class="form-label"
-                        >Requirement Analysis</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_requirement_analysis"
-                        min="0"
-                        max="100"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_development" class="form-label"
-                        >Development</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_development"
-                        min="0"
-                        max="100"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_testing" class="form-label"
-                        >Testing</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_testing"
-                        min="0"
-                        max="100"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_deployment" class="form-label"
-                        >Deployment</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_deployment"
-                        min="0"
-                        max="100"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_complete_date" class="form-label"
-                        >Complete Date</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="edit_complete_date"
-                        required
-                      />
-                    </div>
-
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button type="submit" class="btn btn-success">
-                        Update
-                      </button>
+                    <div class="col-12">
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                          Update
+                        </button>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -398,10 +413,13 @@
     </div>
     <script type="module" src="../assets/js/signout.js" defer></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script
+      type="module"
+      src="../assets/js/project-tables/syarief-project-table.js"
+    ></script>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/sidebarmenu.js"></script>
-    <script src="../assets/js/project-tables/syarief-project-table.js"></script>
     <script src="../assets/js/export-excel.js"></script>
     <script src="../assets/js/loadsidebar.js"></script>
     <script src="../assets/js/app.min.js"></script>

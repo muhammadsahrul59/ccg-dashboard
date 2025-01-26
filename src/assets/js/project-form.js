@@ -1,5 +1,10 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 function updatePercentage(input, valueId) {
-  // Ensure the input is between 0 and 100
   let value = Math.min(100, Math.max(0, input.value));
   input.value = value;
   document.getElementById(valueId).textContent = value + "%";
@@ -23,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-    // Validate all percentage inputs
     const percentageInputs = [
       "planning",
       "requirementAnalysis",
@@ -48,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Get form values
     const formData = {
       project_owner: document.getElementById("projectOwner").value,
       project_name: document.getElementById("projectName").value,
@@ -67,23 +70,15 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     try {
-      const response = await fetch("http://localhost:3211/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const { data, error } = await supabase
+        .from("projects")
+        .insert([formData]);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.message || `HTTP error! status: ${response.status}`
-        );
+      if (error) {
+        throw error;
       }
 
-      alert(data.msg);
+      alert("Project saved successfully!");
       window.location.href = "home-my-tasks.html";
     } catch (error) {
       console.error("Error:", error);
