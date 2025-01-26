@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function loadDashboardData() {
   try {
-    const response = await fetch("http://localhost:3211/projects");
+    const response = await fetch("/api/projects");
     const allProjects = await response.json();
 
     const projects = allProjects.filter(
