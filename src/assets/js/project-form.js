@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     try {
-      const response = await fetch("/.netlify/functions/saveProject", {
+      const response = await fetch("/.netlify/saveProject", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
