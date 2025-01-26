@@ -8,10 +8,13 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3211;
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
+const SUPABASE_DATABASE_URL = process.env.SUPABASE_DATABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE);
+const db = supabase.createClient(
+  SUPABASE_DATABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY
+);
 
 // GET all projects
 app.get("/projects", async (req, res) => {

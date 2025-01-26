@@ -172,3 +172,5 @@ dist
 # Ignore all local history of files
 .history
 .ionide
+# Local Netlify folder
+.netlify
