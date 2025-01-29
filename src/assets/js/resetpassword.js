@@ -1,5 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import {
+  getAuth,
+  sendPasswordResetEmail,
+} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
