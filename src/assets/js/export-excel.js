@@ -11,6 +11,12 @@ document.getElementById("exportButton").addEventListener("click", () => {
     "End Date",
     "Complexity",
     "Priority",
+    "Planning",
+    "Requirement Analysis",
+    "Development",
+    "Testing",
+    "Deployment",
+    "Complete Date",
   ]);
 
   rows.forEach((row) => {
