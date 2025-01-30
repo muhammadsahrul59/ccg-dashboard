@@ -1,65 +1,120 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const SUPABASE_CONFIG = {
+  url: "https://pembaveqjbfpxajoadte.supabase.co",
+  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q",
+};
 
+const PERCENTAGE_FIELDS = [
+  { inputId: "planning", displayId: "planningValue" },
+  { inputId: "requirementAnalysis", displayId: "requirementValue" },
+  { inputId: "development", displayId: "developmentValue" },
+  { inputId: "testing", displayId: "testingValue" },
+  { inputId: "deployment", displayId: "deploymentValue" },
+];
+
+// Initialize Supabase client
+const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+
+// Update percentage display
 function updatePercentage(input, valueId) {
-  let value = Math.min(100, Math.max(0, input.value));
+  const value = Math.min(100, Math.max(0, parseInt(input.value) || 0));
   input.value = value;
-  document.getElementById(valueId).textContent = value + "%";
+  const displayElement = document.getElementById(valueId);
+  if (displayElement) {
+    displayElement.textContent = `${value}%`;
+  }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+// Form validation functions
+function validateDates(startDate, endDate) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  return end >= start;
+}
+
+function validatePriority(priority) {
+  const value = parseInt(priority);
+  return value >= 1 && value <= 4;
+}
+
+function validatePercentages(percentages) {
+  return percentages.every((value) => {
+    const percentage = parseInt(value);
+    return percentage >= 0 && percentage <= 100;
+  });
+}
+
+// Handle form submission
+async function handleFormSubmission(formData) {
+  try {
+    const { data, error } = await supabase.from("projects").insert([formData]);
+
+    if (error) throw error;
+
+    alert("Project saved successfully!");
+    window.location.href = "home-my-tasks.html";
+  } catch (error) {
+    console.error("Error saving project:", error);
+    alert(`Failed to save project: ${error.message}`);
+  }
+}
+
+// Initialize form handlers when DOM is loaded
+function initializeForm() {
   const projectForm = document.getElementById("projectForm");
+  if (!projectForm) {
+    console.error("Project form not found");
+    return;
+  }
 
-  const validateForm = () => {
-    const priority = document.getElementById("priority");
-    const priorityValue = parseInt(priority.value);
-    if (priorityValue < 1 || priorityValue > 4) {
-      alert("Priority must be between 1 and 4");
-      return false;
+  // Add input listeners for percentage fields
+  PERCENTAGE_FIELDS.forEach(({ inputId, displayId }) => {
+    const input = document.getElementById(inputId);
+    if (input) {
+      input.addEventListener("input", () => updatePercentage(input, displayId));
+      // Initialize display values
+      updatePercentage(input, displayId);
     }
+  });
 
-    const startDate = new Date(document.getElementById("startDate").value);
-    const endDate = new Date(document.getElementById("endDate").value);
-    if (endDate < startDate) {
-      alert("End date cannot be earlier than start date");
-      return false;
-    }
-
-    const percentageInputs = [
-      "planning",
-      "requirementAnalysis",
-      "development",
-      "testing",
-      "deployment",
-    ];
-    for (let inputId of percentageInputs) {
-      const value = parseInt(document.getElementById(inputId).value);
-      if (value < 0 || value > 100) {
-        alert(`${inputId} percentage must be between 0 and 100`);
-        return false;
-      }
-    }
-    return true;
-  };
-
-  projectForm.addEventListener("submit", async function (e) {
+  // Form submission handler
+  projectForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    // Validate priority
+    const priority = document.getElementById("priority").value;
+    if (!validatePriority(priority)) {
+      alert("Priority must be between 1 and 4");
       return;
     }
 
+    // Validate dates
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    if (!validateDates(startDate, endDate)) {
+      alert("End date cannot be earlier than start date");
+      return;
+    }
+
+    // Validate percentages
+    const percentages = PERCENTAGE_FIELDS.map(
+      ({ inputId }) => document.getElementById(inputId).value
+    );
+    if (!validatePercentages(percentages)) {
+      alert("All percentages must be between 0 and 100");
+      return;
+    }
+
+    // Prepare form data
     const formData = {
       project_owner: document.getElementById("projectOwner").value,
       project_name: document.getElementById("projectName").value,
       project_type: document.getElementById("projectType").value,
-      start_date: document.getElementById("startDate").value,
-      end_date: document.getElementById("endDate").value,
+      start_date: startDate,
+      end_date: endDate,
       complexity: document.getElementById("complexity").value,
-      priority: parseInt(document.getElementById("priority").value),
+      priority: parseInt(priority),
       planning: parseInt(document.getElementById("planning").value),
       requirement_analysis: parseInt(
         document.getElementById("requirementAnalysis").value
@@ -69,20 +124,12 @@ document.addEventListener("DOMContentLoaded", function () {
       deployment: parseInt(document.getElementById("deployment").value),
     };
 
-    try {
-      const { data, error } = await supabase
-        .from("projects")
-        .insert([formData]);
-
-      if (error) {
-        throw error;
-      }
-
-      alert("Project saved successfully!");
-      window.location.href = "home-my-tasks.html";
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to save project: " + error.message);
-    }
+    await handleFormSubmission(formData);
   });
-});
+}
+
+// Initialize when DOM is loaded
+document.addEventListener("DOMContentLoaded", initializeForm);
+
+// Export necessary functions if needed in other modules
+export { updatePercentage, initializeForm };
