@@ -1,9 +1,0 @@
-[[redirects]]
-  from = "/dashboard"
-  to = "/src/pages/syariefhidayat-dashboard"
-  status = 200
-
-[[redirects]]
-  from = "/login"
-  to = "/src/auth/authentication-login.html"
-  status = 200
