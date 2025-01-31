@@ -6,7 +6,6 @@ import {
   signInWithPopup,
   signOut,
 } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
-import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -18,100 +17,67 @@ const firebaseConfig = {
   appId: "1:649967513477:web:c813a2c15a19959eab1eec",
 };
 
-// Supabase configuration
-const SUPABASE_CONFIG = {
-  url: "https://pembaveqjbfpxajoadte.supabase.co",
-  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q",
-};
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 auth.languageCode = "en";
 const provider = new GoogleAuthProvider();
 
-// Initialize Supabase
-const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
-
 // Define base URL for redirects
 const BASE_URL = window.location.origin;
 const INDEX_PATH = "/index.html";
 
-// Function to create or update user in Supabase
-async function syncUserWithSupabase(user) {
-  try {
-    // Check if user exists in Supabase
-    const { data: existingUser } = await supabase
-      .from("users")
-      .select()
-      .eq("firebase_uid", user.uid)
-      .single();
+//login with google
 
-    if (!existingUser) {
-      // Create new user in Supabase
-      const { data, error } = await supabase.from("users").insert([
-        {
-          firebase_uid: user.uid,
-          email: user.email,
-          display_name: user.displayName || null,
-          photo_url: user.photoURL || null,
-        },
-      ]);
-
-      if (error) throw error;
-    }
-
-    // Store the user's Firebase UID in localStorage for later use
-    localStorage.setItem("userId", user.uid);
-  } catch (error) {
-    console.error("Error syncing user with Supabase:", error);
-    throw error;
-  }
-}
-
-// Login with Google
 const loginGoogle = document.getElementById("login-google");
 loginGoogle.addEventListener("click", function (event) {
-  event.preventDefault();
+  event.preventDefault(); // Add this line to prevent form submission
 
   signInWithPopup(auth, provider)
-    .then(async (result) => {
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
       const user = result.user;
-      await syncUserWithSupabase(user);
+      console.log(user);
       window.location.href = BASE_URL + INDEX_PATH;
+      return user.getIdToken();
     })
     .catch((error) => {
-      console.error("Google Sign In Error:", error.code, error.message);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Google Sign In Error:", errorCode, errorMessage);
     });
 });
 
-// Email/Password Login
+//submit button
 const submit = document.getElementById("submit");
 submit.addEventListener("click", function (event) {
   event.preventDefault();
 
+  // inputs
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
+  // Cek jika email atau password kosong
   if (email === "" || password === "") {
     alert("Please Input Email and Password !");
-    return;
+    return; // Menghentikan eksekusi lebih lanjut jika input kosong
   }
 
+  // Melakukan login jika email dan password sudah diisi
   signInWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
+    .then((userCredential) => {
       const user = userCredential.user;
 
       if (!user.emailVerified) {
         signOut(auth);
-        alert("Please verify your email before logging in !");
+        alert("Please verify your email before loggin in !");
         return;
       }
-
-      await syncUserWithSupabase(user);
       window.location.href = BASE_URL + INDEX_PATH;
     })
     .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
       alert("The password is incorrect. Try Again !");
     });
 });
