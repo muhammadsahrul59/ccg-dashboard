@@ -3,3 +3,28 @@
   to = "/:splat"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/:page"
+  to = "/:page.html"
+  status = 200
+
+[[redirects]]
+  from = "/support-dashboard"
+  to = "/src/pages/support-dashboard"
+  status = 200
+
+[[redirects]]
+  from = "/dev-tables"
+  to = "/src/dev-tables"
+  status = 200
+
+[[redirects]]
+  from = "/auth"
+  to = "/src/auth"
+  status = 200
+
+[[redirects]]
+  from = "/task-pages"
+  to = "/src/task-pages"
+  status = 200
