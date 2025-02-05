@@ -2,7 +2,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const SUPABASE_CONFIG = {
   url: "https://pembaveqjbfpxajoadte.supabase.co",
-  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q",
+  anon_key:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q",
 };
 
 const PERCENTAGE_FIELDS = [
@@ -14,7 +15,7 @@ const PERCENTAGE_FIELDS = [
 ];
 
 // Initialize Supabase client
-const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
+const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anon_key);
 
 // Update percentage display
 function updatePercentage(input, valueId) {
@@ -56,7 +57,7 @@ async function handleFormSubmission(formData) {
     window.location.href = "home-my-tasks.html";
   } catch (error) {
     console.error("Error saving project:", error);
-    alert(`Failed to save project: ${error.message}`);
+    alert(`Failed to save project: Only authenticated accounts can input!`);
   }
 }
 

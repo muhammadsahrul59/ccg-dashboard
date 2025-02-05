@@ -10,8 +10,8 @@
   status = 200
 
 [[redirects]]
-  from = "/support-dashboard"
-  to = "/src/pages/support-dashboard"
+  from = "/src/pages/support-dashboard"
+  to = "/support-dashboard"
   status = 200
 
 [[redirects]]

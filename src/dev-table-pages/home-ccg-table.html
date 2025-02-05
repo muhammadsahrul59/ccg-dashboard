@@ -248,8 +248,19 @@
                       </div>
                     </div>
                   </div>
-
                   <!-- End of CCI Dev Section -->
+                  <!-- Tambahkan tombol Back -->
+                  <div class="col-12 mt-4">
+                    <div class="d-flex justify-content-between">
+                      <button
+                        type="button"
+                        class="btn btn-muted"
+                        onclick="window.history.back();"
+                      >
+                        <i class="fas fa-arrow-left me-2"></i> Back
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -260,6 +271,7 @@
       </div>
     </div>
     <script type="module" src="../assets/js/signout.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/sidebarmenu.js"></script>

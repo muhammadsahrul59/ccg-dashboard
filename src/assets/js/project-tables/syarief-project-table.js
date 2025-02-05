@@ -335,7 +335,10 @@ async function updateProject(event) {
       .update(updatedProject)
       .eq("id", projectId);
 
-    if (error) throw error;
+    if (error) {
+      console.error("Supabase Error:", error);
+      throw error;
+    }
 
     // Close the modal
     const editModal = bootstrap.Modal.getInstance(

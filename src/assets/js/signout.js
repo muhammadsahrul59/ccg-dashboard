@@ -1,35 +1,28 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-} from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+// signout.js
+const supabaseUrl = "https://pembaveqjbfpxajoadte.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzgwMjY0NiwiZXhwIjoyMDUzMzc4NjQ2fQ.BY1tp2jgz9pdX2TG33g9QF97EBGK9OYe9KkNCK37keI";
 
-// Firebase configuration
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC5gN65t8IR-lLobeTCfyIAQXTDkW9vCmc",
-  authDomain: "authloginccg.firebaseapp.com",
-  projectId: "authloginccg",
-  storageBucket: "authloginccg.firebasestorage.app",
-  messagingSenderId: "649967513477",
-  appId: "1:649967513477:web:c813a2c15a19959eab1eec",
-};
+// Import Supabase client (pastikan ini sudah diinisialisasi di login.js)
+const { createClient } = supabase;
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
 // Define base URL for redirects
 const BASE_URL = window.location.origin;
 const LOGIN_PATH = "/src/auth/authentication-login.html";
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
 // Flag to track logout process
 let isLoggingOut = false;
 
-// Timeout duration (5 minute in milliseconds)
+// Timeout duration (5 minutes in milliseconds)
 const TIMEOUT_DURATION = 300000;
 let timeoutId;
+let tabCloseTimeoutId;
+
+// Store last active timestamp in localStorage
+const updateLastActiveTime = () => {
+  localStorage.setItem("lastActiveTime", Date.now().toString());
+};
 
 // Function to reset the inactivity timeout
 const resetTimeout = () => {
@@ -37,13 +30,14 @@ const resetTimeout = () => {
   timeoutId = setTimeout(() => {
     handleAutoLogout();
   }, TIMEOUT_DURATION);
+  updateLastActiveTime();
 };
 
 // Auto logout function
 const handleAutoLogout = async () => {
   try {
     isLoggingOut = true;
-    await signOut(auth);
+    await supabaseClient.auth.signOut();
     alert("Sesi Anda Telah Habis, Silahkan Login Kembali !");
     window.location.href = BASE_URL + LOGIN_PATH;
   } catch (error) {
@@ -54,13 +48,37 @@ const handleAutoLogout = async () => {
   }
 };
 
+// Check if user should be logged out based on tab close time
+const checkTabCloseLogout = () => {
+  const lastActiveTime = parseInt(
+    localStorage.getItem("lastActiveTime") || "0"
+  );
+  const currentTime = Date.now();
+  const timeDifference = currentTime - lastActiveTime;
+
+  if (timeDifference >= TIMEOUT_DURATION) {
+    handleAutoLogout();
+  }
+};
+
+// Handle tab/window close
+window.addEventListener("beforeunload", () => {
+  updateLastActiveTime();
+});
+
+// When page loads, check if we need to logout based on last active time
+window.addEventListener("load", () => {
+  checkTabCloseLogout();
+});
+
 // Handle authentication state changes
-onAuthStateChanged(auth, (user) => {
-  if (!user && !isLoggingOut) {
+supabaseClient.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_OUT" && !isLoggingOut) {
     window.location.href = BASE_URL + LOGIN_PATH;
-  } else if (user) {
-    console.log("User logged in:", user.email);
+  } else if (event === "SIGNED_IN") {
+    console.log("User logged in:", session.user.email);
     resetTimeout(); // Start the timeout when user is logged in
+    updateLastActiveTime(); // Update last active time
   }
 });
 
@@ -70,7 +88,7 @@ document.getElementById("logout").addEventListener("click", async (e) => {
 
   try {
     isLoggingOut = true;
-    await signOut(auth);
+    await supabaseClient.auth.signOut();
     alert("Logout Success");
     window.location.href = BASE_URL + LOGIN_PATH;
   } catch (error) {
