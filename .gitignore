@@ -2,7 +2,7 @@
 node_modules/
 crud/node_modules/
 dist
-/backend/
+backend
 
 # Environment variables
 *.env
