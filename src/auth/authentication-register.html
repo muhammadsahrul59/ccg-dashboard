@@ -55,7 +55,7 @@
                       >
                       <input type="email" class="form-control" id="email" />
                     </div>
-                    <div class="mb-4 position-relative">
+                    <div class="mb-3 position-relative">
                       <label for="password" class="form-label">Password</label>
                       <input
                         type="password"
@@ -63,23 +63,51 @@
                         id="password"
                       />
                       <i
-                        class="fa-solid fa-eye-slash position-absolute end-0 top-35 translate-middle-y me-3"
+                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
                         id="toggle-password"
                         style="cursor: pointer"
                       ></i>
+                    </div>
+                    <div class="mb-4 position-relative">
+                      <label for="confirm-password" class="form-label"
+                        >Confirm Password</label
+                      >
+                      <div class="position-relative">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="confirm-password"
+                        />
+                        <i
+                          class="fa-solid fa-eye-slash position-absolute"
+                          id="toggle-confirm-password"
+                          style="
+                            cursor: pointer;
+                            right: 16px;
+                            top: 55%;
+                            transform: translateY(-50%);
+                          "
+                        ></i>
+                      </div>
                       <ul class="password-checklist" id="password-checklist">
                         <li id="length-check">
-                          <i class="fa fa-times"></i> 8 characters or longer
+                          <i class="fa fa-times-circle"></i> 8 characters or
+                          longer
                         </li>
                         <li id="uppercase-check">
-                          <i class="fa fa-times"></i> At least one Uppercase
-                          character
+                          <i class="fa fa-times-circle"></i> At least one
+                          Uppercase character
                         </li>
                         <li id="special-check">
-                          <i class="fa fa-times"></i> At least one Special
-                          character
+                          <i class="fa fa-times-circle"></i> At least one
+                          Special character
                         </li>
                       </ul>
+                      <small
+                        id="confirm-password-error"
+                        class="text-danger d-none"
+                        >Passwords do not match!</small
+                      >
                     </div>
                     <button
                       id="submit"

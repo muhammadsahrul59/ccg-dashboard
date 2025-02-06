@@ -1,7 +1,7 @@
 // login.js
 const supabaseUrl = "https://pembaveqjbfpxajoadte.supabase.co";
 const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzgwMjY0NiwiZXhwIjoyMDUzMzc4NjQ2fQ.BY1tp2jgz9pdX2TG33g9QF97EBGK9OYe9KkNCK37keI";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q";
 
 // Initialize Supabase client - Fixed the initialization
 const { createClient } = supabase;
@@ -126,11 +126,11 @@ function validatePassword(password) {
     if (rules[rule]) {
       element.classList.add("valid");
       const icon = element.querySelector("i");
-      if (icon) icon.className = "fa fa-check";
+      if (icon) icon.className = "fa fa-check-circle";
     } else {
       element.classList.remove("valid");
       const icon = element.querySelector("i");
-      if (icon) icon.className = "fa fa-times";
+      if (icon) icon.className = "fa fa-times-circle";
     }
   });
 
