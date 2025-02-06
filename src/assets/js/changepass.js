@@ -1,26 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  updatePassword,
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-} from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyC5gN65t8IR-lLobeTCfyIAQXTDkW9vCmc",
-  authDomain: "authloginccg.firebaseapp.com",
-  projectId: "authloginccg",
-  storageBucket: "authloginccg.firebasestorage.app",
-  messagingSenderId: "649967513477",
-  appId: "1:649967513477:web:c813a2c15a19959eab1eec",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const supabaseUrl = "https://pembaveqjbfpxajoadte.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Function to toggle password visibility
 function setupPasswordToggle(inputId, toggleId) {
@@ -63,11 +46,11 @@ function checkPassword(password) {
   // Update icons
   document.querySelectorAll(".password-checklist li").forEach((item) => {
     if (item.classList.contains("valid")) {
-      item.querySelector("i").classList.remove("fa-times");
-      item.querySelector("i").classList.add("fa-check");
+      item.querySelector("i").classList.remove("fa-times-circle");
+      item.querySelector("i").classList.add("fa-check-circle");
     } else {
-      item.querySelector("i").classList.remove("fa-check");
-      item.querySelector("i").classList.add("fa-times");
+      item.querySelector("i").classList.remove("fa-check-circle");
+      item.querySelector("i").classList.add("fa-times-circle");
     }
   });
 }
@@ -75,7 +58,6 @@ function checkPassword(password) {
 // Setup event listeners when document loads
 document.addEventListener("DOMContentLoaded", function () {
   // Setup password toggles for all password fields
-  setupPasswordToggle("password", "toggle-password");
   setupPasswordToggle("oldPassword", "toggle-old-password");
   setupPasswordToggle("newPassword", "toggle-new-password");
   setupPasswordToggle("confirmPassword", "toggle-confirm-password");
@@ -109,22 +91,16 @@ changePasswordForm.addEventListener("submit", async function (e) {
   }
 
   try {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
 
-    if (!user) {
-      alert("No user is currently signed in.");
-      return;
+    if (error) {
+      throw error;
     }
-
-    // Create credentials with old password
-    const credential = EmailAuthProvider.credential(user.email, oldPassword);
-
-    // Reauthenticate user
-    await reauthenticateWithCredential(user, credential);
-
-    // Update password
-    await updatePassword(user, newPassword);
 
     // Show success message
     alert("Password successfully updated!");
@@ -139,9 +115,7 @@ changePasswordForm.addEventListener("submit", async function (e) {
     console.error("Error updating password:", error);
 
     // Show appropriate error message based on error code
-    if (error.code === "auth/wrong-password") {
-      alert("The old password you entered is incorrect.");
-    } else if (error.code === "auth/weak-password") {
+    if (error.message.includes("Password should be at least")) {
       alert("The new password is too weak. Please choose a stronger password.");
     } else {
       alert("An error occurred while updating the password. Please try again.");

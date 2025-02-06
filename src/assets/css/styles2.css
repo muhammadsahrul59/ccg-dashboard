@@ -97,6 +97,15 @@ body {
 .password-checklist li.valid {
   color: green;
 }
+
+.password-checklist li {
+  margin-bottom: 8px;
+  color: #dc3545; /* Red color for unchecked items */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .password-checklist li i {
   font-size: 16px;
 }
