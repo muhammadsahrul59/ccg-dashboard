@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Akmal Work Form</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/src/assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .vertical-divider {
+        border-left: 2px solid #e9ecef;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <sidebar-template></sidebar-template>
+      <!-- Sidebar End -->
+
+      <div class="body-wrapper">
+        <header-template></header-template>
+        <div class="container-fluid">
+          <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-12 col-xl-10">
+              <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                  <h1 class="h1 text-green-bsi fw-bolder mb-5 text-center">
+                    Input Your Daily Works
+                  </h1>
+                  <form id="workForm" class="row pt-3">
+                    <!-- Owner Info -->
+                    <div class="col-12 mb-4">
+                      <div class="mb-3">
+                        <label for="workOwner" class="form-label"
+                          >Work Owner</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="workOwner"
+                          name="workOwner"
+                          value="Muhamad Akmal Amrullah"
+                          readonly
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="workDate" class="form-label">Date</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="workDate"
+                          name="workDate"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Creation Section -->
+                    <div class="col-md-4 position-relative">
+                      <h3 class="card-title mb-4 text-center">Creation</h3>
+                      <div class="mb-3">
+                        <label for="knowledge" class="form-label">
+                          Create Knowledge
+                        </label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="knowledge"
+                          name="knowledge"
+                          min="0"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="answer" class="form-label">
+                          Create Answer
+                        </label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="answer"
+                          name="answer"
+                          min="0"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="module" class="form-label">
+                          Create Module
+                        </label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="module"
+                          name="module"
+                          min="0"
+                          required
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="totalcreation" class="form-label">
+                          Total Creation
+                        </label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="totalcreation"
+                          name="totalcreation"
+                          min="0"
+                          disabled
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Update Knowledge Section -->
+                    <div class="col-md-4 position-relative">
+                      <div class="vertical-divider"></div>
+                      <div class="px-4">
+                        <h3 class="card-title mb-4 text-center">
+                          Update Knowledge
+                        </h3>
+                        <div class="mb-3">
+                          <label for="updateAnswer" class="form-label">
+                            Update Answer
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="updateAnswer"
+                            name="updateAnswer"
+                            min="0"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="quickReply" class="form-label">
+                            Update Quick Reply
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="quickReply"
+                            name="quickReply"
+                            min="0"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="button" class="form-label">
+                            Update Button
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="button"
+                            name="button"
+                            min="0"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="totalupdateknowledge" class="form-label">
+                            Total Update Knowledge
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="totalupdateknowledge"
+                            name="totalupdateknowledge"
+                            min="0"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Input Section -->
+                    <div class="col-md-4 position-relative">
+                      <div class="vertical-divider"></div>
+                      <div class="px-4">
+                        <h3 class="card-title mb-4 text-center bolder">
+                          Input
+                        </h3>
+                        <div class="mb-3">
+                          <label for="synonym" class="form-label">
+                            Synonym
+                          </label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="synonym"
+                            name="synonym"
+                            min="0"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="intent" class="form-label">Intent</label>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="intent"
+                            name="intent"
+                            required
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="transparent" class="form-label text-white"
+                            >Total Input</label
+                          >
+                          <input
+                            type="number"
+                            class="form-control"
+                            name="transparent"
+                            style="opacity: 0"
+                            disabled
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="totalinput" class="form-label"
+                            >Total Input</label
+                          >
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="totalinput"
+                            name="totalinput"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-12 mt-4">
+                      <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">
+                          Simpan
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-muted"
+                          onclick="window.location.href='home-my-tasks.html';"
+                        >
+                          <i class="fas fa-arrow-left me-2"></i> Back
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../assets/js/signout.js" defer></script>
+    <script type="module" src="../assets/js/akmal-work-form.js"></script>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="../assets/js/header-template.js"></script>
+    <script src="../assets/js/sidebar-template.js"></script>
+  </body>
+</html>

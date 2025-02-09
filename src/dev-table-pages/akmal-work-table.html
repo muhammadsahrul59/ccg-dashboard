@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Akmal Work Table</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <sidebar-template></sidebar-template>
+      <!--  Sidebar End -->
+
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <!--  Header Start -->
+        <header-template></header-template>
+        <!--  Header End -->
+
+        <!--  Body Start -->
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
+                <h4 class="card-title fw-semibold mb-0">
+                  Work Table (Muhamad Akmal Amrullah)
+                </h4>
+                <a href="../works/akmal-work.html" class="btn btn-success"
+                  ><i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Add
+                  Project</a
+                >
+              </div>
+
+              <div class="table-responsive">
+                <table class="table text-nowrap mb-0 align-middle">
+                  <thead class="text-dark fs-4">
+                    <tr>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Date</h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Create Knowledge
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Create Answer
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Create Module
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Total Creation
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Update Answer
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Update Quick Reply
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Update Button
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Total Update Knowledge
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Input Synonym
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Input Intent
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">
+                          Total Input
+                        </h6>
+                      </th>
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0 text-center">Action</h6>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody id="projectTableBody">
+                    <!-- Table data will be populated here -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-12 mt-4 d-flex justify-content-between">
+                <a
+                  id="exportButton"
+                  class="btn btn-success2 mb-2"
+                  href="javascript:void(0)"
+                >
+                  <i class="fas fa-file-excel"></i> Export
+                </a>
+                <a
+                  href="../dev-table-pages/home-ccg-work-table.html"
+                  class="btn btn-muted float-end mb-2"
+                >
+                  <i class="fas fa-arrow-left me-3"></i> Back
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="editModal"
+            tabindex="-1"
+            aria-labelledby="editModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit Work</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form id="editWorkForm" onsubmit="updateWork(event)">
+                    <input type="hidden" id="edit_work_id" />
+                    <div class="container-fluid">
+                      <div class="row justify-content-center">
+                        <div class="col-md-8">
+                          <!-- Date Section -->
+                          <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Work Details</h6>
+                            <div class="mb-3">
+                              <label for="edit_Date" class="form-label"
+                                >Date</label
+                              >
+                              <input
+                                type="date"
+                                class="form-control"
+                                id="edit_Date"
+                                required
+                              />
+                            </div>
+                          </div>
+
+                          <!-- Creation Section -->
+                          <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Creation Details</h6>
+                            <div class="row">
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_createKnowledge"
+                                  class="form-label"
+                                  >Create Knowledge</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_createKnowledge"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_createAnswer"
+                                  class="form-label"
+                                  >Create Answer</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_createAnswer"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_createModule"
+                                  class="form-label"
+                                  >Create Module</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_createModule"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_totalCreation"
+                                  class="form-label"
+                                  >Total Creation</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_totalCreation"
+                                  required
+                                  disabled
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Update Section -->
+                          <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Update Details</h6>
+                            <div class="row">
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_updateAnswer"
+                                  class="form-label"
+                                  >Update Answer</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_updateAnswer"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_updateQuickReplay"
+                                  class="form-label"
+                                  >Update Quick Reply</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_updateQuickReplay"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_updateButton"
+                                  class="form-label"
+                                  >Update Button</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_updateButton"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_totalUpdateKnowledge"
+                                  class="form-label"
+                                  >Total Update Knowledge</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_totalUpdateKnowledge"
+                                  required
+                                  disabled
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Input Section -->
+                          <div class="mb-4">
+                            <h6 class="fw-bold mb-3">Input Details</h6>
+                            <div class="row">
+                              <div class="col-md-6 mb-3">
+                                <label
+                                  for="edit_inputSynonym"
+                                  class="form-label"
+                                  >Input Synonym</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_inputSynonym"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="edit_inputIntent" class="form-label"
+                                  >Input Intent</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_inputIntent"
+                                  required
+                                />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="edit_totalInput" class="form-label"
+                                  >Total Input</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  id="edit_totalInput"
+                                  required
+                                  disabled
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" class="btn btn-success">
+                        Update
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  Body End -->
+      </div>
+    </div>
+    <script type="module" src="../assets/js/signout.js" defer></script>
+    <script
+      type="module"
+      src="../assets/js/work-tables/akmal-work-table.js"
+    ></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="../assets/js/export-excel/akmal-work-excel.js"></script>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/loadsidebar.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="/src/assets/js/header-template.js"></script>
+    <script src="/src/assets/js/sidebar-template.js"></script>
+  </body>
+</html>
