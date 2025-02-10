@@ -1,177 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nita Noreko Dashboard</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="../assets/images/logos/favicon.png"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Construction</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1eb9af, #efb331);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: white;
+        margin: 0;
+      }
+      .container {
+        position: relative;
+      }
+      .construction-icon {
+        font-size: 100px;
+        animation: bounce 2s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .message {
+        font-size: 24px;
+        margin-top: 20px;
+      }
+      .progress-bar {
+        width: 570px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+      .progress {
+        height: 100%;
+        width: 0;
+        background: white;
+        animation: load 5s infinite;
+      }
+      @keyframes load {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
-
   <body>
-    <!--  Body Wrapper -->
-    <div
-      class="page-wrapper"
-      id="main-wrapper"
-      data-layout="vertical"
-      data-navbarbg="skin6"
-      data-sidebartype="full"
-      data-sidebar-position="fixed"
-      data-header-position="fixed"
-    >
-      <!-- Sidebar Start -->
-      <sidebar-template></sidebar-template>
-      <!--  Sidebar End -->
-
-      <!--  Main wrapper -->
-      <div class="body-wrapper">
-        <!--  Header Start -->
-        <header-template></header-template>
-        <!--  Header End -->
-        <!--  Body Start -->
-        <div class="container-fluid">
-          <!-- Row 1: Statistics -->
-          <div class="row mb-4">
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Total Projects</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="totalProjects"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>All managed projects</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Completed Projects</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="completedProjects"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>100% completion rate</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Projects In Progress</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="inProgressProjects"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>Currently active</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Progress Project</h4>
-                  <div id="progressGaugeChart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 2: Status, Complexity, and Priority -->
-          <div class="row mb-1">
-            <div class="col-md-4">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Status Distribution
-                  </h5>
-                  <div id="statusChart"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Complexity Distribution
-                  </h5>
-                  <div id="complexityChart"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Priority Distribution
-                  </h5>
-                  <div id="priorityChart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 3: Estimated vs Actual -->
-          <div class="row mb-1">
-            <div class="col-12">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Estimated vs. Actual Progress
-                  </h5>
-                  <div id="estimatedVsActualChart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 4: Delay Trend -->
-          <div class="row">
-            <div class="col-12">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Delay Trend
-                  </h5>
-                  <div id="delayTrendChart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container">
+      <i class="fa-solid fa-wrench construction-icon"></i>
+      <div class="message">
+        This page is currently under construction. Stay tuned!
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
       </div>
     </div>
-    <!--  Body End -->
-    <script type="module" src="../assets/js/signout.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="../assets/js/project-dashboard/nita-project-dashboard.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/sidebarmenu.js"></script>
-    <script src="../assets/js/loadsidebar.js"></script>
-    <script src="../assets/js/app.min.js"></script>
-    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="../assets/js/dashboard.js"></script>
-    <script src="/src/assets/js/header-template.js"></script>
-    <script src="/src/assets/js/sidebar-template.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const progress = document.querySelector(".progress"); // Seleksi elemen yang benar
+
+        setTimeout(() => {
+          window.history.length > 1
+            ? window.history.back()
+            : (window.location.href = "https://example.com");
+          // Ganti "https://example.com" dengan URL yang ingin dituju jika tidak ada halaman sebelumnya
+        }, 5000); // Sesuai dengan durasi animasi progress bar
+      });
+    </script>
   </body>
 </html>
