@@ -1,308 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Project Forms</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project Input Form</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="../assets/images/logos/favicon.png"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Construction</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1eb9af, #efb331);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: white;
+        margin: 0;
+      }
+      .container {
+        position: relative;
+      }
+      .construction-icon {
+        font-size: 100px;
+        animation: bounce 2s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .message {
+        font-size: 24px;
+        margin-top: 20px;
+      }
+      .progress-bar {
+        width: 570px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+      .progress {
+        height: 100%;
+        width: 0;
+        background: white;
+        animation: load 5s infinite;
+      }
+      @keyframes load {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
-
   <body>
-    <!--  Body Wrapper -->
-    <div
-      class="page-wrapper"
-      id="main-wrapper"
-      data-layout="vertical"
-      data-navbarbg="skin6"
-      data-sidebartype="full"
-      data-sidebar-position="fixed"
-      data-header-position="fixed"
-    >
-      <!-- Sidebar Start -->
-      <sidebar-template></sidebar-template>
-      <!--  Sidebar End -->
-      <!--  Main wrapper -->
-      <div class="body-wrapper">
-        <!--  Header Start -->
-        <header-template></header-template>
-        <!--  Header End -->
-        <div class="container-fluid">
-          <div class="row justify-content-center align-items-center min-vh-100">
-            <div class="col-12 col-xl-10">
-              <div class="card border-0 shadow-lg">
-                <div class="card-body p-4">
-                  <h2 class="h2 text-green-bsi fw-bolder mb-4 text-center">
-                    Input Project Data
-                  </h2>
-                  <form id="projectForm" class="row">
-                    <!-- Left Column - Project Details -->
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="projectOwner" class="form-label"
-                          >Project Owner</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="projectOwner"
-                          name="projectOwner"
-                          value="Nita Noreko"
-                          readonly
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="projectName" class="form-label"
-                          >Project Name</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="projectName"
-                          name="projectName"
-                          placeholder="Masukkan nama project"
-                          required
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="projectType" class="form-label"
-                          >Type Project</label
-                        >
-                        <select
-                          class="form-select"
-                          id="projectType"
-                          name="projectType"
-                          required
-                        >
-                          <option value="" disabled selected>
-                            -- Select Type Project --
-                          </option>
-                          <option value="PTO">PTO</option>
-                          <option value="CHMS">CHMS</option>
-                          <option value="Layanan">Layanan</option>
-                          <option value="Meeting Offline Keluar">
-                            Meeting Offline Keluar
-                          </option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="startDate" class="form-label"
-                          >Start Date</label
-                        >
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="startDate"
-                          name="startDate"
-                          required
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="endDate" class="form-label">End Date</label>
-                        <input
-                          type="date"
-                          class="form-control"
-                          id="endDate"
-                          name="endDate"
-                          required
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="complexity" class="form-label"
-                          >Complexity</label
-                        >
-                        <select
-                          class="form-select"
-                          id="complexity"
-                          name="complexity"
-                          required
-                        >
-                          <option value="" disabled selected>
-                            -- Select Complexity --
-                          </option>
-                          <option value="High">High</option>
-                          <option value="Medium">Medium</option>
-                          <option value="Low">Low</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="priority" class="form-label"
-                          >Priority</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="priority"
-                          name="priority"
-                          placeholder="Masukkan prioritas (1-4)"
-                          min="1"
-                          max="4"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Right Column - Activity Progress -->
-                    <div class="col-md-6">
-                      <h3 class="card-title mb-4">Activity Project</h3>
-
-                      <!-- Planning -->
-                      <div class="mb-3">
-                        <label
-                          for="planning"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>1. Planning</span>
-                          <span class="text-muted" id="planningValue">0%</span>
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="planning"
-                          name="planning"
-                          min="0"
-                          max="100"
-                          required
-                          oninput="updatePercentage(this, 'planningValue')"
-                        />
-                      </div>
-
-                      <!-- Requirement Analysis -->
-                      <div class="mb-3">
-                        <label
-                          for="requirementAnalysis"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>2. Requirement Analysis</span>
-                          <span class="text-muted" id="requirementValue"
-                            >0%</span
-                          >
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="requirementAnalysis"
-                          name="requirementAnalysis"
-                          min="0"
-                          max="100"
-                          required
-                          oninput="updatePercentage(this, 'requirementValue')"
-                        />
-                      </div>
-
-                      <!-- Development -->
-                      <div class="mb-3">
-                        <label
-                          for="development"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>3. Development</span>
-                          <span class="text-muted" id="developmentValue"
-                            >0%</span
-                          >
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="development"
-                          name="development"
-                          min="0"
-                          max="100"
-                          required
-                          oninput="updatePercentage(this, 'developmentValue')"
-                        />
-                      </div>
-
-                      <!-- Testing -->
-                      <div class="mb-3">
-                        <label
-                          for="testing"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>4. Testing</span>
-                          <span class="text-muted" id="testingValue">0%</span>
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="testing"
-                          name="testing"
-                          min="0"
-                          max="100"
-                          required
-                          oninput="updatePercentage(this, 'testingValue')"
-                        />
-                      </div>
-
-                      <!-- Deployment -->
-                      <div class="mb-3">
-                        <label
-                          for="deployment"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>5. Deployment</span>
-                          <span class="text-muted" id="deploymentValue"
-                            >0%</span
-                          >
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="deployment"
-                          name="deployment"
-                          min="0"
-                          max="100"
-                          required
-                          oninput="updatePercentage(this, 'deploymentValue')"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="col-12 mt-4">
-                      <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-success">
-                          Simpan
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-dark"
-                          onclick="window.location.href='home-my-tasks.html';"
-                        >
-                          Back
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container">
+      <i class="fa-solid fa-wrench construction-icon"></i>
+      <div class="message">
+        This page is currently under construction. Stay tuned!
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
       </div>
     </div>
-    <script type="module" src="../assets/js/signout.js" defer></script>
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/sidebarmenu.js"></script>
-    <script src="../assets/js/loadsidebar.js"></script>
-    <script src="../assets/js/project-form.js"></script>
-    <script src="../assets/js/app.min.js"></script>
-    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="/src/assets/js/header-template.js"></script>
-    <script src="/src/assets/js/sidebar-template.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const progress = document.querySelector(".progress"); // Seleksi elemen yang benar
+
+        setTimeout(() => {
+          window.history.length > 1
+            ? window.history.back()
+            : (window.location.href = "https://example.com");
+          // Ganti "https://example.com" dengan URL yang ingin dituju jika tidak ada halaman sebelumnya
+        }, 5000); // Sesuai dengan durasi animasi progress bar
+      });
+    </script>
   </body>
 </html>

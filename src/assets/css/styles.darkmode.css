@@ -1,0 +1,116 @@
+/* Dark mode styles */
+[data-theme="dark"] {
+  /* General */
+  --body-bg: #2b2b2b;
+  --body-color: #e4e6eb;
+  --border-color: #404040;
+
+  /* Sidebar */
+  --sidebar-bg: #1e1e1e;
+  --sidebar-color: #e4e6eb;
+  --sidebar-link-hover: #333333;
+  --sidebar-active: #333333;
+  --sidebar-border: #404040;
+
+  /* Header */
+  --header-bg: #1e1e1e;
+  --header-color: #e4e6eb;
+  --header-border: #404040;
+
+  /* Cards and containers */
+  --card-bg: #2b2b2b;
+  --card-border: #404040;
+
+  /* Dropdown menus */
+  --dropdown-bg: #2b2b2b;
+  --dropdown-color: #e4e6eb;
+  --dropdown-border: #404040;
+  --dropdown-hover: #333333;
+}
+
+/* Apply dark mode styles */
+[data-theme="dark"] body {
+  background-color: var(--body-bg);
+  color: var(--body-color);
+}
+
+/* Sidebar dark styles */
+[data-theme="dark"] .left-sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+}
+
+[data-theme="dark"] .sidebar-nav .sidebar-link {
+  color: var(--sidebar-color);
+}
+
+[data-theme="dark"] .sidebar-nav .sidebar-link:hover {
+  background-color: var(--sidebar-link-hover);
+}
+
+[data-theme="dark"] .sidebar-nav .sidebar-item.active .sidebar-link {
+  background-color: var(--sidebar-active);
+}
+
+[data-theme="dark"] .nav-small-cap {
+  color: #888;
+}
+
+/* Header dark styles */
+[data-theme="dark"] .app-header {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
+}
+
+[data-theme="dark"] .navbar {
+  background-color: var(--header-bg) !important;
+}
+
+[data-theme="dark"] .message-body a {
+  color: var(--body-color);
+}
+
+[data-theme="dark"] .message-body a:hover {
+  background-color: var(--dropdown-hover);
+}
+
+[data-theme="dark"] .dropdown-menu {
+  background-color: var(--dropdown-bg);
+  border-color: var(--dropdown-border);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--dropdown-color);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+  background-color: var(--dropdown-hover);
+}
+
+/* Dark mode toggle button styles */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0 15px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+[data-theme="dark"] .theme-toggle i.fa-sun {
+  display: inline-block;
+}
+
+[data-theme="dark"] .theme-toggle i.fa-moon {
+  display: none;
+}
+
+.theme-toggle i.fa-sun {
+  display: none;
+}
+
+.theme-toggle i.fa-moon {
+  display: inline-block;
+}

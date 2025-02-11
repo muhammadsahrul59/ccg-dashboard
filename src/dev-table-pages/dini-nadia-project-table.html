@@ -1,220 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dini Nadia Project Table</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="../assets/images/logos/favicon.png"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Construction</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #1eb9af, #efb331);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: white;
+        margin: 0;
+      }
+      .container {
+        position: relative;
+      }
+      .construction-icon {
+        font-size: 100px;
+        animation: bounce 2s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .message {
+        font-size: 24px;
+        margin-top: 20px;
+      }
+      .progress-bar {
+        width: 570px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+      .progress {
+        height: 100%;
+        width: 0;
+        background: white;
+        animation: load 5s infinite;
+      }
+      @keyframes load {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
-
   <body>
-    <!--  Body Wrapper -->
-    <div
-      class="page-wrapper"
-      id="main-wrapper"
-      data-layout="vertical"
-      data-navbarbg="skin6"
-      data-sidebartype="full"
-      data-sidebar-position="fixed"
-      data-header-position="fixed"
-    >
-      <!-- Sidebar Start -->
-      <sidebar-template></sidebar-template>
-      <!--  Sidebar End -->
-
-      <!--  Main wrapper -->
-      <div class="body-wrapper">
-        <!--  Header Start -->
-        <header-template></header-template>
-        <!--  Header End -->
-
-        <!--  Body Start -->
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-body">
-              <div
-                class="d-flex justify-content-between align-items-center mb-4"
-              >
-                <h5 class="card-title fw-semibold mb-0">Project List</h5>
-                <a href="../task-pages/my-tasks.html" class="btn btn-success"
-                  >Add Project</a
-                >
-              </div>
-              <div class="table-responsive">
-                <table class="table text-nowrap mb-0 align-middle">
-                  <thead class="text-dark fs-4">
-                    <tr>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">Project</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">Type Project</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">Start Date</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">End Date</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">Complexity</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">Priority</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0">Action</h6>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="projectTableBody">
-                    <!-- Table data will be populated here -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div
-            class="modal fade"
-            id="editModal"
-            tabindex="-1"
-            aria-labelledby="editModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="editModalLabel">Edit Project</h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form id="editProjectForm" onsubmit="updateProject(event)">
-                    <input type="hidden" id="edit_project_id" />
-                    <div class="mb-3">
-                      <label for="edit_projectName" class="form-label"
-                        >Nama Project</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="edit_projectName"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_projectType" class="form-label"
-                        >Type Project</label
-                      >
-                      <select
-                        class="form-control"
-                        id="edit_projectType"
-                        required
-                      >
-                        <option value="PTO">PTO</option>
-                        <option value="CHMS">CHMS</option>
-                        <option value="Layanan">Layanan</option>
-                        <option value="Meeting Offline Keluar">
-                          Meeting Offline Keluar
-                        </option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_startDate" class="form-label"
-                        >Start Date</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="edit_startDate"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_endDate" class="form-label"
-                        >End Date</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="edit_endDate"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_complexity" class="form-label"
-                        >Complexity</label
-                      >
-                      <select
-                        class="form-control"
-                        id="edit_complexity"
-                        required
-                      >
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="edit_priority" class="form-label"
-                        >Priority</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="edit_priority"
-                        min="1"
-                        max="4"
-                        required
-                      />
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button type="submit" class="btn btn-success">
-                        Update
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--  Body End -->
+    <div class="container">
+      <i class="fa-solid fa-wrench construction-icon"></i>
+      <div class="message">
+        This page is currently under construction. Stay tuned!
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
       </div>
     </div>
-    <script type="module" src="../assets/js/signout.js" defer></script>
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/sidebarmenu.js"></script>
-    <script src="../assets/js/project-tables/dini-project-table.js"></script>
-    <script src="../assets/js/loadsidebar.js"></script>
-    <script src="../assets/js/app.min.js"></script>
-    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="/src/assets/js/header-template.js"></script>
-    <script src="/src/assets/js/sidebar-template.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const progress = document.querySelector(".progress"); // Seleksi elemen yang benar
+
+        setTimeout(() => {
+          window.history.length > 1
+            ? window.history.back()
+            : (window.location.href = "https://example.com");
+          // Ganti "https://example.com" dengan URL yang ingin dituju jika tidak ada halaman sebelumnya
+        }, 5000); // Sesuai dengan durasi animasi progress bar
+      });
+    </script>
   </body>
 </html>
