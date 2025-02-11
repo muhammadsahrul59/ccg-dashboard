@@ -9305,6 +9305,9 @@ fieldset:disabled .btn {
 .w-100 {
   width: 100% !important;
 }
+.w-150 {
+  width: 150% !important;
+}
 .w-auto {
   width: auto !important;
 }

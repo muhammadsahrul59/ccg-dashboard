@@ -19,142 +19,170 @@
       referrerpolicy="no-referrer"
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  </head>
 
+    <style>
+      .card {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .card-body {
+        padding: 1.5rem;
+      }
+
+      .welcome-text {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .form-label {
+        margin-bottom: 0.3rem;
+      }
+
+      .mb-3,
+      .mb-4 {
+        margin-bottom: 1rem !important;
+      }
+
+      .btn {
+        padding: 0.5rem !important;
+      }
+
+      .password-checklist {
+        font-size: 0.8rem;
+        padding-left: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .separator {
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
   <body>
-    <!--  Body Wrapper -->
-    <div
-      class="page-wrapper"
-      id="main-wrapper"
-      data-layout="vertical"
-      data-navbarbg="skin6"
-      data-sidebartype="full"
-      data-sidebar-position="fixed"
-      data-header-position="fixed"
-    >
+    <div class="page-wrapper" id="main-wrapper">
       <div
         class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center"
       >
         <div class="d-flex align-items-center justify-content-center w-100">
-          <div class="row justify-content-center w-100">
-            <div class="col-md-8 col-lg-6 col-xxl-3">
-              <div class="card mb-0">
-                <div class="card-body">
-                  <div class="text-center d-block py-3 w-100">
-                    <span style="font-size: 36px; font-weight: bold"
-                      >LOGIN</span
-                    >
+          <div class="col-md-8 col-lg-6 col-xxl-3">
+            <div class="card mb-0">
+              <div class="card-body">
+                <div class="text-center mb-3">
+                  <span style="font-size: 28px; font-weight: bold">LOGIN</span>
+                </div>
+                <div class="welcome-text">
+                  Assalamualaikum, <strong>CCG Besties!</strong><br />
+                  Enter your details to sign in.
+                </div>
+                <form>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" />
                   </div>
-                  <div class="welcome-text">
-                    Assalamualaikum,<br />
-                    <strong>CCG Besties!</strong><br />
-                    Enter your details to get sign in to your account.
+                  <div class="mb-3 position-relative">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" />
+                    <i
+                      class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
+                      id="toggle-password"
+                      style="cursor: pointer"
+                    ></i>
                   </div>
-                  <br />
-                  <form>
-                    <div class="mb-3">
-                      <label for="email" class="form-label"
-                        >Email Address</label
+                  <ul class="password-checklist" id="password-checklist">
+                    <li id="length-check">
+                      <i class="fa fa-times-circle"></i> 8 characters or longer
+                    </li>
+                    <li id="uppercase-check">
+                      <i class="fa fa-times-circle"></i> At least one Uppercase
+                      character
+                    </li>
+                    <li id="special-check">
+                      <i class="fa fa-times-circle"></i> At least one Special
+                      character
+                    </li>
+                  </ul>
+                  <div
+                    class="d-flex align-items-center justify-content-between mb-3"
+                  >
+                    <div class="form-check">
+                      <input
+                        class="form-check-input primary"
+                        type="checkbox"
+                        id="flexCheckChecked"
+                        checked
+                      />
+                      <label
+                        class="form-check-label text-dark"
+                        for="flexCheckChecked"
+                        >Remember Device</label
                       >
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        aria-describedby="emailHelp"
-                      />
                     </div>
-                    <div class="mb-4 position-relative">
-                      <label for="password" class="form-label">Password</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                      />
-                      <i
-                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
-                        id="toggle-password"
-                        style="cursor: pointer"
-                      ></i>
-                    </div>
-                    <ul class="password-checklist" id="password-checklist">
-                      <li id="length-check">
-                        <i class="fa fa-times-circle"></i> 8 characters or
-                        longer
-                      </li>
-                      <li id="uppercase-check">
-                        <i class="fa fa-times-circle"></i> At least one
-                        Uppercase character
-                      </li>
-                      <li id="special-check">
-                        <i class="fa fa-times-circle"></i> At least one Special
-                        character
-                      </li>
-                    </ul>
-                    <div
-                      class="d-flex align-items-center justify-content-between mb-4"
+                    <a
+                      class="text-primary fw-bold"
+                      href="./authentication-reset-password.html"
+                      >Forgot Password?</a
                     >
-                      <div class="form-check">
-                        <input
-                          class="form-check-input primary"
-                          type="checkbox"
-                          value=""
-                          id="flexCheckChecked"
-                          checked
-                        />
-                        <label
-                          class="form-check-label text-dark"
-                          for="flexCheckChecked"
-                        >
-                          Remember this Device
-                        </label>
-                      </div>
+                  </div>
+                  <button
+                    id="submit"
+                    type="submit"
+                    class="btn btn-success w-100 mb-3"
+                  >
+                    Sign In
+                  </button>
+                  <div class="separator">
+                    <span class="separator-text">or</span>
+                  </div>
+                  <button
+                    id="login-google"
+                    type="button"
+                    class="btn btn-light d-flex align-items-center justify-content-center w-100 mb-3"
+                    style="border: 1px solid #ddd"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                      alt="Google Logo"
+                      style="width: 20px; height: 20px; margin-right: 10px"
+                    />
+                    Login with Google
+                  </button>
+                  <div class="text-center">
+                    <small
+                      >Don't have an account?
                       <a
                         class="text-primary fw-bold"
-                        href="./authentication-reset-password.html"
-                        >Forgot Password ?</a
-                      >
-                    </div>
-                    <button
-                      id="submit"
-                      type="submit"
-                      class="btn btn-success w-100 py-8 fs-4 mb-4 rounded-2"
-                    >
-                      Sign In
-                    </button>
-                    <div class="separator">
-                      <span class="separator-text">or</span>
-                    </div>
-                    <button
-                      id="login-google"
-                      type="button"
-                      class="btn btn-light d-flex align-items-center justify-content-center w-100 py-8 fs-4 mb-4 rounded-2"
-                      style="border: 1px solid #ddd"
-                    >
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-                        alt="Google Logo"
-                        style="width: 20px; height: 20px; margin-right: 10px"
-                      />
-                      Login with Google
-                    </button>
-                    <div
-                      class="d-flex align-items-center justify-content-center"
-                    >
-                      <p class="fs-4 mb-0 fw-bold">Don't have an account?</p>
-                      <a
-                        class="text-primary fw-bold ms-2"
                         href="./authentication-register.html"
                         >Create an account</a
-                      >
-                    </div>
-                  </form>
-                </div>
+                      ></small
+                    >
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <footer
+      class="text-center py-1 mt-2"
+      style="
+        background-color: #fcf4d4;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        font-size: 14px;
+      "
+    >
+      <span
+        >© Copyright <b>Customer Care Improvement</b>. All Right Reserved.
+      </span>
+      <span><b>Ver.1.0.0</b> - Development with ❤️‍🔥 by <b>CCG</b> ☎️</span>
+    </footer>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="../assets/js/auth/login.js"></script>
