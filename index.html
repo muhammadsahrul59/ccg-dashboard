@@ -4,7 +4,6 @@
     <title>CCG Dashboard - Homepage</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CCG Dashboard</title>
     <link
       rel="shortcut icon"
       type="image/png"
@@ -12,6 +11,7 @@
     />
     <link rel="stylesheet" href="/src/assets/css/styles.min.css" />
     <link rel="stylesheet" href="/src/assets/css/styles.darkmode.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -19,6 +19,135 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+    <style>
+      .gradient-card {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #44a5a0, #f9ad3c);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .gradient-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .gradient-card h5 {
+        color: white;
+        font-size: 1.5rem;
+        margin: 0;
+      }
+
+      .gradient-card p {
+        color: white;
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .card-content {
+        text-align: center;
+      }
+
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+      .card .card-body {
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center horizontally */
+        justify-content: center; /* Center vertically */
+        height: 100%; /* Ensure card body takes full card height */
+      }
+      .card-body h5,
+      .card-body p {
+        margin-bottom: 5px; /* Add some spacing between elements */
+      }
+      .separator {
+        border-top: 1px solid #ccc; /* Light gray separator line */
+        margin: 10px 0; /* Add some margin around the separator */
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .card-text {
+        font-size: 1rem;
+        color: #666;
+        text-align: center;
+      }
+
+      .container-fluid {
+        padding: 20px;
+      }
+
+      .row {
+        margin-bottom: 20px;
+      }
+
+      .display-4 {
+        font-size: 4rem;
+        font-weight: bold;
+      }
+
+      .lead {
+        font-size: 1.25rem;
+        color: #666;
+      }
+
+      @media (max-width: 768px) {
+        .display-4 {
+          font-size: 2rem;
+        }
+
+        .lead {
+          font-size: 1rem;
+        }
+
+        .gradient-card {
+          height: 150px;
+        }
+
+        .gradient-card h5 {
+          font-size: 1.25rem;
+        }
+
+        .gradient-card p {
+          font-size: 0.875rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -177,7 +306,6 @@
           </nav>
         </div>
       </aside>
-      >
       <!--  Sidebar End -->
 
       <!--  Main wrapper -->
@@ -185,11 +313,157 @@
         <!--  Header Start -->
         <header-template></header-template>
         <!--  Header End -->
+
+        <!--  Body Start -->
+        <div class="container-fluid">
+          <!-- Main Content -->
+          <div class="row justify-content-center mt-5">
+            <div class="col-md-8 text-center">
+              <h1 class="display-4 fw-bolder">CCG Dashboard</h1>
+              <p class="lead">Welcome to CCG Dashboard System</p>
+            </div>
+          </div>
+          <div class="separator"></div>
+          <h1 class="fw-bold">Development Dashboard</h1>
+          <!-- Dev Dashboard Cards -->
+          <div class="row justify-content-center mt-4">
+            <div class="col-md-10">
+              <div class="row">
+                <!-- Syarief Hidayat -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
+                  <a
+                    href="/src/pages/syariefhidayat-dashboard.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5>Syarief Hidayat</h5>
+                      <p class="card-text">Dev Dashboard</p>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Nita Noreko -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                >
+                  <a
+                    href="/src/pages/nitanoreko-dashboard.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Nita Noreko</h5>
+                      <p class="card-text">Dev Dashboard</p>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Muhammad Sahrul -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="300"
+                >
+                  <a
+                    href="/src/pages/sahrul-dashboard.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Muhammad Sahrul</h5>
+                      <p class="card-text">Dev Dashboard</p>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Muhamad Akmal -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="400"
+                >
+                  <a
+                    href="/src/pages/akmal-dashboard.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Muhamad Akmal</h5>
+                      <p class="card-text">Dev Dashboard</p>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Herlina Dwi Lestari -->
+                <div
+                  class="col-md-4 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                >
+                  <a
+                    href="/src/pages/herlina-dl-dashboard.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5 class="card-title">Herlina Dwi Lestari</h5>
+                      <p class="card-text">Dev Dashboard</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="separator"></div>
+          <!-- CCG Table Data Cards -->
+          <h1>TABEL</h1>
+          <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+              <div class="row">
+                <!-- CCG Project Table Data -->
+                <div
+                  class="col-md-6 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="800"
+                >
+                  <a
+                    href="/src/dev-table-pages/home-ccg-table.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5 class="card-title">CCG Project Table Data</h5>
+                      <p class="card-text">View project table data.</p>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- CCG Work Table Data -->
+                <div
+                  class="col-md-6 mb-4"
+                  data-aos="fade-up"
+                  data-aos-delay="900"
+                >
+                  <a
+                    href="/src/dev-table-pages/home-ccg-work-table.html"
+                    class="card gradient-card text-decoration-none"
+                  >
+                    <div class="card-body text-center">
+                      <h5 class="card-title">CCG Work Table Data</h5>
+                      <p class="card-text">View work table data.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  Body End -->
       </div>
-      <!--  Body Start -->
-      <div class="container-fluid"></div>
-      <!--  Body End -->
     </div>
+
+    <!-- Scripts -->
     <script type="module" src="/src/assets/js/signout.js" defer></script>
     <script
       type="module"
@@ -208,5 +482,9 @@
     <script src="/src/assets/js/header-template.js"></script>
     <script src="/src/assets/js/sidebar-template.js"></script>
     <script src="/src/assets/js/dark-mode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
   </body>
 </html>
