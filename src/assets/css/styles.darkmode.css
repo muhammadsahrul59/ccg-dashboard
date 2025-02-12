@@ -126,8 +126,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 20px;
-  margin-right: 40px;
 }
 
 [data-theme="dark"] .theme-toggle i.fa-sun {
@@ -144,4 +142,10 @@
 
 .theme-toggle i.fa-moon {
   display: inline-block;
+}
+
+@media (max-width: 992px) {
+  .theme-toggle {
+    margin-top: 20px;
+  }
 }

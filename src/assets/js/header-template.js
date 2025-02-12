@@ -75,20 +75,39 @@ class Header extends HTMLElement {
           .theme-toggle input {
             display: none;
           }
+            .toggle-handle i {
+          color: #ffffff;
+          font-size: 14px;
+        }
+
+        .toggle-handle .fa-sun { /* Target the sun icon specifically */
+          display: block; /* Ensure sun icon is visible initially */
+        }
+
+        .toggle-handle .fa-moon { /* Target the moon icon specifically */
+          display: none;
+        }
+
+        .theme-toggle.dark .toggle-handle .fa-sun {
+          display: none;
+        }
+
+        .theme-toggle.dark .toggle-handle .fa-moon {
+          display: block;
+        }
+
         </style>
         <header class="app-header">
           <nav class="navbar navbar-expand-lg navbar-light">
             <ul class="navbar-nav">
               <!-- Dark Mode Toggle Button -->
               <li class="nav-item">
-                <label class="theme-toggle" id="themeToggle">
-                  <input type="checkbox" id="theme">
-                  <div class="toggle-handle">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon" style="display: none;"></i>
-                  </div>
-                </label>
-              </li>
+              <label class="theme-toggle" id="themeToggle">
+                <input type="checkbox" id="theme">
+                <div class="toggle-handle">
+                  <i class="fas fa-sun"></i>  <i class="fas fa-moon"></i> </div>
+              </label>
+            </li>
               <li class="nav-item d-block d-xl-none">
                 <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                   <i class="ti ti-menu-2"></i>
@@ -127,6 +146,62 @@ class Header extends HTMLElement {
           </nav>
         </header>
     `;
+    // JavaScript to toggle icons (add this after setting innerHTML)
+    const themeToggle = document.getElementById("themeToggle");
+    const themeCheckbox = themeToggle.querySelector("#theme");
+    const sunIcon = themeToggle.querySelector(".fa-sun");
+    const moonIcon = themeToggle.querySelector(".fa-moon");
+
+    // Initialize icons based on checkbox state (which will be set later)
+    const initializeIcons = () => {
+      sunIcon.style.display = themeCheckbox.checked ? "none" : "block";
+      moonIcon.style.display = themeCheckbox.checked ? "block" : "none";
+    };
+
+    themeToggle.addEventListener("click", () => {
+      themeCheckbox.checked = !themeCheckbox.checked; // Toggle the checkbox
+      initializeIcons(); // Update icons
+    });
+
+    // Dark mode functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const storedTheme = localStorage.getItem("theme");
+      let initialTheme = "light"; // Default to light
+
+      // Priority: Local Storage -> System Preference
+      if (storedTheme) {
+        initialTheme = storedTheme;
+      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        initialTheme = "dark";
+      }
+
+      document.documentElement.setAttribute("data-theme", initialTheme);
+      themeCheckbox.checked = initialTheme === "dark";
+      themeToggle.classList.toggle("dark", initialTheme === "dark");
+      initializeIcons(); // Set initial icon visibility
+
+      themeCheckbox.addEventListener("change", () => {
+        const newTheme = themeCheckbox.checked ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        themeToggle.classList.toggle("dark", themeCheckbox.checked);
+        initializeIcons(); // Update icons
+      });
+
+      // System preference detection (listen for changes)
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          // Only update if the user hasn't explicitly set a preference in localStorage
+          if (!storedTheme) {
+            const systemTheme = e.matches ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", systemTheme);
+            themeCheckbox.checked = systemTheme === "dark";
+            themeToggle.classList.toggle("dark", systemTheme === "dark");
+            initializeIcons();
+          }
+        });
+    });
   }
 }
 

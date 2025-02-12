@@ -5,16 +5,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const nextBtn = document.querySelector(".slider-nav.next");
 
   let currentPosition = 0;
-  const slideWidth = slides[0].offsetWidth + 20; // Include gap
-  const maxPosition = -(slides.length - 3) * slideWidth; // Show 3 slides at once
+  let slideWidth = slides[0].offsetWidth + 20; // Use let
+  let maxPosition = calculateMaxPosition(); // Initialize with function
+
+  function calculateMaxPosition() {
+    const visibleSlides =
+      window.innerWidth < 768 ? 1 : window.innerWidth < 992 ? 2 : 3;
+    return -(slides.length - visibleSlides) * slideWidth;
+  }
 
   function updateSliderPosition() {
     sliderWrapper.style.transform = `translateX(${currentPosition}px)`;
-
-    // Update button states
-    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>'; // Font Awesome icon
-    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>'; // Font Awesome icon
-    // Disable/enable buttons based on position
+    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
     prevBtn.disabled = currentPosition === 0;
     nextBtn.disabled = currentPosition === maxPosition;
   }
@@ -29,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSliderPosition();
   });
 
-  // Initial button state
   updateSliderPosition();
 
   function debounce(func, wait) {
@@ -40,14 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
     };
   }
 
-  // Update maxPosition on window resize
   window.addEventListener(
     "resize",
     debounce(() => {
-      const newSlideWidth = slides[0].offsetWidth + 20;
-      const visibleSlides =
-        window.innerWidth < 768 ? 1 : window.innerWidth < 992 ? 2 : 3;
-      maxPosition = -(slides.length - visibleSlides) * newSlideWidth;
+      slideWidth = slides[0].offsetWidth + 20; // Update slideWidth
+      maxPosition = calculateMaxPosition(); // Recalculate maxPosition
       updateSliderPosition();
     }, 100)
   );
