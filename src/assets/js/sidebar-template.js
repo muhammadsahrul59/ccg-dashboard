@@ -9,7 +9,12 @@ class Sidebar extends HTMLElement {
         <div>
           <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/index.html" class="text-nowrap logo-img">
-              <img src="../assets/images/logos/Bank_Syariah_Indonesia.svg" width="180" alt="" />
+              <img
+                src="/src/assets/images/logos/Bank_Syariah_Indonesia.svg"
+                width="180"
+                alt="Bank Syariah Indonesia Logo"
+                loading="lazy"
+              />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
               <i class="ti ti-x fs-8"></i>

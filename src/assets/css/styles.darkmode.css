@@ -87,6 +87,35 @@
   background-color: var(--dropdown-hover);
 }
 
+/* Dark mode styles */
+[data-theme="dark"] h1.display-4 {
+  color: white !important;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] h3 {
+  color: white !important;
+}
+/* Dark mode styles */
+[data-theme="dark"] span.hide-menu {
+  color: white !important;
+}
+[data-theme="dark"] .card-text {
+  color: white !important;
+}
+
+[data-theme="dark"] .lead {
+  color: white !important;
+}
+
+[data-theme="dark"] .card-title {
+  color: white !important;
+}
+
+[data-theme="dark"] .card-body p {
+  color: white !important;
+}
+
 /* Dark mode toggle button styles */
 .theme-toggle {
   background: none;
@@ -97,6 +126,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-top: 20px;
+  margin-right: 40px;
 }
 
 [data-theme="dark"] .theme-toggle i.fa-sun {
