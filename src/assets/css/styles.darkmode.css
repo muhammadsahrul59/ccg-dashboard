@@ -2,7 +2,7 @@
 [data-theme="dark"] {
   /* General */
   --body-bg: #2b2b2b;
-  --body-color: #e4e6eb;
+  --body-color: #1e1e1e;
   --border-color: #404040;
 
   /* Sidebar */
@@ -27,7 +27,6 @@
   --dropdown-border: #404040;
   --dropdown-hover: #333333;
 }
-
 /* Apply dark mode styles */
 [data-theme="dark"] body {
   background-color: var(--body-bg);
@@ -96,10 +95,28 @@
 [data-theme="dark"] h3 {
   color: white !important;
 }
+
 /* Dark mode styles */
 [data-theme="dark"] span.hide-menu {
   color: white !important;
 }
+
+[data-theme="dark"] .card-title h4 {
+  color: black !important;
+}
+
+[data-theme="dark"] .card-title h3 {
+  color: black !important;
+}
+
+[data-theme="dark"] .i {
+  color: black !important;
+}
+
+[data-theme="dark"] .card-title span {
+  color: black !important; /* Memastikan teks tetap hitam */
+}
+
 [data-theme="dark"] .card-text {
   color: white !important;
 }
@@ -109,7 +126,7 @@
 }
 
 [data-theme="dark"] .card-title {
-  color: white !important;
+  color: black !important;
 }
 
 [data-theme="dark"] .card-body p {

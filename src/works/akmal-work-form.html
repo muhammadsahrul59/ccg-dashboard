@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="../assets/css/styles.darkmode.css" />
+    <link rel="stylesheet" href="../assets/css/styles.notification.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -26,10 +27,27 @@
         left: 0;
         top: 0;
       }
+
+      /* Hide vertical dividers on smaller screens */
+      @media (max-width: 991.98px) {
+        /* Adjust breakpoint as needed */
+        .vertical-divider {
+          display: none;
+        }
+
+        /* Add top border to sections on smaller screens */
+        .section-divider {
+          border-top: 2px solid #e9ecef;
+          padding-top: 20px; /* Adjust padding as needed */
+          margin-top: 20px;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
     <div
       class="page-wrapper"
       id="main-wrapper"

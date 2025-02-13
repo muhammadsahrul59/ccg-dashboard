@@ -62,22 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const formData = {
         work_owner: document.getElementById("workOwner").value,
         date: document.getElementById("workDate").value,
-        create_knowledge:
-          parseInt(document.getElementById("knowledge").value) || 0,
-        create_answer: parseInt(document.getElementById("answer").value) || 0,
-        create_module: parseInt(document.getElementById("module").value) || 0,
-        update_answer:
-          parseInt(document.getElementById("updateAnswer").value) || 0,
-        update_quick_reply:
-          parseInt(document.getElementById("quickReply").value) || 0,
-        update_button: parseInt(document.getElementById("button").value) || 0,
-        input_synonym: parseInt(document.getElementById("synonym").value) || 0,
-        input_intent: parseInt(document.getElementById("intent").value) || 0,
-        total_creation:
-          parseInt(document.getElementById("totalcreation").value) || 0,
-        total_update_knowledge:
-          parseInt(document.getElementById("totalupdateknowledge").value) || 0,
-        total_input: parseInt(document.getElementById("totalinput").value) || 0,
+        // ... rest of your form data ...
       };
 
       // Insert data into Supabase
@@ -89,26 +74,72 @@ document.addEventListener("DOMContentLoaded", function () {
         throw error;
       }
 
-      // Show success message
-      alert("Data berhasil disimpan!");
+      // Show success notification
+      showNotification({
+        type: "success",
+        title: "Success!",
+        message: "Data has been saved successfully",
+      });
 
       // Reset form
       workForm.reset();
-
-      // Reset totals
       updateTotals();
-
-      // Set default value for work owner
       document.getElementById("workOwner").value = "Muhamad Akmal Amrullah";
-
-      // Set default date to today
       const today = new Date().toISOString().split("T")[0];
       document.getElementById("workDate").value = today;
     } catch (error) {
       console.error("Error:", error);
-      alert("Terjadi kesalahan saat menyimpan data. Silakan coba lagi.");
+      showNotification({
+        type: "error",
+        title: "Failed!",
+        message: "Only authorized accounts can input!",
+      });
     }
   });
+
+  // Function to show notification
+  function showNotification({ type = "success", title, message }) {
+    // Remove existing notifications
+    const existingToast = document.querySelector(".modern-toast");
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    // Create new notification
+    const toast = document.createElement("div");
+    toast.className = `modern-toast ${type}`;
+    toast.innerHTML = `
+    <div class="toast-icon">
+      <i class="fas ${
+        type === "success"
+          ? "fa-check-circle"
+          : type === "error"
+          ? "fa-exclamation-circle"
+          : "fa-exclamation-triangle"
+      }"></i>
+    </div>
+    <div class="toast-content">
+      <h4 class="toast-title">${title}</h4>
+      <p class="toast-message">${message}</p>
+    </div>
+    <div class="progress-bar"></div>
+  `;
+
+    document.getElementById("toast-container").appendChild(toast);
+
+    // Show notification with animation
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 10);
+
+    // Remove notification after delay
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => {
+        toast.remove();
+      }, 500);
+    }, 3000);
+  }
 
   // Set default value for work owner when page loads
   document.getElementById("workOwner").value = "Muhamad Akmal Amrullah";

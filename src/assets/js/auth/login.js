@@ -45,6 +45,9 @@ loginGoogle.addEventListener("click", async function (event) {
     });
 
     if (error) throw error;
+
+    // Set notification flag before OAuth redirect
+    handleLoginSuccess();
   } catch (error) {
     showError("Failed to sign in with Google. Please try again.");
     console.error("Google Sign In Error:", error.message);
@@ -57,6 +60,10 @@ loginGoogle.addEventListener("click", async function (event) {
 // Submit button for email/password login
 const submit = document.getElementById("submit");
 submit.dataset.originalText = submit.innerHTML;
+
+function handleLoginSuccess() {
+  sessionStorage.setItem("showLoginNotification", "true");
+}
 
 submit.addEventListener("click", async function (event) {
   event.preventDefault();
@@ -88,7 +95,10 @@ submit.addEventListener("click", async function (event) {
 
     if (error) throw error;
 
-    // Successful login
+    // Set notification flag before redirect
+    handleLoginSuccess();
+
+    // Redirect to dashboard
     window.location.href = BASE_URL + INDEX_PATH;
   } catch (error) {
     showError("Invalid email or password. Please try again.");

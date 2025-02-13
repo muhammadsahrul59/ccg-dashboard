@@ -1,3 +1,4 @@
+//project-form.js
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const SUPABASE_CONFIG = {
@@ -53,11 +54,21 @@ async function handleFormSubmission(formData) {
 
     if (error) throw error;
 
-    alert("Project saved successfully!");
-    window.location.href = "home-my-tasks.html";
+    showNotification({
+      type: "success",
+      title: "Project Saved!",
+      message: "Your project has been saved successfully",
+    });
+    setTimeout(() => {
+      window.location.href = "home-my-tasks.html";
+    }, 1500);
   } catch (error) {
     console.error("Error saving project:", error);
-    alert(`Failed to save project: Only authenticated accounts can input!`);
+    showNotification({
+      type: "error",
+      title: "Authentication Error",
+      message: "Only authenticated accounts can input data",
+    });
   }
 }
 
@@ -86,7 +97,11 @@ function initializeForm() {
     // Validate priority
     const priority = document.getElementById("priority").value;
     if (!validatePriority(priority)) {
-      alert("Priority must be between 1 and 4");
+      showNotification({
+        type: "warning",
+        title: "Invalid Priority",
+        message: "Priority must be between 1 and 4",
+      });
       return;
     }
 
@@ -94,7 +109,11 @@ function initializeForm() {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
     if (!validateDates(startDate, endDate)) {
-      alert("End date cannot be earlier than start date");
+      showNotification({
+        type: "warning",
+        title: "Invalid Dates",
+        message: "End date cannot be earlier than start date",
+      });
       return;
     }
 
@@ -103,7 +122,11 @@ function initializeForm() {
       ({ inputId }) => document.getElementById(inputId).value
     );
     if (!validatePercentages(percentages)) {
-      alert("All percentages must be between 0 and 100");
+      showNotification({
+        type: "warning",
+        title: "Invalid Percentages",
+        message: "All percentages must be between 0 and 100",
+      });
       return;
     }
 
@@ -134,3 +157,46 @@ document.addEventListener("DOMContentLoaded", initializeForm);
 
 // Export necessary functions if needed in other modules
 export { updatePercentage, initializeForm };
+
+function showNotification({ type = "success", title, message }) {
+  // Remove existing notifications
+  const existingToast = document.querySelector(".modern-toast");
+  if (existingToast) {
+    existingToast.remove();
+  }
+
+  // Create new notification
+  const toast = document.createElement("div");
+  toast.className = `modern-toast ${type}`;
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <i class="fas ${
+        type === "success"
+          ? "fa-check-circle"
+          : type === "error"
+          ? "fa-exclamation-circle"
+          : "fa-exclamation-triangle"
+      }"></i>
+    </div>
+    <div class="toast-content">
+      <h4 class="toast-title">${title}</h4>
+      <p class="toast-message">${message}</p>
+    </div>
+    <div class="progress-bar"></div>
+  `;
+
+  document.getElementById("toast-container").appendChild(toast);
+
+  // Show notification with animation
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  // Remove notification after delay
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => {
+      toast.remove();
+    }, 500);
+  }, 3000);
+}
