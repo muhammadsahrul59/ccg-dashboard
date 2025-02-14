@@ -1,6 +1,45 @@
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+const supabaseUrl = "https://pembaveqjbfpxajoadte.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q";
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 class Header extends HTMLElement {
   constructor() {
     super();
+  }
+
+  async loadProfileImage() {
+    try {
+      // Get current user
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) throw userError;
+      if (!user) throw new Error("No user logged in");
+
+      // Query the profile
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("avatar_url")
+        .eq("user_id", user.id)
+        .single();
+
+      if (profileError) throw profileError;
+
+      // Update profile image if available
+      const headerProfileImage = document.getElementById("headerProfileImage");
+      if (headerProfileImage && profile?.avatar_url) {
+        headerProfileImage.src = profile.avatar_url;
+      }
+    } catch (error) {
+      console.error("Error loading profile image:", error.message);
+      // Keep the default image in case of error
+    }
   }
 
   connectedCallback() {
@@ -41,8 +80,8 @@ class Header extends HTMLElement {
             position: relative;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-right: 1rem; /* Add some margin */
-        }
+            margin-right: 1rem;
+          }
 
           .theme-toggle.dark {
             background-color: hsl(198,90%,15%);
@@ -75,51 +114,47 @@ class Header extends HTMLElement {
           .theme-toggle input {
             display: none;
           }
-            .toggle-handle i {
-          color: #ffffff;
-          font-size: 14px;
-        }
 
-        .toggle-handle .fa-sun { /* Target the sun icon specifically */
-          display: block; /* Ensure sun icon is visible initially */
-        }
+          .toggle-handle .fa-sun {
+            display: block;
+          }
 
-        .toggle-handle .fa-moon { /* Target the moon icon specifically */
-          display: none;
-        }
+          .toggle-handle .fa-moon {
+            display: none;
+          }
 
-        .theme-toggle.dark .toggle-handle .fa-sun {
-          display: none;
-        }
+          .theme-toggle.dark .toggle-handle .fa-sun {
+            display: none;
+          }
 
-        .theme-toggle.dark .toggle-handle .fa-moon {
-          display: block;
-        }
+          .theme-toggle.dark .toggle-handle .fa-moon {
+            display: block;
+          }
 
         </style>
         <header class="app-header">
           <nav class="navbar navbar-expand-lg navbar-light">
             <ul class="navbar-nav">
-              <!-- Dark Mode Toggle Button -->
               <li class="nav-item">
-              <label class="theme-toggle" id="themeToggle">
-                <input type="checkbox" id="theme">
-                <div class="toggle-handle">
-                  <i class="fas fa-sun"></i>  <i class="fas fa-moon"></i> </div>
-              </label>
-            </li>
+                <label class="theme-toggle" id="themeToggle">
+                  <input type="checkbox" id="theme">
+                  <div class="toggle-handle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                  </div>
+                </label>
+              </li>
               <li class="nav-item d-block d-xl-none">
                 <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
                   <i class="ti ti-menu-2"></i>
                 </a>
               </li>
             </ul>
-            <!-- Rest of the navbar content remains the same -->
             <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
               <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                 <li class="nav-item dropdown">
                   <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/src/assets/images/profile/user-1.jpg" alt="" width="40" height="40" class="rounded-circle" />
+                    <img src="/src/assets/images/profile/user-1.jpg" alt="" width="40" height="40" class="rounded-circle" id="headerProfileImage" />
                   </a>
                   <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                     <div class="message-body">
@@ -146,6 +181,9 @@ class Header extends HTMLElement {
           </nav>
         </header>
     `;
+
+    this.loadProfileImage();
+
     // JavaScript to toggle icons (add this after setting innerHTML)
     const themeToggle = document.getElementById("themeToggle");
     const themeCheckbox = themeToggle.querySelector("#theme");

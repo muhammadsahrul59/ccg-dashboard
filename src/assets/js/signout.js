@@ -82,16 +82,24 @@ checkLogoutTime();
 checkAuthState();
 
 // Handle logout manually via button
-document.getElementById("logout").addEventListener("click", async (e) => {
-  e.preventDefault();
-  try {
-    await supabase.auth.signOut();
-    localStorage.removeItem("logout_time"); // Clear local storage on manual logout
-    alert("Logout Success");
-    window.location.href = BASE_URL + LOGIN_PATH;
-  } catch (error) {
-    console.error("Error during sign-out:", error);
-    alert("Error during sign-out.");
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutButton = document.getElementById("logout");
+  if (logoutButton) {
+    // Check if the element exists
+    logoutButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await supabase.auth.signOut();
+        localStorage.removeItem("logout_time");
+        alert("Logout Success");
+        window.location.href = BASE_URL + LOGIN_PATH;
+      } catch (error) {
+        console.error("Error during sign-out:", error);
+        alert("Error during sign-out.");
+      }
+    });
+  } else {
+    console.error("Logout button not found!"); // Handle the case where the element is missing
   }
 });
 

@@ -7,21 +7,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const notification = document.getElementById("loginNotification");
     if (notification) {
-      // Tampilkan notifikasi
+      // Add progress bar
+      const progressBar = document.createElement("div");
+      progressBar.className = "progress-bar";
+      notification.appendChild(progressBar);
+
+      // Show notification with slight delay
       setTimeout(() => {
         notification.classList.add("show");
       }, 100);
 
-      // Sembunyikan notifikasi setelah 4 detik
-      setTimeout(() => {
+      // Handle navigation - immediately hide notification if user clicks a link
+      document.addEventListener("click", (e) => {
+        if (e.target.tagName === "A" || e.target.closest("a")) {
+          notification.classList.remove("show");
+          notification.classList.add("hide");
+          setTimeout(() => {
+            notification.remove();
+          }, 300);
+        }
+      });
+
+      // Listen for progress bar animation end
+      progressBar.addEventListener("animationend", () => {
         notification.classList.remove("show");
         notification.classList.add("hide");
-
-        // Hapus notifikasi dari DOM setelah animasi selesai
         setTimeout(() => {
           notification.remove();
-        }, 500); // Sesuaikan dengan durasi animasi CSS
-      }, 4000);
+        }, 500);
+      });
     }
   }
 });

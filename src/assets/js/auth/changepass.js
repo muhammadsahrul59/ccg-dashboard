@@ -55,6 +55,31 @@ function checkPassword(password) {
   });
 }
 
+// Function to show notification
+function showNotification(type, message) {
+  const notification = document.createElement("div");
+  notification.className = `modern-toast ${type}`;
+  notification.innerHTML = `
+    <div class="toast-icon">${type === "error" ? "✖" : "✔"}</div>
+    <div class="toast-content">
+      <p class="toast-message">${message}</p>
+    </div>
+    <div class="progress-bar"></div>
+  `;
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.classList.add("show");
+  }, 100);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      notification.remove();
+    }, 500);
+  }, 3000);
+}
+
 // Setup event listeners when document loads
 document.addEventListener("DOMContentLoaded", function () {
   // Setup password toggles for all password fields
@@ -85,8 +110,7 @@ changePasswordForm.addEventListener("submit", async function (e) {
 
   // Validate new password matches confirm password
   if (newPassword !== confirmPassword) {
-    const passwordError = document.getElementById("passwordError");
-    passwordError.style.display = "block";
+    showNotification("error", "Passwords do not match.");
     return;
   }
 
@@ -103,7 +127,7 @@ changePasswordForm.addEventListener("submit", async function (e) {
     }
 
     // Show success message
-    alert("Password successfully updated!");
+    showNotification("success", "Password successfully updated!");
 
     // Clear form
     changePasswordForm.reset();
@@ -116,9 +140,15 @@ changePasswordForm.addEventListener("submit", async function (e) {
 
     // Show appropriate error message based on error code
     if (error.message.includes("Password should be at least")) {
-      alert("The new password is too weak. Please choose a stronger password.");
+      showNotification(
+        "error",
+        "The new password is too weak. Please choose a stronger password."
+      );
     } else {
-      alert("An error occurred while updating the password. Please try again.");
+      showNotification(
+        "error",
+        "An error occurred while updating the password. Please try again."
+      );
     }
   }
 });

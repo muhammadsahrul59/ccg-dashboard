@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="../assets/css/styles3.css" />
     <link rel="stylesheet" href="../assets/css/styles.darkmode.css" />
+    <link rel="stylesheet" href="../assets/css/styles.notification.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -19,9 +20,134 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <style>
+      /* Enhanced responsive styles */
+      .profile-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: clamp(1rem, 5vw, 2rem);
+        margin: 1rem auto;
+        max-width: 800px;
+        width: 95%;
+      }
+
+      .profile-image-container {
+        position: relative;
+        width: clamp(150px, 30vw, 200px);
+        height: clamp(150px, 30vw, 200px);
+        margin: 0 auto;
+      }
+
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .change-photo-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: #fff;
+        border-radius: 50%;
+        padding: 8px;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease;
+      }
+
+      .change-photo-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-control,
+      .form-select {
+        padding: 0.75rem;
+        border-radius: 8px;
+      }
+
+      /* Mobile optimizations */
+      @media (max-width: 768px) {
+        .container-fluid {
+          padding: 0.5rem;
+        }
+
+        .btn-lg {
+          width: 100%;
+          margin-top: 1rem;
+        }
+      }
+
+      /* Added password section styles */
+      .password-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #eee;
+        text-align: center;
+      }
+
+      .change-password-link {
+        color: #2196f3;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.2s ease;
+      }
+
+      .change-password-link:hover {
+        color: #1976d2;
+      }
+
+      /* Loading state styles */
+      .btn-loading {
+        position: relative;
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      .btn-loading::after {
+        content: "";
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+        margin-left: 0.5rem;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .required-field::after {
+        content: "*";
+        color: #dc3545;
+        margin-left: 4px;
+      }
+
+      /* Style for readonly email field */
+      .form-control:read-only {
+        background-color: #f8f9fa;
+        cursor: not-allowed;
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
     <!--  Body Wrapper -->
     <div
       class="page-wrapper"
@@ -37,118 +163,122 @@
       <!--  Sidebar End -->
       <!--  Main wrapper -->
       <div class="body-wrapper">
-        <!--  Header Start -->
         <header-template></header-template>
-        <!--  Header End -->
+
         <div class="container-fluid">
-          <div
-            class="d-sm-flex align-items-center justify-content-between mb-4"
-          >
-            <h1 class="h2 mb-0 text-green-bsi fw-bolder">My Profile</h1>
-          </div>
+          <div class="container py-5">
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <div class="profile-container">
+                  <h2 class="text-center mb-4">My Profile</h2>
 
-          <div class="row justify-content-center g-4">
-            <!-- Profile Image Column -->
-            <div class="col-11 col-md-3 text-center">
-              <img
-                src="../assets/images/profile/user-1.jpg"
-                alt="Profile Picture"
-                width="200"
-                height="200"
-                class="rounded-circle mb-4 mb-md-0 shadow-lg"
-              />
-            </div>
-
-            <!-- Password Change Form Column -->
-            <div class="col-12 col-md-6">
-              <div class="card border-0 shadow-lg">
-                <div class="card-body p-4">
-                  <h2 class="h2 text-green-bsi fw-bolder mb-4 text-center">
-                    Change Password
-                  </h2>
-                  <form id="changePasswordForm">
-                    <!-- Old Password -->
-                    <div class="mb-4 position-relative">
-                      <label for="oldPassword" class="form-label text-dark"
-                        >Old Password</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control py-2"
-                        id="oldPassword"
-                        required
+                  <form id="profileForm" novalidate>
+                    <div class="profile-image-container mb-4">
+                      <img
+                        id="profileImage"
+                        src="../assets/images/profile/user-1.jpg"
+                        alt="Profile Picture"
+                        class="profile-image"
+                        loading="lazy"
                       />
-                      <i
-                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
-                        id="toggle-old-password"
-                        style="cursor: pointer"
-                      ></i>
+                      <label for="photoInput" class="change-photo-btn">
+                        <i class="fas fa-camera"></i>
+                        <input
+                          type="file"
+                          id="photoInput"
+                          hidden
+                          accept="image/*"
+                        />
+                      </label>
                     </div>
 
-                    <!-- New Password -->
-                    <div class="mb-4 position-relative">
-                      <label for="newPassword" class="form-label text-dark"
-                        >New Password</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control py-2"
-                        id="newPassword"
-                        required
-                      />
-                      <i
-                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
-                        id="toggle-new-password"
-                        style="cursor: pointer"
-                      ></i>
+                    <div class="row g-4">
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label class="form-label required-field"
+                            >Full Name</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            required
+                          />
+                          <div class="invalid-feedback">
+                            Please enter your full name
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label class="form-label required-field"
+                            >Phone Number</label
+                          >
+                          <input
+                            type="tel"
+                            class="form-control"
+                            id="phone"
+                            required
+                            pattern="[0-9\+\-\s]+"
+                          />
+                          <div class="invalid-feedback">
+                            Please enter a valid phone number
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label class="form-label">Email</label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            readonly
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-6">
+                        <div class="form-group">
+                          <label class="form-label required-field"
+                            >Department</label
+                          >
+                          <select class="form-select" id="department" required>
+                            <option value="">Select Department</option>
+                            <option value="CCI">CCI</option>
+                            <option value="SQ">SQ</option>
+                            <option value="CH">CH</option>
+                            <option value="CC">CC</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Please select your department
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 text-center mt-4">
+                        <button
+                          type="submit"
+                          class="btn btn-success btn-lg px-5"
+                        >
+                          Save Changes
+                        </button>
+                      </div>
                     </div>
-
-                    <!-- Confirm New Password -->
-                    <div class="mb-4 position-relative">
-                      <label for="confirmPassword" class="form-label text-dark"
-                        >Confirm New Password</label
-                      >
-                      <input
-                        type="password"
-                        class="form-control py-2"
-                        id="confirmPassword"
-                        aria-describedby="passwordHelp"
-                      />
-                      <i
-                        class="fa-solid fa-eye-slash position-absolute end-0 top-75 translate-middle-y me-3"
-                        id="toggle-confirm-password"
-                        style="cursor: pointer"
-                      ></i>
-                    </div>
-
-                    <!-- Password Checklist -->
-                    <ul class="password-checklist" id="password-checklist">
-                      <li id="length-check">
-                        <i class="fa fa-times-circle"></i> 8 characters or
-                        longer
-                      </li>
-                      <li id="uppercase-check">
-                        <i class="fa fa-times-circle"></i> At least one
-                        Uppercase character
-                      </li>
-                      <li id="special-check">
-                        <i class="fa fa-times-circle"></i> At least one Special
-                        character
-                      </li>
-                    </ul>
-
-                    <div
-                      id="passwordError"
-                      class="text-danger mb-3"
-                      style="display: none"
-                    >
-                      Passwords do not match!
-                    </div>
-
-                    <button type="submit" class="btn btn-success w-100 py-2">
-                      Change Password
-                    </button>
                   </form>
+
+                  <!-- Added Change Password Section -->
+                  <div class="password-section">
+                    <a
+                      href="/src/pages/changepass.html"
+                      class="change-password-link"
+                    >
+                      <i class="fas fa-key"></i>
+                      Change Password
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -157,15 +287,14 @@
       </div>
     </div>
     <script type="module" src="../assets/js/signout.js" defer></script>
-    <script type="module" src="../assets/js/auth/changepass.js" defer></script>
+    <script type="module" src="../assets/js/my-profile.js"></script>
+    <script type="module" src="../assets/js/header-template.js"></script>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/sidebarmenu.js"></script>
-    <script src="../assets/js/loadsidebar.js"></script>
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="/src/assets/js/header-template.js"></script>
-    <script src="/src/assets/js/sidebar-template.js"></script>
-    <script src="/src/assets/js/dark-mode.js"></script>
+    <script src="../assets/js/sidebar-template.js"></script>
+    <script src="../assets/js/dark-mode.js"></script>
   </body>
 </html>

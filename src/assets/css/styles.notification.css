@@ -1,10 +1,10 @@
-/* login notification */
-
+/* Modern Notification Styles */
 .modern-notification-container {
   position: fixed;
   top: 80px;
   right: 20px;
-  z-index: 1000; /* Menurunkan z-index agar tidak menutupi modal dan dropdown */
+  z-index: 1000;
+  pointer-events: none;
 }
 
 .modern-notification {
@@ -20,12 +20,17 @@
   transform: translateX(400px);
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  pointer-events: none; /* Tambahkan ini agar notifikasi tidak menghalangi interaksi */
+  pointer-events: none; /* Notification won't block any interactions */
 }
 
 .modern-notification.show {
   transform: translateX(0);
   opacity: 1;
+}
+
+.modern-notification.hide {
+  transform: translateX(400px);
+  opacity: 0;
 }
 
 .notification-icon {
@@ -49,6 +54,18 @@
   margin: 5px 0 0;
   color: #718096;
   font-size: 14px;
+}
+
+/* Progress Bar */
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: #4caf50;
+  border-radius: 0 0 16px 16px;
+  animation: progress 3s linear forwards;
 }
 
 /* Checkmark Animation */
@@ -90,6 +107,15 @@
 @keyframes fill {
   100% {
     box-shadow: inset 0px 0px 0px 30px #4caf50;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
   }
 }
 
