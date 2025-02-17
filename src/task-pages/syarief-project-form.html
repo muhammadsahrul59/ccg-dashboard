@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <title>Project Forms</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Project Input Form</title>
     <link
       rel="shortcut icon"
       type="image/png"
-      href="/assets/images/logos/favicon.png"
+      href="/src/assets/images/logos/favicon.png"
     />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="../assets/css/styles.darkmode.css" />
     <link rel="stylesheet" href="../assets/css/styles.notification.css" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -24,9 +22,7 @@
   </head>
 
   <body>
-    <!-- Toast Container -->
     <div id="toast-container"></div>
-    <!--  Body Wrapper -->
     <div
       class="page-wrapper"
       id="main-wrapper"
@@ -36,14 +32,9 @@
       data-sidebar-position="fixed"
       data-header-position="fixed"
     >
-      <!-- Sidebar Start -->
       <sidebar-template></sidebar-template>
-      <!--  Sidebar End -->
-      <!--  Main wrapper -->
       <div class="body-wrapper">
-        <!--  Header Start -->
         <header-template></header-template>
-        <!--  Header End -->
         <div class="container-fluid">
           <div class="row justify-content-center align-items-center min-vh-100">
             <div class="col-12 col-xl-10">
@@ -53,54 +44,43 @@
                     Input Project Data
                   </h1>
                   <form id="projectForm" class="row pt-3">
-                    <!-- Left Column - Project Details -->
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="projectOwner" class="form-label"
-                          >Project Owner</label
-                        >
+                        <label for="pic" class="form-label">PIC</label>
                         <input
                           type="text"
                           class="form-control"
-                          id="projectOwner"
-                          name="projectOwner"
+                          id="pic"
+                          name="pic"
                           value="Syarief Hidayat"
                           readonly
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="projectName" class="form-label"
+                        <label for="nameProject" class="form-label"
                           >Project Name</label
                         >
                         <input
                           type="text"
                           class="form-control"
-                          id="projectName"
-                          name="projectName"
-                          placeholder="Masukkan nama project"
+                          id="nameProject"
+                          name="nameProject"
+                          placeholder="Enter project name"
                           required
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="projectType" class="form-label"
-                          >Type Project</label
+                        <label for="nameActivity" class="form-label"
+                          >Activity Name</label
                         >
-                        <select
-                          class="form-select"
-                          id="projectType"
-                          name="projectType"
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="nameActivity"
+                          name="nameActivity"
+                          placeholder="Enter activity name"
                           required
-                        >
-                          <option value="" disabled selected>
-                            -- Select Type Project --
-                          </option>
-                          <option value="PTO">PTO</option>
-                          <option value="CHMS">CHMS</option>
-                          <option value="Layanan">Layanan</option>
-                          <option value="Meeting Offline Keluar">
-                            Meeting Offline Keluar
-                          </option>
-                        </select>
+                        />
                       </div>
                       <div class="mb-3">
                         <label for="startDate" class="form-label"
@@ -115,162 +95,93 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="endDate" class="form-label">End Date</label>
+                        <label for="dueDate" class="form-label">Due Date</label>
                         <input
                           type="date"
                           class="form-control"
-                          id="endDate"
-                          name="endDate"
-                          required
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="complexity" class="form-label"
-                          >Complexity</label
-                        >
-                        <select
-                          class="form-select"
-                          id="complexity"
-                          name="complexity"
-                          required
-                        >
-                          <option value="" disabled selected>
-                            -- Select Complexity --
-                          </option>
-                          <option value="High">High</option>
-                          <option value="Medium">Medium</option>
-                          <option value="Low">Low</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="priority" class="form-label"
-                          >Priority</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="priority"
-                          name="priority"
-                          placeholder="Masukkan prioritas (1-4)"
-                          min="1"
-                          max="4"
+                          id="dueDate"
+                          name="dueDate"
                           required
                         />
                       </div>
                     </div>
 
-                    <!-- Right Column - Activity Progress -->
                     <div class="col-md-6">
-                      <h3 class="card-title mb-4">Activity Project</h3>
-
-                      <!-- Planning -->
+                      <div class="mb-3">
+                        <label for="actThisWeek" class="form-label"
+                          >Activities This Week</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="actThisWeek"
+                          name="actThisWeek"
+                          rows="3"
+                          placeholder="Enter activities for this week"
+                        ></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="actNextWeek" class="form-label"
+                          >Activities Next Week</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="actNextWeek"
+                          name="actNextWeek"
+                          rows="3"
+                          placeholder="Enter activities for next week"
+                        ></textarea>
+                      </div>
                       <div class="mb-3">
                         <label
-                          for="planning"
+                          for="progress"
                           class="form-label d-flex justify-content-between"
                         >
-                          <span>1. Planning</span>
-                          <span class="text-muted" id="planningValue">0%</span>
+                          <span>Progress</span>
+                          <span class="text-muted" id="progressValue">0%</span>
                         </label>
                         <input
                           type="number"
                           class="form-control"
-                          id="planning"
-                          name="planning"
+                          id="progress"
+                          name="progress"
                           min="0"
                           max="100"
                           required
                         />
                       </div>
-
-                      <!-- Requirement Analysis -->
                       <div class="mb-3">
                         <label
-                          for="requirementAnalysis"
+                          for="totalProgress"
                           class="form-label d-flex justify-content-between"
                         >
-                          <span>2. Requirement Analysis</span>
-                          <span class="text-muted" id="requirementValue"
+                          <span>Total Progress</span>
+                          <span class="text-muted" id="totalProgressValue"
                             >0%</span
                           >
                         </label>
                         <input
                           type="number"
                           class="form-control"
-                          id="requirementAnalysis"
-                          name="requirementAnalysis"
+                          id="totalProgress"
+                          name="totalProgress"
                           min="0"
                           max="100"
                           required
                         />
                       </div>
-
-                      <!-- Development -->
                       <div class="mb-3">
-                        <label
-                          for="development"
-                          class="form-label d-flex justify-content-between"
+                        <label for="doneDate" class="form-label"
+                          >Done Date</label
                         >
-                          <span>3. Development</span>
-                          <span class="text-muted" id="developmentValue"
-                            >0%</span
-                          >
-                        </label>
                         <input
-                          type="number"
+                          type="date"
                           class="form-control"
-                          id="development"
-                          name="development"
-                          min="0"
-                          max="100"
-                          required
-                        />
-                      </div>
-
-                      <!-- Testing -->
-                      <div class="mb-3">
-                        <label
-                          for="testing"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>4. Testing</span>
-                          <span class="text-muted" id="testingValue">0%</span>
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="testing"
-                          name="testing"
-                          min="0"
-                          max="100"
-                          required
-                        />
-                      </div>
-
-                      <!-- Deployment -->
-                      <div class="mb-3">
-                        <label
-                          for="deployment"
-                          class="form-label d-flex justify-content-between"
-                        >
-                          <span>5. Deployment</span>
-                          <span class="text-muted" id="deploymentValue"
-                            >0%</span
-                          >
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="deployment"
-                          name="deployment"
-                          min="0"
-                          max="100"
-                          required
+                          id="doneDate"
+                          name="doneDate"
                         />
                       </div>
                     </div>
 
-                    <!-- Buttons -->
                     <div class="col-12 mt-4">
                       <div class="d-flex justify-content-between">
                         <button

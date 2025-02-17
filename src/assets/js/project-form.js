@@ -1,4 +1,3 @@
-//project-form.js
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const SUPABASE_CONFIG = {
@@ -8,11 +7,8 @@ const SUPABASE_CONFIG = {
 };
 
 const PERCENTAGE_FIELDS = [
-  { inputId: "planning", displayId: "planningValue" },
-  { inputId: "requirementAnalysis", displayId: "requirementValue" },
-  { inputId: "development", displayId: "developmentValue" },
-  { inputId: "testing", displayId: "testingValue" },
-  { inputId: "deployment", displayId: "deploymentValue" },
+  { inputId: "progress", displayId: "progressValue" },
+  { inputId: "totalProgress", displayId: "totalProgressValue" },
 ];
 
 // Initialize Supabase client
@@ -29,15 +25,15 @@ function updatePercentage(input, valueId) {
 }
 
 // Form validation functions
-function validateDates(startDate, endDate) {
+function validateDates(startDate, dueDate, doneDate) {
   const start = new Date(startDate);
-  const end = new Date(endDate);
-  return end >= start;
-}
+  const due = new Date(dueDate);
+  const done = doneDate ? new Date(doneDate) : null;
 
-function validatePriority(priority) {
-  const value = parseInt(priority);
-  return value >= 1 && value <= 4;
+  if (due < start) return false;
+  if (done && done < start) return false;
+
+  return true;
 }
 
 function validatePercentages(percentages) {
@@ -60,7 +56,7 @@ async function handleFormSubmission(formData) {
       message: "Your project has been saved successfully",
     });
     setTimeout(() => {
-      window.location.href = "home-my-tasks.html";
+      window.location.href = "syarief-project-form.html";
     }, 1500);
   } catch (error) {
     console.error("Error saving project:", error);
@@ -94,25 +90,17 @@ function initializeForm() {
   projectForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Validate priority
-    const priority = document.getElementById("priority").value;
-    if (!validatePriority(priority)) {
-      showNotification({
-        type: "warning",
-        title: "Invalid Priority",
-        message: "Priority must be between 1 and 4",
-      });
-      return;
-    }
+    const startDate = document.getElementById("startDate").value;
+    const dueDate = document.getElementById("dueDate").value;
+    const doneDate = document.getElementById("doneDate").value;
 
     // Validate dates
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
-    if (!validateDates(startDate, endDate)) {
+    if (!validateDates(startDate, dueDate, doneDate)) {
       showNotification({
         type: "warning",
         title: "Invalid Dates",
-        message: "End date cannot be earlier than start date",
+        message:
+          "Please check your date entries. Start date must be before due date and done date.",
       });
       return;
     }
@@ -132,20 +120,16 @@ function initializeForm() {
 
     // Prepare form data
     const formData = {
-      project_owner: document.getElementById("projectOwner").value,
-      project_name: document.getElementById("projectName").value,
-      project_type: document.getElementById("projectType").value,
+      name_project: document.getElementById("nameProject").value,
+      name_activity: document.getElementById("nameActivity").value,
       start_date: startDate,
-      end_date: endDate,
-      complexity: document.getElementById("complexity").value,
-      priority: parseInt(priority),
-      planning: parseInt(document.getElementById("planning").value),
-      requirement_analysis: parseInt(
-        document.getElementById("requirementAnalysis").value
-      ),
-      development: parseInt(document.getElementById("development").value),
-      testing: parseInt(document.getElementById("testing").value),
-      deployment: parseInt(document.getElementById("deployment").value),
+      due_date: dueDate,
+      act_this_week: document.getElementById("actThisWeek").value,
+      act_next_week: document.getElementById("actNextWeek").value,
+      progress: parseInt(document.getElementById("progress").value),
+      total_progress: parseInt(document.getElementById("totalProgress").value),
+      done_date: doneDate || null,
+      pic: document.getElementById("pic").value,
     };
 
     await handleFormSubmission(formData);
@@ -155,9 +139,7 @@ function initializeForm() {
 // Initialize when DOM is loaded
 document.addEventListener("DOMContentLoaded", initializeForm);
 
-// Export necessary functions if needed in other modules
-export { updatePercentage, initializeForm };
-
+// Notification function
 function showNotification({ type = "success", title, message }) {
   // Remove existing notifications
   const existingToast = document.querySelector(".modern-toast");
@@ -200,3 +182,5 @@ function showNotification({ type = "success", title, message }) {
     }, 500);
   }, 3000);
 }
+
+export { updatePercentage, initializeForm };

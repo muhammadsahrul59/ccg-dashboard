@@ -63,7 +63,7 @@ async function loadProjects() {
     const { data: projects, error } = await supabase
       .from("projects")
       .select("*")
-      .eq("pic", "Syarief Hidayat");
+      .order("start_date", { ascending: false });
 
     if (error) throw error;
 
@@ -81,7 +81,8 @@ function filterAndDisplayProjects(searchTerm) {
       project.name_project.toLowerCase().includes(searchTerm) ||
       project.name_activity.toLowerCase().includes(searchTerm) ||
       project.act_this_week.toLowerCase().includes(searchTerm) ||
-      project.act_next_week.toLowerCase().includes(searchTerm)
+      project.act_next_week.toLowerCase().includes(searchTerm) ||
+      project.pic.toLowerCase().includes(searchTerm)
     );
   });
 
@@ -111,17 +112,19 @@ function displayProjects(projects) {
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.name_activity
       }</p></td>
-      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${new Date(
-        project.start_date
-      ).toLocaleDateString()}</p></td>
-      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${new Date(
-        project.due_date
-      ).toLocaleDateString()}</p></td>
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
-        project.act_this_week
+        project.start_date
+          ? new Date(project.start_date).toLocaleDateString()
+          : "-"
       }</p></td>
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
-        project.act_next_week
+        project.due_date ? new Date(project.due_date).toLocaleDateString() : "-"
+      }</p></td>
+      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
+        project.act_this_week || "-"
+      }</p></td>
+      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
+        project.act_next_week || "-"
       }</p></td>
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.progress
@@ -129,9 +132,11 @@ function displayProjects(projects) {
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.total_progress
       }%</p></td>
-      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${new Date(
+      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.done_date
-      ).toLocaleDateString()}</p></td>
+          ? new Date(project.done_date).toLocaleDateString()
+          : "-"
+      }</p></td>
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.pic
       }</p></td>
@@ -282,7 +287,7 @@ async function updateProject(event) {
       document.getElementById("edit_total_progress").value
     ),
     done_date: document.getElementById("edit_done_date").value,
-    pic: "Syarief Hidayat", // Hardcoded as it's readonly
+    pic: document.getElementById("edit_pic").value,
   };
 
   try {

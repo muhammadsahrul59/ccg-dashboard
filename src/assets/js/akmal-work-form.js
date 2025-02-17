@@ -1,3 +1,4 @@
+//akmal-work-form.js
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 const SUPABASE_CONFIG = {
   url: "https://pembaveqjbfpxajoadte.supabase.co",

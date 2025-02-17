@@ -1,3 +1,4 @@
+//my-profile.js
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const supabaseUrl = "https://pembaveqjbfpxajoadte.supabase.co";
@@ -173,31 +174,57 @@ profileForm.addEventListener("submit", async (e) => {
   }
 });
 
-// Toast notification function
+// Updated Toast notification function to match akmal-work-form.js
 function showToast(message, type = "info") {
-  const toastContainer = document.getElementById("toast-container");
-  const toast = document.createElement("div");
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  toastContainer.appendChild(toast);
+  // Remove existing notifications
+  const existingToast = document.querySelector(".modern-toast");
+  if (existingToast) {
+    existingToast.remove();
+  }
 
+  // Create new notification
+  const toast = document.createElement("div");
+  toast.className = `modern-toast ${type}`;
+  toast.innerHTML = `
+    <div class="toast-icon">
+      <i class="fas ${
+        type === "success"
+          ? "fa-check-circle"
+          : type === "error"
+          ? "fa-exclamation-circle"
+          : "fa-exclamation-triangle"
+      }"></i>
+    </div>
+    <div class="toast-content">
+      <h4 class="toast-title">${type === "success" ? "Success!" : "Error!"}</h4>
+      <p class="toast-message">${message}</p>
+    </div>
+    <div class="progress-bar"></div>
+  `;
+
+  // Append the toast to the toast container
+  const toastContainer = document.getElementById("toast-container");
+  if (toastContainer) {
+    toastContainer.appendChild(toast);
+  }
+
+  // Show notification with animation
   setTimeout(() => {
-    toast.remove();
+    toast.classList.add("show");
+  }, 10);
+
+  // Remove notification after delay
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => {
+      toast.remove();
+    }, 500);
   }, 3000);
 }
 
+// Ensure the global showToast function is updated
 if (!window.showToast) {
-  window.showToast = function (message, type = "info") {
-    const toastContainer = document.getElementById("toast-container");
-    if (!toastContainer) return;
-
-    const toast = document.createElement("div");
-    toast.className = `toast toast-${type}`;
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
-
-    setTimeout(() => toast.remove(), 3000);
-  };
+  window.showToast = showToast;
 }
 
 // Load profile data when page loads
