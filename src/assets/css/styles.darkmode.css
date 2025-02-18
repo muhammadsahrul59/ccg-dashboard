@@ -27,6 +27,7 @@
   --dropdown-border: #404040;
   --dropdown-hover: #333333;
 }
+
 /* Apply dark mode styles */
 [data-theme="dark"] body {
   background-color: var(--body-bg);
@@ -91,7 +92,6 @@
   color: white !important;
 }
 
-/* Dark mode styles */
 [data-theme="dark"] h3 {
   color: white !important;
 }
@@ -100,9 +100,31 @@
   color: black !important;
 }
 
-/* Dark mode styles */
 [data-theme="dark"] span.hide-menu {
   color: white !important;
+}
+
+/* Gradient Card Dark Mode Styles */
+[data-theme="dark"] .gradient-card {
+  background: inherit !important;
+}
+
+[data-theme="dark"] .gradient-card .card-body {
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] .gradient-card h5,
+[data-theme="dark"] .gradient-card p {
+  color: black !important;
+}
+
+/* Table Card Dark Mode Styles */
+[data-theme="dark"] .table-card {
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .table-card .card-body {
+  background-color: #ffffff !important;
 }
 
 [data-theme="dark"] .card-title h4 {
@@ -118,7 +140,7 @@
 }
 
 [data-theme="dark"] .card-title span {
-  color: black !important; /* Memastikan teks tetap hitam */
+  color: black !important;
 }
 
 [data-theme="dark"] .card-text {
@@ -133,10 +155,6 @@
   color: black !important;
 }
 
-[data-theme="dark"] .card-body p {
-  color: white !important;
-}
-
 /* Dark mode toggle button styles */
 .theme-toggle {
   background: none;
@@ -147,10 +165,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-[data-theme="dark"] .theme-toggle i.fa-sun {
-  display: inline-block;
 }
 
 [data-theme="dark"] .theme-toggle i.fa-moon {
@@ -197,15 +211,6 @@
 }
 
 [data-theme="dark"] .table-responsive {
-  background-color: #ffffff !important;
-}
-
-/* Card yang mengandung tabel */
-[data-theme="dark"] .card {
-  background-color: #ffffff !important;
-}
-
-[data-theme="dark"] .card-body {
   background-color: #ffffff !important;
 }
 

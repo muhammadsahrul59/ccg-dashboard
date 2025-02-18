@@ -41,6 +41,45 @@
   outline-offset: 2px;
 }
 
+/* Dark mode gradient card */
+[data-theme="dark"] .gradient-card {
+  background: linear-gradient(
+    135deg,
+    var(--dark-primary-color),
+    var(--dark-secondary-color)
+  ) !important; /* Explicitly set the background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  padding: 40px;
+  color: white; /* Ensure text is readable */
+}
+
+[data-theme="dark"] .gradient-card h5 {
+  color: white !important; /* Ensure headings are white */
+}
+
+[data-theme="dark"] .gradient-card p {
+  color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ) !important; /* Ensure paragraphs are slightly transparent white */
+}
+
+[data-theme="dark"] .gradient-card:focus {
+  outline: 2px solid #44a5a0; /* Focus outline for accessibility */
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] .gradient-card:hover {
+  transform: translateY(-10px); /* Slight lift on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+}
+
 .gradient-card:hover {
   transform: translateY(-10px);
   box-shadow: var(--card-hover-shadow);
@@ -123,6 +162,8 @@
 :root {
   --primary-color: #44a5a0;
   --secondary-color: #f9ad3c;
+  --dark-primary-color: #2d6e6b;
+  --dark-secondary-color: #b37b2c;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --card-hover-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   --gap: 20px;
