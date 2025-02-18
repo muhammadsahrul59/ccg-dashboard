@@ -10,6 +10,7 @@
       href="../assets/images/logos/favicon.png"
     />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/src/assets/css/styles.darkmode.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -115,7 +116,6 @@
                 <a
                   href="../dev-table-pages/home-ccg-work-table.html"
                   class="btn btn-muted mb-2"
-                  onclick="window.history.back();"
                 >
                   <i class="fas fa-arrow-left me-2"></i> Back
                 </a>
@@ -123,6 +123,7 @@
             </div>
           </div>
 
+          <!-- Edit Modal -->
           <!-- Edit Modal -->
           <div
             class="modal fade"
@@ -146,49 +147,181 @@
                   <form id="editWorkForm" onsubmit="updateWork(event)">
                     <input type="hidden" id="edit_work_id" />
                     <div class="container-fluid">
-                      <div class="row justify-content-center">
-                        <div class="col-md-8">
-                          <!-- Date Section -->
-                          <div class="mb-4">
-                            <h6 class="fw-bold mb-3">Work Details</h6>
-                            <div class="mb-3">
-                              <label for="edit_Date" class="form-label"
-                                >Date</label
-                              >
-                              <input
-                                type="date"
-                                class="form-control"
-                                id="edit_Date"
-                                required
-                              />
-                            </div>
+                      <div class="row">
+                        <!-- Work Details Section -->
+                        <div class="col-md-12 mb-4">
+                          <h6 class="fw-bold mb-3">Work Details</h6>
+                          <div class="mb-3">
+                            <label for="edit_Date" class="form-label"
+                              >Date</label
+                            >
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="edit_Date"
+                              disabled
+                            />
                           </div>
+                        </div>
 
-                          <!-- Creation Section -->
-                          <div class="mb-4">
-                            <h6 class="fw-bold mb-3">Creation Details</h6>
-                            <div class="row">
-                              <div class="col-md-6 mb-3">
-                                <label
-                                  for="edit_createKnowledge"
-                                  class="form-label"
-                                  >Create Knowledge</label
-                                >
-                                <input
-                                  type="number"
-                                  class="form-control"
-                                  id="edit_createKnowledge"
-                                  required
-                                />
-                              </div>
-                              <!-- Repeat for other fields -->
-                            </div>
+                        <!-- Creation Section -->
+                        <div class="col-md-4 mb-4">
+                          <h6 class="fw-bold mb-3">Creation Details</h6>
+                          <div class="mb-3">
+                            <label for="edit_createKnowledge" class="form-label"
+                              >Create Knowledge</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_createKnowledge"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="edit_createAnswer" class="form-label"
+                              >Create Answer</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_createAnswer"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="edit_createModule" class="form-label"
+                              >Create Module</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_createModule"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="edit_totalCreation" class="form-label"
+                              >Total Creation</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_totalCreation"
+                              disabled
+                            />
+                          </div>
+                        </div>
+
+                        <!-- Update Section -->
+                        <div class="col-md-4 mb-4">
+                          <h6 class="fw-bold mb-3">Update Details</h6>
+                          <div class="mb-3">
+                            <label for="edit_updateAnswer" class="form-label"
+                              >Update Answer</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_updateAnswer"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="edit_updateQuickReply"
+                              class="form-label"
+                              >Update Quick Reply</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_updateQuickReply"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="edit_updateButton" class="form-label"
+                              >Update Button</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_updateButton"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label
+                              for="edit_totalUpdateKnowledge"
+                              class="form-label"
+                              >Total Update Knowledge</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_totalUpdateKnowledge"
+                              disabled
+                            />
+                          </div>
+                        </div>
+
+                        <!-- Input Section -->
+                        <div class="col-md-4 mb-4">
+                          <h6 class="fw-bold mb-3">Input Details</h6>
+                          <div class="mb-3">
+                            <label for="edit_inputSynonym" class="form-label"
+                              >Input Synonym</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_inputSynonym"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="edit_inputIntent" class="form-label"
+                              >Input Intent</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_inputIntent"
+                              min="0"
+                              value="0"
+                              required
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <label for="edit_totalInput" class="form-label"
+                              >Total Input</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="edit_totalInput"
+                              disabled
+                            />
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <!-- Footer -->
                     <div class="modal-footer">
                       <button
                         type="button"

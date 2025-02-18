@@ -1,5 +1,5 @@
-//akmal-work-form.js
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
 const SUPABASE_CONFIG = {
   url: "https://pembaveqjbfpxajoadte.supabase.co",
   anon_key:
@@ -59,11 +59,26 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     try {
-      // Get form values
+      // Get all form values
       const formData = {
         work_owner: document.getElementById("workOwner").value,
         date: document.getElementById("workDate").value,
-        // ... rest of your form data ...
+        create_knowledge:
+          parseInt(document.getElementById("knowledge").value) || 0,
+        create_answer: parseInt(document.getElementById("answer").value) || 0,
+        create_module: parseInt(document.getElementById("module").value) || 0,
+        update_answer:
+          parseInt(document.getElementById("updateAnswer").value) || 0,
+        update_quick_reply:
+          parseInt(document.getElementById("quickReply").value) || 0,
+        update_button: parseInt(document.getElementById("button").value) || 0,
+        input_synonym: parseInt(document.getElementById("synonym").value) || 0,
+        input_intent: parseInt(document.getElementById("intent").value) || 0,
+        total_creation:
+          parseInt(document.getElementById("totalcreation").value) || 0,
+        total_update_knowledge:
+          parseInt(document.getElementById("totalupdateknowledge").value) || 0,
+        total_input: parseInt(document.getElementById("totalinput").value) || 0,
       };
 
       // Insert data into Supabase
@@ -93,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showNotification({
         type: "error",
         title: "Failed!",
-        message: "Only authorized accounts can input!",
+        message: error.message || "Only authorized accounts can input!",
       });
     }
   });
@@ -110,21 +125,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const toast = document.createElement("div");
     toast.className = `modern-toast ${type}`;
     toast.innerHTML = `
-    <div class="toast-icon">
-      <i class="fas ${
-        type === "success"
-          ? "fa-check-circle"
-          : type === "error"
-          ? "fa-exclamation-circle"
-          : "fa-exclamation-triangle"
-      }"></i>
-    </div>
-    <div class="toast-content">
-      <h4 class="toast-title">${title}</h4>
-      <p class="toast-message">${message}</p>
-    </div>
-    <div class="progress-bar"></div>
-  `;
+      <div class="toast-icon">
+        <i class="fas ${
+          type === "success"
+            ? "fa-check-circle"
+            : type === "error"
+            ? "fa-exclamation-circle"
+            : "fa-exclamation-triangle"
+        }"></i>
+      </div>
+      <div class="toast-content">
+        <h4 class="toast-title">${title}</h4>
+        <p class="toast-message">${message}</p>
+      </div>
+      <div class="progress-bar"></div>
+    `;
 
     document.getElementById("toast-container").appendChild(toast);
 

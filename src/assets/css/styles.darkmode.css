@@ -96,6 +96,10 @@
   color: white !important;
 }
 
+[data-theme="dark"] .th h6 {
+  color: black !important;
+}
+
 /* Dark mode styles */
 [data-theme="dark"] span.hide-menu {
   color: white !important;
@@ -165,4 +169,79 @@
   .theme-toggle {
     margin-top: 20px;
   }
+}
+
+/* Table dark mode styles */
+[data-theme="dark"] .table {
+  color: black !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .table tbody tr {
+  color: black !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .table tbody td {
+  color: black !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .table tbody td p {
+  color: black !important;
+}
+
+[data-theme="dark"] .table thead th {
+  color: black !important;
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .table-responsive {
+  background-color: #ffffff !important;
+}
+
+/* Card yang mengandung tabel */
+[data-theme="dark"] .card {
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .card-body {
+  background-color: #ffffff !important;
+}
+
+/* Pagination dalam dark mode */
+[data-theme="dark"] .pagination .page-link {
+  color: black !important;
+  background-color: #ffffff !important;
+  border-color: #dee2e6 !important;
+}
+
+[data-theme="dark"] .pagination .page-item.active .page-link {
+  color: #ffffff !important;
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+[data-theme="dark"] .pagination .page-item.disabled .page-link {
+  color: #6c757d !important;
+  background-color: #ffffff !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Form controls dalam dark mode */
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .form-control {
+  color: black !important;
+  background-color: #ffffff !important;
+  border-color: #dee2e6 !important;
+}
+
+/* Showing entries text */
+[data-theme="dark"] .showing-entries-info {
+  color: black !important;
+}
+
+/* Button colors */
+[data-theme="dark"] .btn-success {
+  color: #ffffff !important;
 }

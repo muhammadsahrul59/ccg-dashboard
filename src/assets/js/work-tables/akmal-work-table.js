@@ -279,7 +279,7 @@ function calculateTotals(formData) {
   return formData;
 }
 
-// Functions for edit and delete remain the same
+// Function to edit work
 async function editWork(id) {
   try {
     const { data, error } = await supabase
@@ -288,21 +288,33 @@ async function editWork(id) {
       .eq("id", id)
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error("Supabase error:", error);
+      throw new Error("Failed to fetch work data");
+    }
+
+    if (!data) {
+      throw new Error("No data found for this ID");
+    }
 
     // Populate the edit form
     document.getElementById("edit_work_id").value = data.id;
     document.getElementById("edit_Date").value = data.date;
     document.getElementById("edit_createKnowledge").value =
-      data.create_knowledge;
-    document.getElementById("edit_createAnswer").value = data.create_answer;
-    document.getElementById("edit_createModule").value = data.create_module;
-    document.getElementById("edit_updateAnswer").value = data.update_answer;
-    document.getElementById("edit_updateQuickReplay").value =
-      data.update_quick_reply;
-    document.getElementById("edit_updateButton").value = data.update_button;
-    document.getElementById("edit_inputSynonym").value = data.input_synonym;
-    document.getElementById("edit_inputIntent").value = data.input_intent;
+      data.create_knowledge || 0;
+    document.getElementById("edit_createAnswer").value =
+      data.create_answer || 0;
+    document.getElementById("edit_createModule").value =
+      data.create_module || 0;
+    document.getElementById("edit_updateAnswer").value =
+      data.update_answer || 0;
+    document.getElementById("edit_updateQuickReply").value =
+      data.update_quick_reply || 0;
+    document.getElementById("edit_updateButton").value =
+      data.update_button || 0;
+    document.getElementById("edit_inputSynonym").value =
+      data.input_synonym || 0;
+    document.getElementById("edit_inputIntent").value = data.input_intent || 0;
 
     // Calculate and display totals
     updateEditTotals();
@@ -312,7 +324,7 @@ async function editWork(id) {
     editModal.show();
   } catch (error) {
     console.error("Error loading work data for editing:", error);
-    alert("Failed to load work data for editing");
+    alert(`Failed to load work data for editing: ${error.message}`);
   }
 }
 
@@ -331,7 +343,7 @@ function updateEditTotals() {
       document.getElementById("edit_updateAnswer").value || 0
     ),
     update_quick_reply: parseInt(
-      document.getElementById("edit_updateQuickReplay").value || 0
+      document.getElementById("edit_updateQuickReply").value || 0
     ),
     update_button: parseInt(
       document.getElementById("edit_updateButton").value || 0
@@ -352,11 +364,12 @@ function updateEditTotals() {
   document.getElementById("edit_totalInput").value = totals.total_input;
 }
 
+// Function to update work
 async function updateWork(event) {
   event.preventDefault();
 
   const id = document.getElementById("edit_work_id").value;
-  let formData = {
+  const formData = {
     date: document.getElementById("edit_Date").value,
     create_knowledge: parseInt(
       document.getElementById("edit_createKnowledge").value || 0
@@ -371,7 +384,7 @@ async function updateWork(event) {
       document.getElementById("edit_updateAnswer").value || 0
     ),
     update_quick_reply: parseInt(
-      document.getElementById("edit_updateQuickReplay").value || 0
+      document.getElementById("edit_updateQuickReply").value || 0
     ),
     update_button: parseInt(
       document.getElementById("edit_updateButton").value || 0
@@ -384,13 +397,13 @@ async function updateWork(event) {
     ),
   };
 
-  // Calculate totals
-  formData = calculateTotals(formData);
+  // Calculate totals before updating
+  const dataWithTotals = calculateTotals(formData);
 
   try {
     const { error } = await supabase
       .from("work_akmal")
-      .update(formData)
+      .update(dataWithTotals)
       .eq("id", id);
 
     if (error) throw error;
@@ -400,10 +413,10 @@ async function updateWork(event) {
       document.getElementById("editModal")
     );
     editModal.hide();
-    loadWorkData();
+    await loadWorkData(); // Reload the table data
   } catch (error) {
     console.error("Error updating work entry:", error);
-    alert("Failed to update work entry");
+    alert(`Failed to update work entry: ${error.message}`);
   }
 }
 
