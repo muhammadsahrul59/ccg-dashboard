@@ -3594,7 +3594,7 @@ fieldset:disabled .btn {
   --bs-btn-disabled-border-color: #44a5a0;
 }
 .btn-success:hover {
-  background-color: #44a5a0;
+  background-color: #10bd9d;
 }
 .btn-success2 {
   --bs-btn-color: #fff;
@@ -16942,4 +16942,9 @@ ul {
   color: #000000 !important;
   font-size: 14px;
   border: 1px solid #cccccc;
+}
+.required-field::after {
+  content: "*";
+  color: #dc3545;
+  margin-left: 4px;
 }

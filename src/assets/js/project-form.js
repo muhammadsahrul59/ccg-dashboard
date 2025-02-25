@@ -56,7 +56,7 @@ async function handleFormSubmission(formData) {
       message: "Your project has been saved successfully",
     });
     setTimeout(() => {
-      window.location.href = "syarief-project-form.html";
+      window.location.href = "dev-project-form.html";
     }, 1500);
   } catch (error) {
     console.error("Error saving project:", error);

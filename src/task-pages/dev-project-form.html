@@ -46,18 +46,23 @@
                   <form id="projectForm" class="row pt-3">
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="pic" class="form-label">PIC</label>
+                        <label for="pic" class="form-label required-field"
+                          >PIC</label
+                        >
                         <input
                           type="text"
                           class="form-control"
                           id="pic"
                           name="pic"
-                          value="Syarief Hidayat"
-                          readonly
+                          placeholder="Enter PIC Name"
+                          required
                         />
                       </div>
+
                       <div class="mb-3">
-                        <label for="nameProject" class="form-label"
+                        <label
+                          for="nameProject"
+                          class="form-label required-field"
                           >Project Name</label
                         >
                         <input
@@ -70,7 +75,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="nameActivity" class="form-label"
+                        <label
+                          for="nameActivity"
+                          class="form-label required-field"
                           >Activity Name</label
                         >
                         <input
@@ -83,7 +90,7 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="startDate" class="form-label"
+                        <label for="startDate" class="form-label required-field"
                           >Start Date</label
                         >
                         <input
@@ -95,7 +102,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="dueDate" class="form-label">Due Date</label>
+                        <label for="dueDate" class="form-label required-field"
+                          >Due Date</label
+                        >
                         <input
                           type="date"
                           class="form-control"
@@ -136,7 +145,7 @@
                           for="progress"
                           class="form-label d-flex justify-content-between"
                         >
-                          <span>Progress</span>
+                          <span class="required-field">Progress</span>
                           <span class="text-muted" id="progressValue">0%</span>
                         </label>
                         <input
@@ -154,7 +163,7 @@
                           for="totalProgress"
                           class="form-label d-flex justify-content-between"
                         >
-                          <span>Total Progress</span>
+                          <span class="required-field">Total Progress</span>
                           <span class="text-muted" id="totalProgressValue"
                             >0%</span
                           >
