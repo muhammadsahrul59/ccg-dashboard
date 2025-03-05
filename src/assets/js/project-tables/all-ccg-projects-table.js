@@ -80,8 +80,6 @@ function filterAndDisplayProjects(searchTerm) {
     return (
       project.name_project.toLowerCase().includes(searchTerm) ||
       project.name_activity.toLowerCase().includes(searchTerm) ||
-      project.act_this_week.toLowerCase().includes(searchTerm) ||
-      project.act_next_week.toLowerCase().includes(searchTerm) ||
       project.pic.toLowerCase().includes(searchTerm)
     );
   });
@@ -119,12 +117,6 @@ function displayProjects(projects) {
       }</p></td>
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.due_date ? new Date(project.due_date).toLocaleDateString() : "-"
-      }</p></td>
-      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
-        project.act_this_week || "-"
-      }</p></td>
-      <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
-        project.act_next_week || "-"
       }</p></td>
       <td class="border-bottom-0"><p class="mb-0 fw-normal text-center">${
         project.progress
@@ -259,8 +251,6 @@ function openEditModal(projectId) {
     document.getElementById("edit_name_activity").value = project.name_activity;
     document.getElementById("edit_start_date").value = project.start_date;
     document.getElementById("edit_due_date").value = project.due_date;
-    document.getElementById("edit_act_this_week").value = project.act_this_week;
-    document.getElementById("edit_act_next_week").value = project.act_next_week;
     document.getElementById("edit_progress").value = project.progress;
     document.getElementById("edit_total_progress").value =
       project.total_progress;
@@ -275,18 +265,18 @@ async function updateProject(event) {
   event.preventDefault();
 
   const projectId = document.getElementById("edit_project_id").value;
+  const doneDate = document.getElementById("edit_done_date").value;
+
   const updatedProject = {
     name_project: document.getElementById("edit_name_project").value,
     name_activity: document.getElementById("edit_name_activity").value,
     start_date: document.getElementById("edit_start_date").value,
     due_date: document.getElementById("edit_due_date").value,
-    act_this_week: document.getElementById("edit_act_this_week").value,
-    act_next_week: document.getElementById("edit_act_next_week").value,
     progress: parseInt(document.getElementById("edit_progress").value),
     total_progress: parseInt(
       document.getElementById("edit_total_progress").value
     ),
-    done_date: document.getElementById("edit_done_date").value,
+    done_date: doneDate === "" ? null : doneDate, // Convert empty string to null
     pic: document.getElementById("edit_pic").value,
   };
 

@@ -124,8 +124,6 @@ function initializeForm() {
       name_activity: document.getElementById("nameActivity").value,
       start_date: startDate,
       due_date: dueDate,
-      act_this_week: document.getElementById("actThisWeek").value,
-      act_next_week: document.getElementById("actNextWeek").value,
       progress: parseInt(document.getElementById("progress").value),
       total_progress: parseInt(document.getElementById("totalProgress").value),
       done_date: doneDate || null,

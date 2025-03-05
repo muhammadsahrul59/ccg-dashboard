@@ -42,7 +42,7 @@
         <!--  Header End -->
         <!--  Body Start -->
         <div class="container-fluid">
-          <!-- Row 1: Statistics -->
+          <!-- Row 1: Statistics and Filter -->
           <div class="row mb-4">
             <div class="col-md-3">
               <div class="card bg-green-mint text-white">
@@ -54,105 +54,79 @@
                   >
                     0
                   </div>
-                  <p class="mb-0"><small>All managed projects</small></p>
+                  <p class="mb-0"><small>Unique project count</small></p>
                 </div>
               </div>
             </div>
             <div class="col-md-3">
               <div class="card bg-green-mint text-white">
                 <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Completed Projects</h4>
+                  <h4 class="card-title fw-semibold">Total Activities</h4>
                   <div
                     class="stats-value fw-bold text-green-bsi"
-                    id="completedProjects"
+                    id="totalActivities"
                   >
                     0
                   </div>
-                  <p class="mb-0"><small>100% completion rate</small></p>
+                  <p class="mb-0"><small>All project activities</small></p>
                 </div>
               </div>
             </div>
             <div class="col-md-3">
               <div class="card bg-green-mint text-white">
                 <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Projects In Progress</h4>
+                  <h4 class="card-title fw-semibold">Performance Project</h4>
                   <div
                     class="stats-value fw-bold text-green-bsi"
-                    id="inProgressProjects"
+                    id="performanceProject"
                   >
-                    0
+                    0%
                   </div>
-                  <p class="mb-0"><small>Currently active</small></p>
+                  <p class="mb-0"><small>Overall performance</small></p>
                 </div>
               </div>
             </div>
             <div class="col-md-3">
               <div class="card bg-green-mint">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Progress Project</h4>
-                  <div id="progressGaugeChart"></div>
+                <div class="card-body">
+                  <h4 class="card-title fw-semibold">Project Filter</h4>
+                  <select
+                    id="projectFilter"
+                    class="form-select mt-2"
+                    aria-label="Project filter"
+                  >
+                    <option value="all" selected>All Projects</option>
+                    <!-- Project options will be added dynamically -->
+                  </select>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Row 2: Status, Complexity, and Priority -->
-          <div class="row mb-1">
-            <div class="col-md-4">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Status Distribution
-                  </h5>
-                  <div id="statusChart"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Complexity Distribution
-                  </h5>
-                  <div id="complexityChart"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Priority Distribution
-                  </h5>
-                  <div id="priorityChart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 3: Estimated vs Actual -->
-          <div class="row mb-1">
-            <div class="col-12">
-              <div class="card bg-green-mint">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Estimated vs. Actual Progress
-                  </h5>
-                  <div id="estimatedVsActualChart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 4: Delay Trend -->
+          <!-- Row 2: Top 10 Alert (moved up since Row 2 original was removed) -->
           <div class="row">
             <div class="col-12">
               <div class="card bg-green-mint">
                 <div class="card-body">
                   <h5 class="card-title text-center fw-semibold">
-                    Project Delay Trend
+                    Top 10 Alert - Due Date Proximity
                   </h5>
-                  <div id="delayTrendChart"></div>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Project Name</th>
+                          <th>Activity Name</th>
+                          <th>Due Date</th>
+                          <th>Days Remaining</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="alertTable">
+                        <!-- Alert data will be added dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,17 +136,17 @@
     </div>
     <!--  Body End -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script
-      type="module"
-      src="../assets/js/project-dashboard/syarief-project-dashboard.js"
-    ></script>
-    <script type="module" src="/src/assets/js/header-template.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/sidebarmenu.js"></script>
     <script src="../assets/js/app.min.js"></script>
     <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
     <script src="/src/assets/js/sidebar-template.js"></script>
+    <script src="/src/assets/js/header-template.js"></script>
     <script src="/src/assets/js/dark-mode.js"></script>
+    <script
+      type="module"
+      src="../assets/js/project-dashboard/syarief-project-dashboard.js"
+    ></script>
   </body>
 </html>

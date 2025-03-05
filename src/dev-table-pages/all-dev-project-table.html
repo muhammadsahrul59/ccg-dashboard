@@ -45,10 +45,10 @@
                 class="d-flex justify-content-between align-items-center mb-4"
               >
                 <h4 class="card-title fw-semibold mb-0">
-                  All CCG Projects Table
+                  All Dev CCG Projects Table
                 </h4>
                 <a
-                  href="../task-pages/project-form.html"
+                  href="../task-pages/dev-project-form.html"
                   class="btn btn-success"
                 >
                   <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Add
@@ -75,16 +75,6 @@
                       </th>
                       <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0 text-center">Due Date</h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0 text-center">
-                          This Week Activity
-                        </h6>
-                      </th>
-                      <th class="border-bottom-0">
-                        <h6 class="fw-semibold mb-0 text-center">
-                          Next Week Activity
-                        </h6>
                       </th>
                       <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0 text-center">
@@ -159,7 +149,9 @@
                     <input type="hidden" id="edit_project_id" />
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="edit_name_project" class="form-label"
+                        <label
+                          for="edit_name_project"
+                          class="form-label required-field"
                           >Project Name</label
                         >
                         <input
@@ -170,7 +162,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="edit_name_activity" class="form-label"
+                        <label
+                          for="edit_name_activity"
+                          class="form-label required-field"
                           >Activity Name</label
                         >
                         <input
@@ -181,7 +175,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="edit_start_date" class="form-label"
+                        <label
+                          for="edit_start_date"
+                          class="form-label required-field"
                           >Start Date</label
                         >
                         <input
@@ -192,7 +188,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="edit_due_date" class="form-label"
+                        <label
+                          for="edit_due_date"
+                          class="form-label required-field"
                           >Due Date</label
                         >
                         <input
@@ -202,28 +200,12 @@
                           required
                         />
                       </div>
-                      <div class="mb-3">
-                        <label for="edit_act_this_week" class="form-label"
-                          >This Week Activity</label
-                        >
-                        <textarea
-                          class="form-control"
-                          id="edit_act_this_week"
-                        ></textarea>
-                      </div>
                     </div>
                     <div class="col-md-6">
                       <div class="mb-3">
-                        <label for="edit_act_next_week" class="form-label"
-                          >Next Week Activity</label
-                        >
-                        <textarea
-                          class="form-control"
-                          id="edit_act_next_week"
-                        ></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <label for="edit_progress" class="form-label"
+                        <label
+                          for="edit_progress"
+                          class="form-label required-field"
                           >Progress (%)</label
                         >
                         <input
@@ -236,7 +218,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="edit_total_progress" class="form-label"
+                        <label
+                          for="edit_total_progress"
+                          class="form-label required-field"
                           >Total Progress (%)</label
                         >
                         <input
@@ -259,7 +243,9 @@
                         />
                       </div>
                       <div class="mb-3">
-                        <label for="edit_pic" class="form-label">PIC</label>
+                        <label for="edit_pic" class="form-label required-field"
+                          >PIC</label
+                        >
                         <input
                           type="text"
                           class="form-control"
