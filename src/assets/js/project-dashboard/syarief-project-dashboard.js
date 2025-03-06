@@ -5,9 +5,16 @@ const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlbWJhdmVxamJmcHhham9hZHRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4MDI2NDYsImV4cCI6MjA1MzM3ODY0Nn0.GZ7gYesj-2ZAfSGgZkT7yY0aSJwMQvHsLmXSezm0j0Q";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Custom colors for charts
+const primaryColor = "#44a5a0"; // Warna utama (mint)
+const secondaryColor = "#f9ad3c"; // Warna sekunder (orange)
+const accentColors = ["#44a5a0", "#f9ad3c", "#5e8b87", "#ffbc5e"]; // Variasi warna untuk pie chart
+
 let allProjects = [];
 let selectedProject = "all";
 let previousPerformance = 0; // Store previous performance for comparison
+let gaugeChart = null;
+let pieChart = null;
 
 document.addEventListener("DOMContentLoaded", function () {
   loadDashboardData();
@@ -76,7 +83,8 @@ function updateDashboard() {
         );
 
   updateStatistics(filteredProjects);
-  // Removed the estimated vs actual chart as requested
+  createGaugeChart(filteredProjects);
+  createPieChart(filteredProjects);
   createAlertTable(filteredProjects);
 }
 
@@ -88,6 +96,17 @@ function calculateAveragePerformance(projects) {
     ? Math.round(
         projects.reduce(
           (sum, project) => sum + (project.performance_project || 0),
+          0
+        ) / projects.length
+      )
+    : 0;
+}
+
+function calculateAverageProgress(projects) {
+  return projects.length > 0
+    ? Math.round(
+        projects.reduce(
+          (sum, project) => sum + (project.total_progress || 0),
           0
         ) / projects.length
       )
@@ -115,13 +134,206 @@ function updateStatistics(projects) {
   // Update performance with trend arrow
   const performanceElement = document.getElementById("performanceProject");
   performanceElement.innerHTML = `${averagePerformance}% 
-    ${
-      averagePerformance > previousPerformance
-        ? '<i class="fas fa-arrow-up text-success"></i>'
-        : averagePerformance < previousPerformance
-        ? '<i class="fas fa-arrow-down text-danger"></i>'
-        : ""
-    }`;
+          ${
+            averagePerformance > previousPerformance
+              ? '<i class="fas fa-arrow-up text-success"></i>'
+              : averagePerformance < previousPerformance
+              ? '<i class="fas fa-arrow-down text-danger"></i>'
+              : ""
+          }`;
+}
+
+function createGaugeChart(projects) {
+  const averageProgress = calculateAverageProgress(projects);
+
+  if (gaugeChart) {
+    gaugeChart.destroy();
+  }
+
+  const options = {
+    series: [averageProgress],
+    chart: {
+      height: 300,
+      type: "radialBar",
+      offsetY: -10,
+      animations: {
+        enabled: true,
+        easing: "easeinout",
+        speed: 800,
+      },
+    },
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 135,
+        hollow: {
+          margin: 0,
+          size: "70%",
+          background: "#fff",
+          dropShadow: {
+            enabled: true,
+            top: 3,
+            left: 0,
+            blur: 4,
+            opacity: 0.24,
+          },
+        },
+        track: {
+          background: "#f4f4f4",
+          strokeWidth: "67%",
+          margin: 0,
+          dropShadow: {
+            enabled: true,
+            top: -3,
+            left: 0,
+            blur: 4,
+            opacity: 0.35,
+          },
+        },
+        dataLabels: {
+          show: true,
+          name: {
+            offsetY: -10,
+            show: true,
+            color: "#888",
+            fontSize: "17px",
+          },
+          value: {
+            formatter: function (val) {
+              return parseInt(val) + "%";
+            },
+            color: "#111",
+            fontSize: "36px",
+            show: true,
+          },
+        },
+      },
+    },
+    fill: {
+      type: "gradient",
+      gradient: {
+        shade: "dark",
+        type: "horizontal",
+        shadeIntensity: 0.5,
+        gradientToColors: [primaryColor, secondaryColor], // Gradient from primary to secondary color
+        inverseColors: false,
+        opacityFrom: 1,
+        opacityTo: 1,
+        stops: [0, 100],
+      },
+    },
+    stroke: {
+      lineCap: "round",
+    },
+    labels: ["Progress"],
+    colors: [primaryColor], // Primary color for the chart
+    annotations: {
+      points: [
+        {
+          x: 50,
+          y: 50,
+          marker: {
+            size: 6,
+            fillColor: "#fff",
+            strokeColor: primaryColor,
+            radius: 2,
+          },
+          label: {
+            borderColor: primaryColor,
+            offsetY: 0,
+            style: {
+              color: "#fff",
+              background: primaryColor,
+            },
+            text: `Target: 75%`,
+          },
+        },
+      ],
+    },
+  };
+
+  gaugeChart = new ApexCharts(document.querySelector("#gaugeChart"), options);
+  gaugeChart.render();
+}
+
+function createPieChart(projects) {
+  const statusCounts = {};
+  projects.forEach((project) => {
+    let status = (project.status || "Unknown").trim();
+    status = status
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+    statusCounts[status] = (statusCounts[status] || 0) + 1;
+  });
+
+  const statuses = Object.keys(statusCounts);
+  const counts = Object.values(statusCounts);
+
+  if (pieChart) {
+    pieChart.destroy();
+  }
+
+  const options = {
+    series: counts,
+    chart: {
+      type: "pie",
+      width: "100%", // Lebar chart mengikuti container
+      height: 250, // Tinggi chart disesuaikan
+      animations: {
+        enabled: true,
+        easing: "easeinout",
+        speed: 800,
+      },
+    },
+    labels: statuses,
+    colors: accentColors,
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: "100%", // Lebar chart mengikuti container pada layar kecil
+            height: 250, // Tinggi chart disesuaikan
+          },
+        },
+      },
+    ],
+    dataLabels: {
+      enabled: true,
+      formatter: function (val, opts) {
+        return (
+          opts.w.config.labels[opts.seriesIndex] + ": " + val.toFixed(1) + "%"
+        );
+      },
+      style: {
+        fontSize: "12px",
+        fontWeight: "bold",
+        colors: ["#fff"],
+      },
+      dropShadow: {
+        enabled: true,
+        top: 1,
+        left: 1,
+        blur: 2,
+        opacity: 0.8,
+      },
+    },
+    tooltip: {
+      enabled: true,
+      y: {
+        formatter: function (value, { seriesIndex }) {
+          return `${statuses[seriesIndex]}: ${value} projects`;
+        },
+      },
+    },
+    legend: {
+      show: false, // Menyembunyikan legenda
+    },
+  };
+
+  pieChart = new ApexCharts(document.querySelector("#pieChart"), options);
+  pieChart.render();
 }
 
 function createAlertTable(projects) {
@@ -187,12 +399,12 @@ function createAlertTable(projects) {
     // Create table row
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${project.name_project || "undefined"}</td>
-      <td>${project.name_activity || "N/A"}</td>
-      <td>${dueDate}</td>
-      <td>${project.isDone ? "0" : project.daysRemaining}</td>
-      <td><span class="badge ${statusClass}">${statusText}</span></td>
-    `;
+            <td>${project.name_project || "undefined"}</td>
+            <td>${project.name_activity || "N/A"}</td>
+            <td>${dueDate}</td>
+            <td>${project.isDone ? "0" : project.daysRemaining}</td>
+            <td><span class="badge ${statusClass}">${statusText}</span></td>
+          `;
 
     alertTable.appendChild(row);
   });
