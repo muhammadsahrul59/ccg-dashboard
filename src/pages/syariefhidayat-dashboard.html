@@ -18,6 +18,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <style>
+      /* Reduce spacing between cards */
+      .card-compact {
+        margin-bottom: 0.75rem;
+      }
+      .row-compact {
+        margin-bottom: 1rem !important;
+      }
+    </style>
   </head>
 
   <body>
@@ -43,9 +52,9 @@
         <!--  Body Start -->
         <div class="container-fluid">
           <!-- Row 1: Statistics and Filter -->
-          <div class="row mb-4">
+          <div class="row row-compact">
             <div class="col-md-3">
-              <div class="card bg-green-mint text-white">
+              <div class="card bg-green-mint text-white card-compact">
                 <div class="card-body text-center">
                   <h4 class="card-title fw-semibold">Total Projects</h4>
                   <div
@@ -59,7 +68,7 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card bg-green-mint text-white">
+              <div class="card bg-green-mint text-white card-compact">
                 <div class="card-body text-center">
                   <h4 class="card-title fw-semibold">Total Activities</h4>
                   <div
@@ -73,7 +82,7 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card bg-green-mint text-white">
+              <div class="card bg-green-mint text-white card-compact">
                 <div class="card-body text-center">
                   <h4 class="card-title fw-semibold">Performance Project</h4>
                   <div
@@ -87,7 +96,7 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="card bg-green-mint">
+              <div class="card bg-green-mint card-compact">
                 <div class="card-body">
                   <h4 class="card-title fw-semibold">Project Filter</h4>
                   <select
@@ -103,13 +112,16 @@
             </div>
           </div>
 
-          <!-- Row 2: Charts (New) -->
-          <div class="row mb-4">
+          <!-- Row 2: Charts -->
+          <div class="row row-compact">
             <div class="col-md-6">
-              <div class="card bg-green-mint">
+              <div class="card bg-green-mint card-compact">
                 <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Overall Progress
+                  <h5
+                    class="card-title text-center fw-semibold"
+                    id="projectTitle"
+                  >
+                    All Project Development - Overall Progress
                   </h5>
                   <div
                     id="gaugeChart"
@@ -119,7 +131,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div class="card bg-green-mint">
+              <div class="card bg-green-mint card-compact">
                 <div class="card-body">
                   <h5 class="card-title text-center fw-semibold">
                     Project Status Distribution
@@ -135,9 +147,9 @@
           </div>
 
           <!-- Row 3: Top 10 Alert -->
-          <div class="row">
+          <div class="row row-compact">
             <div class="col-12">
-              <div class="card bg-green-mint">
+              <div class="card bg-green-mint card-compact">
                 <div class="card-body">
                   <h5 class="card-title text-center fw-semibold">
                     Top 10 Alert - Due Date Proximity

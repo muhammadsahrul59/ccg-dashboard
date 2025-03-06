@@ -83,9 +83,24 @@ function updateDashboard() {
         );
 
   updateStatistics(filteredProjects);
+  updateProjectTitle(filteredProjects);
   createGaugeChart(filteredProjects);
   createPieChart(filteredProjects);
   createAlertTable(filteredProjects);
+}
+
+function updateProjectTitle(projects) {
+  const titleElement = document.getElementById("projectTitle");
+
+  if (selectedProject === "all") {
+    titleElement.textContent = "All Project Development - Overall Progress";
+  } else {
+    // Find the PIC for the selected project from the first matching project
+    const projectWithPic = projects.find((project) => project.pic);
+    const pic = projectWithPic ? projectWithPic.pic : "Not Assigned";
+
+    titleElement.textContent = `${selectedProject} - PIC: ${pic}`;
+  }
 }
 
 function calculateAveragePerformance(projects) {
@@ -322,8 +337,8 @@ function createPieChart(projects) {
     tooltip: {
       enabled: true,
       y: {
-        formatter: function (value, { seriesIndex }) {
-          return `${statuses[seriesIndex]}: ${value} projects`;
+        formatter: function (value) {
+          return `${value} Project Activity`;
         },
       },
     },
