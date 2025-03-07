@@ -1,196 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Syarief Hidayat Dashboard</title>
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="../assets/images/logos/favicon.png"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.min.css" />
-    <link rel="stylesheet" href="../assets/css/styles.darkmode.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Construction</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
     <style>
-      /* Reduce spacing between cards */
-      .card-compact {
-        margin-bottom: 0.75rem;
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Use min-height for better mobile support */
+        background: linear-gradient(135deg, #1eb9af, #efb331);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: white;
+        margin: 0;
+        overflow: hidden; /* Prevent scrollbars during animation */
       }
-      .row-compact {
-        margin-bottom: 1rem !important;
+
+      .container {
+        width: 90%; /* Occupy most of the screen width */
+        max-width: 600px; /* Limit maximum width on larger screens */
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+        padding: 20px; /* Add some padding */
+      }
+
+      .construction-icon {
+        font-size: 5rem; /* Use rem for scalable font size */
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(
+            -10px
+          ); /* Reduced bounce height for smaller screens */
+        }
+      }
+
+      .message {
+        font-size: 1.5rem; /* Use rem for scalable font size */
+        margin-top: 1rem; /* Use rem for scalable margin */
+      }
+
+      .progress-bar {
+        width: 100%; /* Make progress bar responsive */
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 1rem; /* Use rem for scalable margin */
+      }
+
+      .progress {
+        height: 100%;
+        width: 0;
+        background: white;
+        animation: load 5s infinite linear; /* Added linear for smoother animation */
+      }
+
+      @keyframes load {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 400px) {
+        .construction-icon {
+          font-size: 4rem;
+        }
+        .message {
+          font-size: 1.2rem;
+        }
       }
     </style>
   </head>
-
   <body>
-    <!--  Body Wrapper -->
-    <div
-      class="page-wrapper"
-      id="main-wrapper"
-      data-layout="vertical"
-      data-navbarbg="skin6"
-      data-sidebartype="full"
-      data-sidebar-position="fixed"
-      data-header-position="fixed"
-    >
-      <!-- Sidebar Start -->
-      <sidebar-template></sidebar-template>
-      <!--  Sidebar End -->
-
-      <!--  Main wrapper -->
-      <div class="body-wrapper">
-        <!--  Header Start -->
-        <header-template></header-template>
-        <!--  Header End -->
-        <!--  Body Start -->
-        <div class="container-fluid">
-          <!-- Row 1: Statistics and Filter -->
-          <div class="row row-compact">
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Total Projects</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="totalProjects"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>Unique project count</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Total Activities</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="totalActivities"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>All project activities</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Performance Project</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="performanceProject"
-                  >
-                    0%
-                  </div>
-                  <p class="mb-0"><small>Overall performance</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h4 class="card-title fw-semibold">Project Filter</h4>
-                  <select
-                    id="projectFilter"
-                    class="form-select mt-2"
-                    aria-label="Project filter"
-                  >
-                    <option value="all" selected>All Projects</option>
-                    <!-- Project options will be added dynamically -->
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 2: Charts -->
-          <div class="row row-compact">
-            <div class="col-md-6">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h5
-                    class="card-title text-center fw-semibold"
-                    id="projectTitle"
-                  >
-                    All Project Development - Overall Progress
-                  </h5>
-                  <div
-                    id="gaugeChart"
-                    class="d-flex justify-content-center"
-                  ></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Status Distribution
-                  </h5>
-                  <div id="pieChart"></div>
-                  <div
-                    id="pieChartLegend"
-                    class="mt-3 d-flex justify-content-around"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 3: Top 10 Alert -->
-          <div class="row row-compact">
-            <div class="col-12">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Top 10 Alert - Due Date Proximity
-                  </h5>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Project Name</th>
-                          <th>Activity Name</th>
-                          <th>Due Date</th>
-                          <th>Days Remaining</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody id="alertTable">
-                        <!-- Alert data will be added dynamically -->
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container">
+      <i class="fa-solid fa-wrench construction-icon"></i>
+      <div class="message">
+        This page is currently under construction. Stay tuned!
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
       </div>
     </div>
-    <!--  Body End -->
-    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script type="module" src="/src/assets/js/header-template.js"></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/sidebarmenu.js"></script>
-    <script src="../assets/js/app.min.js"></script>
-    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="/src/assets/js/sidebar-template.js"></script>
-    <script src="/src/assets/js/header-template.js"></script>
-    <script src="/src/assets/js/dark-mode.js"></script>
-    <script
-      type="module"
-      src="../assets/js/project-dashboard/syarief-project-dashboard.js"
-    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const progress = document.querySelector(".progress");
+
+        setTimeout(() => {
+          window.history.length > 1
+            ? window.history.back()
+            : (window.location.href = "https://bsinar.netlify.app"); // Replace with your URL
+        }, 5000);
+      });
+    </script>
   </body>
 </html>
