@@ -26,6 +26,34 @@
       .row-compact {
         margin-bottom: 1rem !important;
       }
+      /* Progress bar styles */
+      .progress {
+        height: 20px;
+      }
+      .progress-bar {
+        transition: width 0.6s ease;
+      }
+      /* Table scrolling */
+      .table-scroll {
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      /* Hide the project details row initially */
+      #projectDetailsRow {
+        display: none;
+      }
+      /* Make table rows clickable */
+      .clickable-row {
+        cursor: pointer;
+      }
+      .clickable-row:hover {
+        background-color: rgba(68, 165, 160, 0.1);
+      }
+      /* Enhanced chart styling */
+      #picColumnChart {
+        height: 250px !important;
+        margin-top: 10px;
+      }
     </style>
   </head>
 
@@ -51,9 +79,22 @@
         <!--  Header End -->
         <!--  Body Start -->
         <div class="container-fluid">
-          <!-- Row 1: Statistics and Filter -->
+          <!-- Row 1: Statistics and Charts -->
+          <!-- Replace the existing Row 1 with this code -->
+          <!-- Row 1: Dashboard Title -->
           <div class="row row-compact">
-            <div class="col-md-3">
+            <div class="col-12">
+              <div class="card bg-green-mint text-white card-compact">
+                <div class="card-body text-center">
+                  <h2 class="card-title fw-semibold">Project Dev Dashboard</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Statistics and Charts -->
+          <div class="row row-compact">
+            <div class="col-md-4">
               <div class="card bg-green-mint text-white card-compact">
                 <div class="card-body text-center">
                   <h4 class="card-title fw-semibold">Total Projects</h4>
@@ -67,97 +108,58 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-8">
               <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Total Activities</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="totalActivities"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>All project activities</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Performance Project</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="performanceProject"
-                  >
-                    0%
-                  </div>
-                  <p class="mb-0"><small>Overall performance</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="card bg-green-mint card-compact">
                 <div class="card-body">
-                  <h4 class="card-title fw-semibold">Project Filter</h4>
-                  <select
-                    id="projectFilter"
-                    class="form-select mt-2"
-                    aria-label="Project filter"
-                  >
-                    <option value="all" selected>All Projects</option>
-                    <!-- Project options will be added dynamically -->
-                  </select>
+                  <h4 class="card-title fw-semibold text-center">
+                    PIC Project Distribution
+                  </h4>
+                  <div id="picColumnChart" style="height: 150px"></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Row 2: Charts -->
-          <div class="row row-compact">
-            <div class="col-md-6">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h5
-                    class="card-title text-center fw-semibold"
-                    id="projectTitle"
-                  >
-                    All Project Development - Overall Progress
-                  </h5>
-                  <div
-                    id="gaugeChart"
-                    class="d-flex justify-content-center"
-                  ></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Status Distribution
-                  </h5>
-                  <div id="pieChart"></div>
-                  <div
-                    id="pieChartLegend"
-                    class="mt-3 d-flex justify-content-around"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Row 3: Top 10 Alert -->
+          <!-- Row 2: Project Overview Table -->
           <div class="row row-compact">
             <div class="col-12">
               <div class="card bg-green-mint card-compact">
                 <div class="card-body">
                   <h5 class="card-title text-center fw-semibold">
-                    Top 10 Alert - Due Date Proximity
+                    Project Overview
                   </h5>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
                         <tr>
+                          <th>PIC</th>
+                          <th>Project Name</th>
+                          <th>Progress Project</th>
+                        </tr>
+                      </thead>
+                      <tbody id="projectOverviewTable">
+                        <!-- Project overview data will be added dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Project Details (Hidden by default) -->
+          <div class="row row-compact" id="projectDetailsRow">
+            <div class="col-12">
+              <div class="card bg-green-mint card-compact">
+                <div class="card-body">
+                  <h5 class="card-title text-center fw-semibold">
+                    Project Details: <span id="selectedProjectName">None</span>
+                  </h5>
+                  <div class="table-responsive table-scroll">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>PIC</th>
                           <th>Project Name</th>
                           <th>Activity Name</th>
                           <th>Due Date</th>
@@ -165,8 +167,8 @@
                           <th>Status</th>
                         </tr>
                       </thead>
-                      <tbody id="alertTable">
-                        <!-- Alert data will be added dynamically -->
+                      <tbody id="projectDetailsTable">
+                        <!-- Project details will be added dynamically -->
                       </tbody>
                     </table>
                   </div>
@@ -179,7 +181,6 @@
     </div>
     <!--  Body End -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script type="module" src="/src/assets/js/header-template.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/sidebarmenu.js"></script>
     <script src="../assets/js/app.min.js"></script>
@@ -188,9 +189,10 @@
     <script src="/src/assets/js/sidebar-template.js"></script>
     <script src="/src/assets/js/header-template.js"></script>
     <script src="/src/assets/js/dark-mode.js"></script>
+    <script type="module" src="/src/assets/js/header-template.js"></script>
     <script
       type="module"
-      src="../assets/js/project-dashboard/syarief-project-dashboard.js"
+      src="../assets/js/project-dashboard/project-development-dashboard.js"
     ></script>
   </body>
 </html>
