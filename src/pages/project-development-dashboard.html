@@ -79,8 +79,6 @@
         <!--  Header End -->
         <!--  Body Start -->
         <div class="container-fluid">
-          <!-- Row 1: Statistics and Charts -->
-          <!-- Replace the existing Row 1 with this code -->
           <!-- Row 1: Dashboard Title -->
           <div class="row row-compact">
             <div class="col-12">
@@ -92,42 +90,16 @@
             </div>
           </div>
 
-          <!-- Row 2: Statistics and Charts -->
+          <!-- Row 2: Combined PIC Distribution and Project Overview -->
           <div class="row row-compact">
-            <div class="col-md-4">
-              <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h4 class="card-title fw-semibold">Total Projects</h4>
-                  <div
-                    class="stats-value fw-bold text-green-bsi"
-                    id="totalProjects"
-                  >
-                    0
-                  </div>
-                  <p class="mb-0"><small>Unique project count</small></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
+            <div class="col-12">
               <div class="card bg-green-mint text-white card-compact">
                 <div class="card-body">
                   <h4 class="card-title fw-semibold text-center">
                     PIC Project Distribution
                   </h4>
-                  <div id="picColumnChart" style="height: 150px"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <div id="picColumnChart" style="height: 250px"></div>
 
-          <!-- Row 2: Project Overview Table -->
-          <div class="row row-compact">
-            <div class="col-12">
-              <div class="card bg-green-mint card-compact">
-                <div class="card-body">
-                  <h5 class="card-title text-center fw-semibold">
-                    Project Overview
-                  </h5>
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <thead>
@@ -162,8 +134,9 @@
                           <th>PIC</th>
                           <th>Project Name</th>
                           <th>Activity Name</th>
+                          <th>Start Date</th>
                           <th>Due Date</th>
-                          <th>Days Remaining</th>
+                          <th>Days</th>
                           <th>Status</th>
                         </tr>
                       </thead>

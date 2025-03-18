@@ -9,6 +9,7 @@ const accentColors = ["#44a5a0", "#f9ad3c", "#5e8b87", "#ffbc5e"]; // Color vari
 
 let allProjects = [];
 let picColumnChart = null;
+let holidays = []; // To store holiday dates
 
 document.addEventListener("DOMContentLoaded", function () {
   loadDashboardData();
@@ -17,11 +18,23 @@ document.addEventListener("DOMContentLoaded", function () {
 async function loadDashboardData() {
   try {
     // Fetch projects from Supabase
-    const { data, error } = await supabase.from("projects").select("*");
+    const { data: projectsData, error: projectsError } = await supabase
+      .from("projects")
+      .select("*");
 
-    if (error) throw error;
+    if (projectsError) throw projectsError;
 
-    allProjects = data;
+    // Fetch holidays from Supabase
+    const { data: holidaysData, error: holidaysError } = await supabase
+      .from("hari_libur")
+      .select("*");
+
+    if (holidaysError) throw holidaysError;
+
+    // Store the data
+    allProjects = projectsData;
+    holidays = holidaysData || [];
+
     updateDashboard();
   } catch (error) {
     console.error("Error loading dashboard data:", error);
@@ -33,20 +46,9 @@ function updateDashboard() {
   // Use all projects by default since we removed the filter
   const filteredProjects = allProjects;
 
-  updateStatistics(filteredProjects);
+  // We removed updateStatistics since we removed the Total Projects card
   createPicColumnChart(filteredProjects);
   createProjectOverviewTable(filteredProjects);
-}
-
-function updateStatistics(projects) {
-  // Count unique project names
-  const uniqueProjectNames = [
-    ...new Set(projects.map((project) => project.name_project)),
-  ].filter((name) => name);
-
-  // Update total projects counter
-  document.getElementById("totalProjects").textContent =
-    uniqueProjectNames.length;
 }
 
 function createPicColumnChart(projects) {
@@ -78,7 +80,7 @@ function createPicColumnChart(projects) {
     picColumnChart.destroy();
   }
 
-  // Create column chart with improved UI
+  // Create column chart with UI similar to your example
   const options = {
     series: [
       {
@@ -89,26 +91,43 @@ function createPicColumnChart(projects) {
     chart: {
       type: "bar",
       height: 250,
-      toolbar: {
-        show: false,
-      },
       fontFamily: "inherit",
       background: "transparent",
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true,
+        },
+        autoSelected: "zoom",
+        offsetX: 0,
+        offsetY: 0,
+        color: "#000",
+      },
     },
+    colors: undefined, // Using undefined will apply the default ApexCharts color palette
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "80%",
-        borderRadius: 4,
-        distributed: true,
+        columnWidth: "55%",
+        borderRadius: 5,
+        borderRadiusApplication: "end",
+        dataLabels: {
+          position: "center",
+        },
+        distributed: true, // This makes each bar have a different color
       },
     },
     dataLabels: {
       enabled: true,
+      position: "center",
       style: {
-        fontSize: "12px",
-        fontWeight: "bold",
-        colors: ["#ffffff"],
+        colors: ["#fff"],
       },
     },
     stroke: {
@@ -119,36 +138,47 @@ function createPicColumnChart(projects) {
     xaxis: {
       categories: categories,
       labels: {
-        show: false, // Hide x-axis labels
+        style: {
+          colors: "#000",
+        },
       },
       axisBorder: {
-        show: false,
+        show: true,
+        color: "rgba(0, 0, 0, 0.3)",
       },
       axisTicks: {
-        show: false,
+        show: true,
+        color: "rgba(0, 0, 0, 0.3)",
       },
     },
     yaxis: {
-      labels: {
-        show: false, // Hide y-axis labels
-      },
       title: {
-        text: "", // Remove y-axis title
+        text: "Number of Projects",
+        style: {
+          color: "#000",
+        },
+      },
+      labels: {
+        style: {
+          colors: "#000",
+        },
       },
     },
     fill: {
       opacity: 1,
-      // Using a single color for all columns instead of accentColors
     },
-    grid: {
-      borderColor: "rgba(255, 255, 255, 0.1)",
-      padding: {
-        bottom: 5,
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          return val + " projects";
+        },
       },
     },
+    grid: {
+      borderColor: "rgba(0, 0, 0, 0.1)",
+    },
     legend: {
-      show: true,
-      position: "top",
+      show: false,
     },
   };
 
@@ -263,63 +293,137 @@ function showProjectDetails(projectName) {
   }
 }
 
+// Function to check if a date is a holiday
+function isHoliday(date) {
+  return holidays.some((holiday) => {
+    const holidayDate = new Date(holiday.tanggal);
+    return (
+      date.getDate() === holidayDate.getDate() &&
+      date.getMonth() === holidayDate.getMonth() &&
+      date.getFullYear() === holidayDate.getFullYear()
+    );
+  });
+}
+
+// Function to calculate working days between two dates
+function calculateWorkingDays(startDate, endDate) {
+  if (!startDate || !endDate) return null;
+
+  // Clone dates to avoid modifying the originals
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(endDate);
+  end.setHours(0, 0, 0, 0);
+
+  // If start is after end, return 0
+  if (start > end) return 0;
+
+  let days = 0;
+  const current = new Date(start);
+
+  while (current <= end) {
+    const dayOfWeek = current.getDay();
+    // Skip weekends (0 = Sunday, 6 = Saturday)
+    if (dayOfWeek !== 0 && dayOfWeek !== 6 && !isHoliday(current)) {
+      days++;
+    }
+    current.setDate(current.getDate() + 1);
+  }
+
+  return days;
+}
+
 function createProjectDetailsTable(projects) {
   const tableBody = document.getElementById("projectDetailsTable");
   tableBody.innerHTML = "";
 
-  // Process project details - removed the slice(0, 10) to show all rows
+  // Process project details
   const processedProjects = projects
     .map((project) => {
+      const startDate = project.start_date
+        ? new Date(project.start_date)
+        : null;
       const dueDate = project.due_date ? new Date(project.due_date) : null;
       const today = new Date();
-      const daysRemaining = dueDate
-        ? Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24))
-        : null;
-      const isDone = project.done_date ? true : false;
+      today.setHours(0, 0, 0, 0);
+
+      // Calculate working days between start and due date
+      const workingDays = calculateWorkingDays(startDate, dueDate);
+
+      // Determine status based on dates and database value
+      let status;
+
+      // If the database already has a "Done" status, keep it
+      if (project.status === "Done") {
+        status = "Done";
+      }
+      // If today is before start date, status is "Not Started"
+      else if (startDate && today < startDate) {
+        status = "Not Started";
+      }
+      // If today is after due date, status is "Late"
+      else if (dueDate && today > dueDate) {
+        status = "Late";
+      }
+      // Default status is "On Track" or use the database value if available
+      else {
+        status = project.status || "On Track";
+      }
 
       return {
         ...project,
+        startDate,
         dueDate,
-        daysRemaining,
-        isDone,
+        workingDays,
+        status,
+        formattedStartDate: startDate
+          ? startDate.toLocaleDateString()
+          : "Not set",
         formattedDueDate: dueDate ? dueDate.toLocaleDateString() : "Not set",
       };
     })
     .sort((a, b) => {
-      // Sort by done status, then by days remaining
-      if (a.isDone !== b.isDone) return a.isDone ? 1 : -1;
-      if (a.daysRemaining === null && b.daysRemaining === null) return 0;
-      if (a.daysRemaining === null) return 1;
-      if (b.daysRemaining === null) return -1;
-      return a.daysRemaining - b.daysRemaining;
+      // Sort by status priority
+      const statusPriority = {
+        Late: 1, // Highest priority
+        "Not Started": 2,
+        "On Track": 3,
+        Done: 4, // Lowest priority
+      };
+
+      const aPriority = statusPriority[a.status] || 5;
+      const bPriority = statusPriority[b.status] || 5;
+
+      if (aPriority !== bPriority) {
+        return aPriority - bPriority;
+      }
+
+      // If both have same status category, sort by due date
+      if (a.dueDate === null && b.dueDate === null) return 0;
+      if (a.dueDate === null) return 1;
+      if (b.dueDate === null) return -1;
+      return a.dueDate - b.dueDate;
     });
-  // Removed the slice(0, 10) limit
 
   // Create table rows
   processedProjects.forEach((project) => {
-    // Determine status color and text
-    let statusClass, statusText;
+    // Determine status color based on status text
+    let statusClass;
 
-    if (project.isDone) {
-      statusClass = "bg-primary text-white";
-      statusText = "DONE";
-    } else if (project.daysRemaining !== null) {
-      if (project.daysRemaining < 0) {
-        statusClass = "bg-danger text-white";
-        statusText = "Overdue";
-      } else if (project.daysRemaining < 3) {
-        statusClass = "bg-danger text-white";
-        statusText = "Critical";
-      } else if (project.daysRemaining < 7) {
-        statusClass = "bg-warning";
-        statusText = "Warning";
-      } else {
-        statusClass = "bg-success text-white";
-        statusText = "On Track";
-      }
-    } else {
-      statusClass = "bg-secondary text-white";
-      statusText = "No Due Date";
+    switch (project.status) {
+      case "Done":
+        statusClass = "bg-success text-white"; // Green for done
+        break;
+      case "Not Started":
+        statusClass = "bg-muted text-white"; // Gray for not started
+        break;
+      case "Late":
+        statusClass = "bg-danger text-white"; // Red for late
+        break;
+      case "On Track":
+      default:
+        statusClass = "bg-primary text-white"; // Blue for on track
+        break;
     }
 
     const row = document.createElement("tr");
@@ -327,15 +431,10 @@ function createProjectDetailsTable(projects) {
       <td>${project.pic || "Unassigned"}</td>
       <td>${project.name_project || "Unnamed Project"}</td>
       <td>${project.name_activity || "N/A"}</td>
+      <td>${project.formattedStartDate}</td>
       <td>${project.formattedDueDate}</td>
-      <td>${
-        project.isDone
-          ? "0"
-          : project.daysRemaining !== null
-          ? project.daysRemaining
-          : "N/A"
-      }</td>
-      <td><span class="badge ${statusClass}">${statusText}</span></td>
+      <td>${project.workingDays !== null ? project.workingDays : "N/A"}</td>
+      <td><span class="badge ${statusClass}">${project.status}</span></td>
     `;
 
     tableBody.appendChild(row);
@@ -344,10 +443,19 @@ function createProjectDetailsTable(projects) {
   // Display message if no data
   if (processedProjects.length === 0) {
     const row = document.createElement("tr");
-    row.innerHTML = `<td colspan="6" class="text-center">No detailed data available for this project</td>`;
+    row.innerHTML = `<td colspan="7" class="text-center">No detailed data available for this project</td>`;
     tableBody.appendChild(row);
   }
 }
+
+// Add function to refresh data periodically
+function setupAutoRefresh() {
+  // Refresh data every 5 minutes
+  setInterval(loadDashboardData, 5 * 60 * 1000);
+}
+
+// Call setupAutoRefresh after page loads
+window.addEventListener("load", setupAutoRefresh);
 
 // Export the function to be accessible from the HTML
 window.showProjectDetails = showProjectDetails;
