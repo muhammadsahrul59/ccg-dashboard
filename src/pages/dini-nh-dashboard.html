@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Under Construction</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Use min-height for better mobile support */
+        background: linear-gradient(135deg, #1eb9af, #efb331);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: white;
+        margin: 0;
+        overflow: hidden; /* Prevent scrollbars during animation */
+      }
+
+      .container {
+        width: 90%; /* Occupy most of the screen width */
+        max-width: 600px; /* Limit maximum width on larger screens */
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+        padding: 20px; /* Add some padding */
+      }
+
+      .construction-icon {
+        font-size: 5rem; /* Use rem for scalable font size */
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(
+            -10px
+          ); /* Reduced bounce height for smaller screens */
+        }
+      }
+
+      .message {
+        font-size: 1.5rem; /* Use rem for scalable font size */
+        margin-top: 1rem; /* Use rem for scalable margin */
+      }
+
+      .progress-bar {
+        width: 100%; /* Make progress bar responsive */
+        height: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 1rem; /* Use rem for scalable margin */
+      }
+
+      .progress {
+        height: 100%;
+        width: 0;
+        background: white;
+        animation: load 5s infinite linear; /* Added linear for smoother animation */
+      }
+
+      @keyframes load {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      /* Media query for smaller screens */
+      @media (max-width: 400px) {
+        .construction-icon {
+          font-size: 4rem;
+        }
+        .message {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <i class="fa-solid fa-wrench construction-icon"></i>
+      <div class="message">
+        This page is currently under construction. Stay tuned!
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const progress = document.querySelector(".progress");
+
+        setTimeout(() => {
+          window.history.length > 1
+            ? window.history.back()
+            : (window.location.href = "https://bsinar.netlify.app"); // Replace with your URL
+        }, 5000);
+      });
+    </script>
+  </body>
+</html>

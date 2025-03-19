@@ -284,103 +284,141 @@ function createProjectProgressGrid(projects) {
   // Convert to array for easier handling
   const projectArray = Object.values(groupedProjects);
 
-  // Create a row div for the first 6 projects
-  const row1 = document.createElement("div");
-  row1.className = "row mt-4";
+  // Create a container for the grid layout
+  const gridContainer = document.createElement("div");
+  gridContainer.className = "project-grid mt-4";
+  gridContainer.style.display = "grid";
+  gridContainer.style.gridTemplateColumns =
+    "repeat(auto-fill, minmax(calc(16.666% - 20px), 1fr))";
+  gridContainer.style.gap = "20px";
+  gridContainer.style.padding = "10px";
 
-  // Create a row div for the remaining projects
-  const row2 = document.createElement("div");
-  row2.className = "row mt-3";
-
-  // Add projects to rows
-  projectArray.forEach((project, index) => {
-    // Create card for project
-    const col = document.createElement("div");
-    col.className = "col-md-2 mb-3";
-
-    const card = document.createElement("div");
-    card.className = "card h-100 clickable-row";
-    card.style.cursor = "pointer";
-    card.style.transition = "transform 0.3s";
-    card.style.border = "1px solid #00a39d";
-    card.setAttribute("data-project", project.name);
-
-    // Hover effect
-    card.addEventListener("mouseenter", function () {
-      this.style.transform = "translateY(-5px)";
-      this.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
-    });
-
-    card.addEventListener("mouseleave", function () {
-      this.style.transform = "translateY(0)";
-      this.style.boxShadow = "none";
-    });
+  // Add projects as bar charts
+  projectArray.forEach((project) => {
+    // Create container for this project's bar
+    const projectBarContainer = document.createElement("div");
+    projectBarContainer.className = "project-bar-wrapper";
+    projectBarContainer.style.position = "relative";
+    projectBarContainer.style.height = "80px";
+    projectBarContainer.style.cursor = "pointer";
+    projectBarContainer.style.borderRadius = "8px";
+    projectBarContainer.style.overflow = "hidden";
+    projectBarContainer.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+    projectBarContainer.setAttribute("data-project", project.name);
 
     // Add click event to show project details
-    card.addEventListener("click", function () {
+    projectBarContainer.addEventListener("click", function () {
       const projectName = this.getAttribute("data-project");
       showProjectDetails(projectName);
     });
 
+    // Create bar background
+    const barBackground = document.createElement("div");
+    barBackground.className = "bar-background";
+    barBackground.style.position = "absolute";
+    barBackground.style.top = "0";
+    barBackground.style.left = "0";
+    barBackground.style.width = "100%";
+    barBackground.style.height = "100%";
+    barBackground.style.backgroundColor = "#eff3f9"; // Light blue-gray background
+
     // Determine progress color
     const progressColor =
       project.totalProgress < 30
-        ? "#dc3545" // Red for low progress
+        ? "#ff7b54" // Coral/orange for low progress
         : project.totalProgress < 60
-        ? "#ffc107" // Yellow for medium progress
-        : "#28a745"; // Green for high progress
+        ? "#ffb72b" // Yellow/orange for medium progress
+        : "#4caf50"; // Green for high progress
 
-    // Create a circular progress chart
-    const size = 80;
-    const strokeWidth = 8;
-    const radius = (size - strokeWidth) / 2;
-    const circumference = radius * 2 * Math.PI;
-    const dashoffset =
-      circumference - (project.totalProgress / 100) * circumference;
+    // Create progress bar (fill)
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar";
+    progressBar.style.position = "absolute";
+    progressBar.style.bottom = "0";
+    progressBar.style.left = "0";
+    progressBar.style.width = "100%";
+    progressBar.style.height = `${project.totalProgress}%`;
+    progressBar.style.backgroundColor = progressColor;
+    progressBar.style.transition = "height 0.5s ease";
 
-    card.innerHTML = `
-      <div class="card-body text-center p-2">
-        <!-- Circular Progress Chart -->
-        <div class="my-2">
-          <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-            <!-- Background circle -->
-            <circle cx="${size / 2}" cy="${
-      size / 2
-    }" r="${radius}" fill="none" stroke="#f0f0f0" stroke-width="${strokeWidth}"></circle>
-            <!-- Progress circle -->
-            <circle cx="${size / 2}" cy="${size / 2}" r="${radius}" fill="none" 
-                   stroke="${progressColor}" stroke-width="${strokeWidth}" 
-                   stroke-dasharray="${circumference}" stroke-dashoffset="${dashoffset}"
-                   transform="rotate(-90 ${size / 2} ${size / 2})"></circle>
-            <!-- Percentage text -->
-            <text x="${size / 2}" y="${
-      size / 2
-    }" font-size="16" font-weight="bold" fill="${progressColor}" 
-                  text-anchor="middle" dominant-baseline="middle">${
-                    project.totalProgress
-                  }%</text>
-          </svg>
-        </div>
-        <!-- Project Name (smaller) -->
-        <h6 class="card-title mb-0 mt-1" style="font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${
-          project.name
-        }</h6>
-      </div>
-    `;
+    // Add project name
+    const projectNameElement = document.createElement("div");
+    projectNameElement.className = "project-name";
+    projectNameElement.style.position = "absolute";
+    projectNameElement.style.top = "10px";
+    projectNameElement.style.left = "10px";
+    projectNameElement.style.right = "10px";
+    projectNameElement.style.fontSize = "0.85rem";
+    projectNameElement.style.fontWeight = "bold";
+    projectNameElement.style.overflow = "hidden";
+    projectNameElement.style.textOverflow = "ellipsis";
+    projectNameElement.style.whiteSpace = "nowrap";
+    projectNameElement.style.zIndex = "1";
+    projectNameElement.textContent = project.name;
 
-    col.appendChild(card);
+    // Add percentage text
+    const percentageText = document.createElement("div");
+    percentageText.className = "percentage-text";
+    percentageText.style.position = "absolute";
+    percentageText.style.bottom = "10px";
+    percentageText.style.right = "10px";
+    percentageText.style.fontWeight = "bold";
+    percentageText.style.fontSize = "1.2rem";
+    percentageText.style.color = project.totalProgress > 70 ? "white" : "black";
+    percentageText.style.zIndex = "1";
+    percentageText.textContent = `${project.totalProgress}%`;
 
-    // Add to first row if index < 6, otherwise add to second row
-    if (index < 6) {
-      row1.appendChild(col);
-    } else {
-      row2.appendChild(col);
-    }
+    // Add PIC info
+    const picElement = document.createElement("div");
+    picElement.className = "project-pic";
+    picElement.style.position = "absolute";
+    picElement.style.bottom = "10px";
+    picElement.style.left = "10px";
+    picElement.style.fontSize = "0.75rem";
+    picElement.style.maxWidth = "60%";
+    picElement.style.overflow = "hidden";
+    picElement.style.textOverflow = "ellipsis";
+    picElement.style.whiteSpace = "nowrap";
+    picElement.style.zIndex = "1";
+    picElement.textContent = project.pic;
+
+    // Assemble the bar
+    projectBarContainer.appendChild(barBackground);
+    projectBarContainer.appendChild(progressBar);
+    projectBarContainer.appendChild(projectNameElement);
+    projectBarContainer.appendChild(percentageText);
+    projectBarContainer.appendChild(picElement);
+
+    // Add hover effect
+    projectBarContainer.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-5px)";
+      this.style.boxShadow = "0 6px 12px rgba(0,0,0,0.15)";
+    });
+
+    projectBarContainer.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0)";
+      this.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+    });
+
+    // Add to grid container
+    gridContainer.appendChild(projectBarContainer);
   });
 
-  // Add rows to container
-  container.appendChild(row1);
-  container.appendChild(row2);
+  // Add grid container to main container
+  container.appendChild(gridContainer);
+
+  // Make grid responsive
+  function updateGridColumns() {
+    const containerWidth = container.offsetWidth;
+    const columnCount = Math.min(6, Math.floor(containerWidth / 180)); // Ensure max 6 columns
+    gridContainer.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
+  }
+
+  // Initialize grid layout
+  updateGridColumns();
+
+  // Update grid on window resize
+  window.addEventListener("resize", updateGridColumns);
 
   // Display message if no data
   if (projectArray.length === 0) {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Syarief Hidayat Dashboard</title>
+    <title>All Project Development Dashboard</title>
     <link
       rel="shortcut icon"
       type="image/png"
@@ -49,10 +49,22 @@
       .clickable-row:hover {
         background-color: rgba(68, 165, 160, 0.1);
       }
-      /* Enhanced chart styling */
-      #picColumnChart {
-        height: 250px !important;
-        margin-top: 10px;
+      /* Team member card styles */
+      .team-member-card {
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s;
+      }
+      .team-member-card:hover {
+        transform: translateY(-5px);
+      }
+      .project-count {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+      .member-name {
+        font-size: 1rem;
+        font-weight: 500;
       }
     </style>
   </head>
@@ -79,41 +91,109 @@
         <!--  Header End -->
         <!--  Body Start -->
         <div class="container-fluid">
-          <!-- Row 1: Dashboard Title -->
+          <!-- Row 1: Total Project Cards -->
           <div class="row row-compact">
-            <div class="col-12">
-              <div class="card bg-green-mint text-white card-compact">
-                <div class="card-body text-center">
-                  <h2 class="card-title fw-semibold">Project Dev Dashboard</h2>
+            <!-- Total Projects Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">
+                    Total Projects
+                  </h5>
+                  <div
+                    class="project-count text-center"
+                    id="totalProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Syarief Hidayat's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">
+                    Syarief Hidayat
+                  </h5>
+                  <div
+                    class="project-count text-center"
+                    id="syariefhidayatProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Herlina's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">
+                    Herlina
+                  </h5>
+                  <div
+                    class="project-count text-center"
+                    id="herlinaProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nita's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">Nita</h5>
+                  <div
+                    class="project-count text-center"
+                    id="nitaProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dini's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">Dini</h5>
+                  <div
+                    class="project-count text-center"
+                    id="diniProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Row 2: Combined PIC Distribution and Project Overview -->
+          <!-- Row 2: Project Progress -->
           <div class="row row-compact">
             <div class="col-12">
-              <div class="card bg-green-mint text-white card-compact">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
                 <div class="card-body">
                   <h4 class="card-title fw-semibold text-center">
-                    PIC Project Distribution
+                    Progress Project
                   </h4>
-                  <div id="picColumnChart" style="height: 250px"></div>
-
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>PIC</th>
-                          <th>Project Name</th>
-                          <th>Progress Project</th>
-                        </tr>
-                      </thead>
-                      <tbody id="projectOverviewTable">
-                        <!-- Project overview data will be added dynamically -->
-                      </tbody>
-                    </table>
-                  </div>
+                  <!-- Project cards will be added here dynamically -->
                 </div>
               </div>
             </div>
@@ -122,7 +202,7 @@
           <!-- Row 3: Project Details (Hidden by default) -->
           <div class="row row-compact" id="projectDetailsRow">
             <div class="col-12">
-              <div class="card bg-green-mint card-compact">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
                 <div class="card-body">
                   <h5 class="card-title text-center fw-semibold">
                     Project Details: <span id="selectedProjectName">None</span>
@@ -132,7 +212,6 @@
                       <thead>
                         <tr>
                           <th>PIC</th>
-                          <th>Project Name</th>
                           <th>Activity Name</th>
                           <th>Start Date</th>
                           <th>Due Date</th>

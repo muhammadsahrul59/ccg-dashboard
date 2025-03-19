@@ -1,112 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Under Construction</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Syarief Hidayat Project Dashboard</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+    <link rel="stylesheet" href="../assets/css/styles.darkmode.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh; /* Use min-height for better mobile support */
-        background: linear-gradient(135deg, #1eb9af, #efb331);
-        font-family: Arial, sans-serif;
-        text-align: center;
-        color: white;
-        margin: 0;
-        overflow: hidden; /* Prevent scrollbars during animation */
+      /* Reduce spacing between cards */
+      .card-compact {
+        margin-bottom: 0.75rem;
       }
-
-      .container {
-        width: 90%; /* Occupy most of the screen width */
-        max-width: 600px; /* Limit maximum width on larger screens */
-        box-sizing: border-box; /* Include padding and border in element's total width and height */
-        padding: 20px; /* Add some padding */
+      .row-compact {
+        margin-bottom: 1rem !important;
       }
-
-      .construction-icon {
-        font-size: 5rem; /* Use rem for scalable font size */
-        animation: bounce 2s infinite;
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(
-            -10px
-          ); /* Reduced bounce height for smaller screens */
-        }
-      }
-
-      .message {
-        font-size: 1.5rem; /* Use rem for scalable font size */
-        margin-top: 1rem; /* Use rem for scalable margin */
-      }
-
-      .progress-bar {
-        width: 100%; /* Make progress bar responsive */
-        height: 10px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 5px;
-        overflow: hidden;
-        margin-top: 1rem; /* Use rem for scalable margin */
-      }
-
+      /* Progress bar styles */
       .progress {
-        height: 100%;
-        width: 0;
-        background: white;
-        animation: load 5s infinite linear; /* Added linear for smoother animation */
+        height: 20px;
       }
-
-      @keyframes load {
-        0% {
-          width: 0;
-        }
-        100% {
-          width: 100%;
-        }
+      .progress-bar {
+        transition: width 0.6s ease;
       }
-
-      /* Media query for smaller screens */
-      @media (max-width: 400px) {
-        .construction-icon {
-          font-size: 4rem;
-        }
-        .message {
-          font-size: 1.2rem;
-        }
+      /* Table scrolling */
+      .table-scroll {
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      /* Hide the project details row initially */
+      #projectDetailsRow {
+        display: none;
+      }
+      /* Make table rows clickable */
+      .clickable-row {
+        cursor: pointer;
+      }
+      .clickable-row:hover {
+        background-color: rgba(68, 165, 160, 0.1);
+      }
+      /* Team member card styles */
+      .team-member-card {
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s;
+      }
+      .team-member-card:hover {
+        transform: translateY(-5px);
+      }
+      .project-count {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+      .member-name {
+        font-size: 1rem;
+        font-weight: 500;
       }
     </style>
   </head>
+
   <body>
-    <div class="container">
-      <i class="fa-solid fa-wrench construction-icon"></i>
-      <div class="message">
-        This page is currently under construction. Stay tuned!
-      </div>
-      <div class="progress-bar">
-        <div class="progress"></div>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <sidebar-template></sidebar-template>
+      <!--  Sidebar End -->
+
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <!--  Header Start -->
+        <header-template></header-template>
+        <!--  Header End -->
+        <!--  Body Start -->
+        <div class="container-fluid">
+          <!-- Row 1: Total Project Cards -->
+          <div class="row row-compact">
+            <!-- Total Projects Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">
+                    Total Projects
+                  </h5>
+                  <div
+                    class="project-count text-center"
+                    id="totalProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Syarief Hidayat's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">
+                    Syarief Hidayat
+                  </h5>
+                  <div
+                    class="project-count text-center"
+                    id="syariefhidayatProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Herlina's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">
+                    Herlina
+                  </h5>
+                  <div
+                    class="project-count text-center"
+                    id="herlinaProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Nita's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">Nita</h5>
+                  <div
+                    class="project-count text-center"
+                    id="nitaProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dini's Card -->
+            <div class="col mb-3">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body py-2">
+                  <h5 class="card-title fw-semibold text-center mb-1">Dini</h5>
+                  <div
+                    class="project-count text-center"
+                    id="diniProjectCount"
+                    style="font-size: 2rem; color: #00a39d"
+                  >
+                    0
+                  </div>
+                  <p class="text-center mb-0">Projects</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Project Progress -->
+          <div class="row row-compact">
+            <div class="col-12">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body">
+                  <h4 class="card-title fw-semibold text-center">
+                    Progress Project
+                  </h4>
+                  <!-- Project cards will be added here dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Project Details (Hidden by default) -->
+          <div class="row row-compact" id="projectDetailsRow">
+            <div class="col-12">
+              <div class="card card-compact" style="border: 2px solid #00a39d">
+                <div class="card-body">
+                  <h5 class="card-title text-center fw-semibold">
+                    Project Details: <span id="selectedProjectName">None</span>
+                  </h5>
+                  <div class="table-responsive table-scroll">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>PIC</th>
+                          <th>Activity Name</th>
+                          <th>Start Date</th>
+                          <th>Due Date</th>
+                          <th>Days</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="projectDetailsTable">
+                        <!-- Project details will be added dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const progress = document.querySelector(".progress");
-
-        setTimeout(() => {
-          window.history.length > 1
-            ? window.history.back()
-            : (window.location.href = "https://bsinar.netlify.app"); // Replace with your URL
-        }, 5000);
-      });
-    </script>
+    <!--  Body End -->
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="/src/assets/js/sidebar-template.js"></script>
+    <script src="/src/assets/js/header-template.js"></script>
+    <script src="/src/assets/js/dark-mode.js"></script>
+    <script type="module" src="/src/assets/js/header-template.js"></script>
+    <script
+      type="module"
+      src="../assets/js/project-dashboard/syarief-hidayat-project-dashboard.js"
+    ></script>
   </body>
 </html>

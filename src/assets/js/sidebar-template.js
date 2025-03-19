@@ -34,12 +34,13 @@ class Sidebar extends HTMLElement {
                 </a>
                 <div class="collapse" id="devSubmenu">
                   <ul class="list-unstyled">
-                  <li><a class="sidebar-link ps-4" href="/src/pages/project-development-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Project Dev Dashboard</span></a></li>
+                  <li><a class="sidebar-link ps-4" href="/src/pages/project-development-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">All Project Dev</span></a></li>
                     <li><a class="sidebar-link ps-4" href="/src/pages/nitanoreko-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Nita Noreko</span></a></li>
                     <li><a class="sidebar-link ps-4" href="/src/pages/syariefhidayat-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Syarief Hidayat</span></a></li>
                     <li><a class="sidebar-link ps-4" href="/src/pages/sahrul-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Muhammad Sahrul</span></a></li>
                     <li><a class="sidebar-link ps-4" href="/src/pages/akmal-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Muhamad Akmal A.</span></a></li>
                     <li><a class="sidebar-link ps-4" href="/src/pages/herlina-dl-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Herlina Dwi Lestari</span></a></li>
+                    <li><a class="sidebar-link ps-4" href="/src/pages/dini-nh-dashboard.html"><i class="fa-solid fa-chart-pie"></i><span class="ms-2">Dini Nadia Hapsari</span></a></li>
                   </ul>
                 </div>
               </li>
