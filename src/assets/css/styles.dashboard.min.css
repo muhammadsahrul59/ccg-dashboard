@@ -1,135 +1,40 @@
-/* Dashboard Styles */
-.dashboard {
-  padding: 20px;
-  background-color: #f8f9fa; /* Light background */
-  transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+/* Add to your existing styles in the HTML file */
+/* Make cards more compact */
+.card-compact {
+  margin-bottom: 0.5rem !important;
 }
-
-body.dark .dashboard {
-  background-color: #1a2027; /* Darker background in dark mode */
+.row-compact {
+  margin-bottom: 0.5rem !important;
 }
-
-/* Stats Container */
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
+.card-body {
+  padding: 0.75rem !important;
 }
-
-.stat-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s ease;
+/* Reduce row spacing */
+.row {
+  margin-bottom: 0.5rem !important;
 }
-
-body.dark .stat-card {
-  background: #2d3748; /* Darker card background */
-  color: white; /* White text for dark mode */
+/* Make progress charts smaller */
+.project-count {
+  font-size: 1.5rem !important;
+  margin-bottom: 0 !important;
 }
-
-body.dark .card-title {
-  color: black !important;
+/* Reduce project details table height */
+.table-scroll {
+  max-height: 200px !important;
 }
-
-body.dark .card-title h4 {
-  color: black !important;
+/* Make card titles smaller */
+.card-title {
+  font-size: 0.9rem !important;
+  margin-bottom: 0.25rem !important;
 }
-
-.stat-icon {
-  background: #f0f9ff;
-  padding: 15px;
-  border-radius: 50%;
-  margin-right: 15px;
-  transition: background-color 0.3s ease;
+/* Make table rows more compact */
+.table td,
+.table th {
+  padding: 0.4rem !important;
+  font-size: 0.85rem !important;
 }
-
-body.dark .stat-icon {
-  background: #4a5568; /* Darker icon background */
-}
-
-.stat-icon i {
-  font-size: 24px;
-  color: #3b82f6;
-  transition: color 0.3s ease;
-}
-
-body.dark .stat-icon i {
-  color: #63b3ed; /* Lighter blue icon in dark mode */
-}
-
-.stat-content h3 {
-  margin: 0;
-  font-size: 14px;
-  color: #6b7280;
-  transition: color 0.3s ease;
-}
-
-body.dark .stat-content h3 {
-  color: #a0aecf; /* Lighter gray text in dark mode */
-}
-
-.stat-content p {
-  margin: 5px 0 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: #111827;
-  transition: color 0.3s ease;
-}
-
-body.dark .stat-content p {
-  color: white; /* White text for dark mode */
-}
-
-/* Charts Container */
-.charts-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.chart-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-body.dark .chart-card {
-  background: #2d3748; /* Darker card background */
-  color: white; /* White text for dark mode */
-}
-
-.chart-card h3 {
-  margin: 0 0 20px;
-  color: #111827;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-body.dark .chart-card h3 {
-  color: white; /* White text for dark mode */
-}
-
-/* Overview Container */
-.overview-container {
-  margin-bottom: 20px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .stats-container,
-  .charts-container {
-    grid-template-columns: 1fr;
-  }
-
-  .chart-card {
-    min-height: 400px;
-  }
+/* Make circular progress charts smaller */
+.card .svg-container svg {
+  width: 60px !important;
+  height: 60px !important;
 }

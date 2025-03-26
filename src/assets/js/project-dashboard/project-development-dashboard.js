@@ -10,6 +10,7 @@ const accentColors = ["#44a5a0", "#f9ad3c", "#5e8b87", "#ffbc5e"]; // Color vari
 let allProjects = [];
 let holidays = []; // To store holiday dates
 let currentFilter = null; // Track the current filter
+let defaultProject = null; // Track the default project to show
 
 // Team members to track
 const teamMembers = ["Syarief Hidayat", "Herlina", "Nita", "Dini"];
@@ -41,6 +42,21 @@ async function loadDashboardData() {
 
     // Apply current filter or show all projects
     updateDashboard(currentFilter);
+
+    // Show project details section immediately
+    // If no specific project is selected, show details for the first project
+    if (allProjects.length > 0) {
+      // Find the first project with a name
+      const firstProject = allProjects.find((project) => project.name_project);
+
+      // If we have a default project set (from filtering), use that
+      const projectToShow =
+        defaultProject || (firstProject ? firstProject.name_project : null);
+
+      if (projectToShow) {
+        showProjectDetails(projectToShow);
+      }
+    }
   } catch (error) {
     console.error("Error loading dashboard data:", error);
     alert("Unable to load dashboard data. Please try again later.");
@@ -76,9 +92,17 @@ function updateDashboard(teamMember = null) {
 
     // Update filter indicator
     updateFilterIndicator(teamMember);
+
+    // Set default project to first project in filtered list
+    if (filteredProjects.length > 0) {
+      defaultProject = filteredProjects[0].name_project;
+    } else {
+      defaultProject = null;
+    }
   } else {
     // Reset filter indicator
     updateFilterIndicator(null);
+    defaultProject = null;
   }
 
   // Update team member project counts - always use all projects for consistent counts
@@ -89,6 +113,14 @@ function updateDashboard(teamMember = null) {
 
   // Create project progress grid with filtered projects
   createProjectProgressGrid(filteredProjects);
+
+  // If we have a default project, show its details
+  if (defaultProject) {
+    showProjectDetails(defaultProject);
+  } else if (filteredProjects.length > 0) {
+    // Otherwise show the first project in the filtered list
+    showProjectDetails(filteredProjects[0].name_project);
+  }
 }
 
 function updateTotalProjectCount(projects) {
@@ -159,13 +191,14 @@ function filterProjectsByTeamMember(teamMember) {
   // Update the dashboard with the filtered projects
   updateDashboard(teamMember);
 
-  // Hide project details since we're changing the view
-  document.getElementById("projectDetailsRow").style.display = "none";
+  // Project details will be shown automatically in updateDashboard()
 }
 
 function resetFilter() {
   // Update the dashboard with all projects
   updateDashboard(null);
+
+  // Project details will be shown automatically in updateDashboard()
 }
 
 function updateFilterIndicator(teamMember) {
@@ -407,10 +440,26 @@ function showProjectDetails(projectName) {
     // Update project details table
     createProjectDetailsTable(projectDetails);
 
-    // Scroll to the details section
-    document
-      .getElementById("projectDetailsRow")
-      .scrollIntoView({ behavior: "smooth" });
+    // Highlight the selected project card
+    highlightSelectedProject(projectName);
+  }
+}
+
+// New function to highlight the selected project card
+function highlightSelectedProject(projectName) {
+  // Remove highlight from all cards
+  document.querySelectorAll(".clickable-row").forEach((card) => {
+    card.style.border = "1px solid #00a39d";
+    card.style.backgroundColor = "";
+  });
+
+  // Add highlight to selected card
+  const selectedCard = document.querySelector(
+    `.clickable-row[data-project="${projectName}"]`
+  );
+  if (selectedCard) {
+    selectedCard.style.border = "2px solid #00a39d";
+    selectedCard.style.backgroundColor = "rgba(0, 163, 157, 0.1)";
   }
 }
 
